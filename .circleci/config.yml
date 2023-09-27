@@ -1,0 +1,65 @@
+jobs:
+  build:
+    docker:
+      - image: "cimg/ruby:3.2.1-browsers"
+    steps:
+      - checkout
+      - ruby/install-deps
+  checking:
+    docker:
+      - image: "cimg/ruby:3.2.1-browsers"
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rubocop-check:
+          format: progress
+          label: Inspecting with Rubocop
+  # test:
+  #   docker:
+  #     - image: "cimg/ruby:3.2.1-browsers"
+  #     - image: "cimg/redis:7.0.8"
+  #     - image: "circleci/mongo:4.4.3"
+  #   environment:
+  #     PAGER: cat
+  #     BUNDLE_JOBS: 3
+  #     BUNDLE_RETRY: 3
+  #     RAILS_ENV: test
+  #   parallelism: 3
+  #   steps:
+  #     - checkout
+  #     - ruby/install-deps
+  #     - run:
+  #         command: "dockerize -wait tcp://localhost:27017 -timeout 1m"
+  #         name: Wait for DB
+  #     - run: sudo apt-get update && sudo apt install -y imagemagick
+  #     - browser-tools/install-browser-tools
+  #     - run:
+  #         command: "curl -LO http://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi6_3.2.1-8_amd64.deb && sudo dpkg -i libffi6_3.2.1-8_amd64.deb"
+  #         name: "Install libffi6 for backwards-compatibility"
+  #     - run:
+  #         command: |
+  #           sudo tee -a /etc/hosts \<<<'127.0.0.1 mongo'
+  #           cat /etc/hosts
+  #         name: "Configure network"
+  #     - run:
+  #         command: |
+  #           mkdir /tmp/test-results
+  #           TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+  #           xvfb-run --auto-servernum bundle exec rspec --profile 10 --color --format progress --format RspecJunitFormatter --out /tmp/test-results/rspec.xml
+  #     - store_test_results:
+  #         path: /tmp/test-results
+  #     - store_artifacts:
+  #         path: tmp/test_prof
+
+version: 2.1
+orbs:
+  ruby: circleci/ruby@2.0.0
+  browser-tools: circleci/browser-tools@1.4.1
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - checking
+      # - test:
+      #     requires:
+      #       - build
