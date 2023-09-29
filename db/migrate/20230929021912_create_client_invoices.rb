@@ -1,7 +1,7 @@
 class CreateClientInvoices < ActiveRecord::Migration[7.0]
   def change
     create_table :client_invoices do |t|
-      t.string :name
+      t.string :description
       t.string :payment_type
       t.integer :reference_month
       t.integer :payment_day

@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_024420) do
   end
 
   create_table "client_invoices", force: :cascade do |t|
-    t.string "name"
+    t.string "description"
     t.string "payment_type"
     t.integer "reference_month"
     t.integer "payment_day"
@@ -54,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_024420) do
     t.string "email"
     t.string "password_digest"
     t.string "password_confirmation"
+    t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
