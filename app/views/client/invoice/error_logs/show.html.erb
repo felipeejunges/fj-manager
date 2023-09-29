@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @error_log %>
+
+<div>
+  <%= link_to "Edit this client invoice error log", edit_client_invoice_error_log_path(@error_log) %> |
+  <%= link_to "Back to client invoice error logs", client_invoice_error_logs_path %>
+
+  <%= button_to "Destroy this client invoice error log", @error_log, method: :delete %>
+</div>

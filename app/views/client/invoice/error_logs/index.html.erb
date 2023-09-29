@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Client invoice error logs</h1>
+
+<div id="client_invoice_error_logs">
+  <% @error_logs.each do |error_log| %>
+    <%= render error_log %>
+    <p>
+      <%= link_to "Error Log Details", client_invoice_error_log_path(client_id: @client.id, invoice_id: @invoice.id, id: error_log.id) %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New client invoice error log", new_client_invoice_error_log_path(client_id: @client.id, invoice_id: @invoice.id) %>

@@ -22,6 +22,26 @@
   </div>
 
   <div>
+    <%= form.label :document_type, style: "display: block" %>
+    <%= form.number_field :document_type %>
+  </div>
+
+  <div>
+    <%= form.label :payment_type, style: "display: block" %>
+    <%= form.text_field :payment_type %>
+  </div>
+
+  <div>
+    <%= form.label :payment_day, style: "display: block" %>
+    <%= form.number_field :payment_day %>
+  </div>
+
+  <div>
+    <%= form.label :plan_value, style: "display: block" %>
+    <%= form.text_field :plan_value %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

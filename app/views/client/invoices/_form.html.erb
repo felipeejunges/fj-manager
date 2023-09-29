@@ -1,0 +1,67 @@
+<%= form_with(model: invoice) do |form| %>
+  <% if invoice.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+        <% invoice.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :payment_type, style: "display: block" %>
+    <%= form.text_field :payment_type %>
+  </div>
+
+  <div>
+    <%= form.label :reference_month, style: "display: block" %>
+    <%= form.number_field :reference_month %>
+  </div>
+
+  <div>
+    <%= form.label :payment_day, style: "display: block" %>
+    <%= form.number_field :payment_day %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div>
+    <%= form.label :payed_date, style: "display: block" %>
+    <%= form.datetime_field :payed_date %>
+  </div>
+
+  <div>
+    <%= form.label :invoice_value, style: "display: block" %>
+    <%= form.text_field :invoice_value %>
+  </div>
+
+  <div>
+    <%= form.label :had_error, style: "display: block" %>
+    <%= form.check_box :had_error %>
+  </div>
+
+  <div>
+    <%= form.label :retries, style: "display: block" %>
+    <%= form.number_field :retries %>
+  </div>
+
+  <div>
+    <%= form.label :client_id, style: "display: block" %>
+    <%= form.text_field :client_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

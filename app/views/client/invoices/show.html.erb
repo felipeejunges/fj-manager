@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @invoice %>
+
+<div>
+  <%= link_to "Edit this client invoice", edit_client_invoice_path(@invoice) %> |
+  <%= link_to "Back to client invoices", client_invoices_path %>
+
+  <%= button_to "Destroy this client invoice", @invoice, method: :delete %>
+</div>

@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_28_200822) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_29_024420) do
+  create_table "client_invoice_error_logs", force: :cascade do |t|
+    t.integer "client_invoice_id", null: false
+    t.integer "retry_number"
+    t.datetime "date"
+    t.string "log"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_invoice_id"], name: "index_client_invoice_error_logs_on_client_invoice_id"
+  end
+
+  create_table "client_invoices", force: :cascade do |t|
+    t.string "name"
+    t.string "payment_type"
+    t.integer "reference_month"
+    t.integer "payment_day"
+    t.integer "status"
+    t.datetime "payed_date"
+    t.float "invoice_value"
+    t.boolean "had_error"
+    t.integer "retries"
+    t.integer "client_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_client_invoices_on_client_id"
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "name"
     t.string "document"
+    t.integer "document_type"
+    t.string "payment_type"
+    t.integer "payment_day"
+    t.float "plan_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,4 +58,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_200822) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "client_invoice_error_logs", "client_invoices"
+  add_foreign_key "client_invoices", "clients"
 end
