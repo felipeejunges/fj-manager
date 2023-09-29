@@ -1,5 +1,8 @@
 # syntax=docker/dockerfile:1
 FROM ruby:3.2.1
+RUN apt-get update -yq \
+    && apt-get -yq install curl gnupg ca-certificates \
+    && curl -L https://deb.nodesource.com/setup_14.x | bash
 RUN apt-get update -qq && apt-get install -y \
     libffi-dev \
     libc-dev \ 
@@ -7,16 +10,15 @@ RUN apt-get update -qq && apt-get install -y \
     libxslt-dev \
     libgcrypt-dev \
     nodejs \
-    npm \
     openssl \
     python3 \
-    tzdata \
-    yarn
+    tzdata
 WORKDIR /newpay
 COPY Gemfile /newpay/Gemfile
 COPY Gemfile.lock /newpay/Gemfile.lock
 COPY package.json /newpay
 RUN npm install -g yarn
+RUN npm install -g esbuild
 RUN bundle install
 RUN yarn install
 
