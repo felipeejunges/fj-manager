@@ -1,0 +1,13 @@
+---
+:concurrency: 5
+:queues:
+  - high_priority
+  - default
+  - low_priority
+# :schedule:
+# class_job:
+#   enabled: false
+#   every: ['60m', first_in: '15m']
+#   # cron: '0 0 * * * *'
+#   queue: high_priority
+#   class: Class
