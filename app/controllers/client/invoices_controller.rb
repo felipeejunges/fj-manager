@@ -4,11 +4,6 @@ class Client::InvoicesController < ApplicationController
   before_action :set_client
   before_action :set_invoice, only: %i[show edit update destroy]
 
-  # GET /clients/1/invoices or /clients/1/invoices.json
-  def index
-    @invoices = @client.invoices.all
-  end
-
   # GET /clients/1/invoices/1 or /clients/1/invoices/1.json
   def show; end
 
@@ -53,7 +48,7 @@ class Client::InvoicesController < ApplicationController
     @invoice.destroy
 
     respond_to do |format|
-      format.html { redirect_to client_invoices_url, notice: 'Client invoice was successfully destroyed.' }
+      format.html { redirect_to client_path(@client), notice: 'Client invoice was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -71,7 +66,6 @@ class Client::InvoicesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def invoice_params
-    params.require(:invoice).permit(:description, :payment_type, :reference_month, :payment_day, :status, :payed_date, :invoice_value, :had_error,
-                                    :retries, :client_id)
+    params.require(:invoice).permit(:description, :payment_type, :reference_date, :payment_day, :status, :payed_date, :invoice_value, :client_id)
   end
 end

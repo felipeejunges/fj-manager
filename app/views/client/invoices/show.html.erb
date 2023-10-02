@@ -1,10 +1,98 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @invoice %>
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+      <h1 class="h2">
+        Invoice <%= @invoice.reference_date.month %>/<%= @invoice.reference_date.year%> 
+        - Client: <%= @client.name %>
+        (<%= @invoice.status %>)
+      </h1>
+      <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+        <%= link_to "Back to client", client_path(@client), class: "btn btn-sm btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<div>
-  <%= link_to "Edit this client invoice", edit_client_invoice_path(@invoice) %> |
-  <%= link_to "Back to client invoices", client_invoices_path %>
+<div class="row mt-2 mx-1">
+  <div class="col-sm-12 col-md-2">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border-secondary ">
+          <div class="card-header">Value</div>
+          <div class="card-body text-secondary">
+            <h5 class="card-title">X</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-1">
+      <div class="col-12">
+        <div class="card border-secondary ">
+          <div class="card-header">Errors</div>
+          <div class="card-body text-secondary">
+            <h5 class="card-title">X</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-10">
+    <%= form_with(model: @invoice) do |form| %>
+      <div class="row">
+        <div class="col-12 mb-1">
+          <div class="form-floating">
+            <%= form.text_field :description, class: "form-control", readonly: true %>
+            <%= form.label :description %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 mb-1">
+          <div class="form-floating">
+            <%= form.text_field :payment_type, class: "form-control", readonly: true %>
+            <%= form.label :payment_type %>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 mb-1">
+          <div class="form-floating">
+            <%= form.number_field :payment_day, class: "form-control", readonly: true %>
+            <%= form.label :payment_day %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 mb-1">
+          <div class="form-floating">
+            <%= form.datetime_field :payed_date, class: "form-control", readonly: true %>
+            <%= form.label :payed_date %>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 mb-1">
+          <div class="form-floating">
+            <%= form.number_field :invoice_value, class: "form-control", readonly: true %>
+            <%= form.label :invoice_value %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-  <%= button_to "Destroy this client invoice", @invoice, method: :delete %>
+<div class="row mt-2">
+  <div class="col-12">
+    <div class="card mx-3">
+      <div class="card-body">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
+          <h5 class="card-title">Error Logs</h5>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <%= render "client/invoice/error_logs/table", error_logs: @invoice.error_logs %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

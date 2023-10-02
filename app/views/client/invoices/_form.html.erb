@@ -1,67 +1,79 @@
 <%= form_with(model: invoice) do |form| %>
-  <% if invoice.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+  <div class="row">
+    <div class="col-12">
+      <% if invoice.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this client from being saved:</h2>
 
-      <ul>
-        <% invoice.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+          <ul>
+            <% invoice.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :description, class: "form-control", readonly: readonly %>
+        <%= form.label :description %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :payment_type, class: "form-control", readonly: readonly %>
+        <%= form.label :payment_type %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.datetime_field :reference_date, class: "form-control", readonly: readonly %>
+        <%= form.label :reference_date %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.number_field :payment_day, class: "form-control", readonly: readonly %>
+        <%= form.label :payment_day %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.number_field :status, class: "form-control", readonly: readonly %>
+        <%= form.label :status %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.datetime_field :payed_date, class: "form-control", readonly: readonly %>
+        <%= form.label :payed_date %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.number_field :invoice_value, class: "form-control", readonly: readonly %>
+        <%= form.label :invoice_value %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.number_field :client_id, class: "form-control", readonly: readonly %>
+        <%= form.label :client_id %>
+      </div>
+    </div>
+  </div>
+  <% unless readonly %>
+    <div class="row">
+      <div class="col-12">
+        <%= form.submit 'Save', class: "btn btn-primary" %>
+      </div>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div>
-    <%= form.label :payment_type, style: "display: block" %>
-    <%= form.text_field :payment_type %>
-  </div>
-
-  <div>
-    <%= form.label :reference_month, style: "display: block" %>
-    <%= form.number_field :reference_month %>
-  </div>
-
-  <div>
-    <%= form.label :payment_day, style: "display: block" %>
-    <%= form.number_field :payment_day %>
-  </div>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div>
-    <%= form.label :payed_date, style: "display: block" %>
-    <%= form.datetime_field :payed_date %>
-  </div>
-
-  <div>
-    <%= form.label :invoice_value, style: "display: block" %>
-    <%= form.text_field :invoice_value %>
-  </div>
-
-  <div>
-    <%= form.label :had_error, style: "display: block" %>
-    <%= form.check_box :had_error %>
-  </div>
-
-  <div>
-    <%= form.label :retries, style: "display: block" %>
-    <%= form.number_field :retries %>
-  </div>
-
-  <div>
-    <%= form.label :client_id, style: "display: block" %>
-    <%= form.text_field :client_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>
+

@@ -1,47 +1,65 @@
 <%= form_with(model: client) do |form| %>
-  <% if client.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:</h2>
+  <div class="row">
+    <div class="col-12">
+      <% if client.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:</h2>
 
-      <ul>
-        <% client.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+          <ul>
+            <% client.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :name, class: "form-control", readonly: readonly %>
+        <%= form.label :name %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :document, class: "form-control", readonly: readonly %>
+        <%= form.label :document %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.number_field :document_type, class: "form-control", readonly: readonly %>
+        <%= form.label :document_type %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.number_field :payment_type, class: "form-control", readonly: readonly %>
+        <%= form.label :payment_type %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.number_field :payment_day, class: "form-control", readonly: readonly %>
+        <%= form.label :payment_day %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-1">
+      <div class="form-floating">
+        <%= form.number_field :plan_value, class: "form-control", readonly: readonly %>
+        <%= form.label :plan_value %>
+      </div>
+    </div>
+  </div>
+  <% unless readonly %>
+    <div class="row">
+      <div class="col-12">
+        <%= form.submit 'Save', class: "btn btn-primary" %>
+      </div>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :document, style: "display: block" %>
-    <%= form.text_field :document %>
-  </div>
-
-  <div>
-    <%= form.label :document_type, style: "display: block" %>
-    <%= form.number_field :document_type %>
-  </div>
-
-  <div>
-    <%= form.label :payment_type, style: "display: block" %>
-    <%= form.text_field :payment_type %>
-  </div>
-
-  <div>
-    <%= form.label :payment_day, style: "display: block" %>
-    <%= form.number_field :payment_day %>
-  </div>
-
-  <div>
-    <%= form.label :plan_value, style: "display: block" %>
-    <%= form.text_field :plan_value %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>
+

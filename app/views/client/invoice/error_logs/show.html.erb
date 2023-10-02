@@ -1,10 +1,56 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @error_log %>
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+      <h1 class="h2">
+        Error #<%= @error_log.retry_number %> of Invoice <%= @invoice.reference_date.month %>/<%= @invoice.reference_date.year%> 
+        - Client: <%= @client.name %>
+      </h1>
+      <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+        <%= link_to "Back to invoice", client_invoice_path(@client, @invoice), class: "btn btn-sm btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<div>
-  <%= link_to "Edit this client invoice error log", edit_client_invoice_error_log_path(@error_log) %> |
-  <%= link_to "Back to client invoice error logs", client_invoice_error_logs_path %>
-
-  <%= button_to "Destroy this client invoice error log", @error_log, method: :delete %>
+<div class="row mx-1 mt-2">
+  <div class="col-12">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <td>
+            <strong>ID</strong>
+          </td>
+          <td>
+            <%= @error_log.id %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Retry Number</strong>
+          </td>
+          <td>
+            <%= @error_log.retry_number %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Date</strong>
+          </td>
+          <td>
+            <%= @error_log.date %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Log</strong>
+          </td>
+          <td>
+            <%= @error_log.log %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

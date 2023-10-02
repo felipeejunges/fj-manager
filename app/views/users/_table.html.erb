@@ -1,0 +1,22 @@
+<table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Admin</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.admin %></td>
+        <td><%= link_to "Show", user_path(user) %> | <%= link_to "Edit", edit_user_path(user) %> | <%= link_to "Delete", user_path(user, method: :delete) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

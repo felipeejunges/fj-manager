@@ -1,42 +1,67 @@
 <%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  <div class="row">
+    <div class="col-12">
+      <% if user.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+          <ul>
+            <% user.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :first_name, class: "form-control", readonly: readonly %>
+        <%= form.label :first_name %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :last_name, class: "form-control", readonly: readonly %>
+        <%= form.label :last_name %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-10 mb-1">
+      <div class="form-floating">
+        <%= form.number_field :email, class: "form-control", readonly: readonly %>
+        <%= form.label :email %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-2 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :admin, class: "form-control", readonly: readonly %>
+        <%= form.label :admin %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :password_digest, class: "form-control", readonly: readonly %>
+        <%= form.label :password_digest %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :password_confirmation, class: "form-control", readonly: readonly %>
+        <%= form.label :password_confirmation %>
+      </div>
+    </div>
+  </div>
+  <% unless readonly %>
+    <div class="row">
+      <div class="col-12">
+        <%= form.submit 'Save', class: "btn btn-primary" %>
+      </div>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :first_name, style: "display: block" %>
-    <%= form.text_field :first_name %>
-  </div>
-
-  <div>
-    <%= form.label :last_name, style: "display: block" %>
-    <%= form.text_field :last_name %>
-  </div>
-
-  <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div>
-    <%= form.label :password_digest, style: "display: block" %>
-    <%= form.text_field :password_digest %>
-  </div>
-
-  <div>
-    <%= form.label :password_confirmation, style: "display: block" %>
-    <%= form.text_field :password_confirmation %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>
+
