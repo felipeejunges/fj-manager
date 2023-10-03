@@ -29,27 +29,31 @@
     </div>
     <div class="col-sm-12 col-md-4 mb-1">
       <div class="form-floating">
-        <%= form.number_field :document_type, class: "form-control", readonly: readonly %>
-        <%= form.label :document_type %>
+        <div class="form-floating">
+         <div class="form-floating">
+            <%= form.select :document_type, ClientsHelper.document_type_options, {}, class: "form-select", disabled: readonly %>
+            <%= form.label :document_type %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12 col-md-4 mb-1">
       <div class="form-floating">
-        <%= form.number_field :payment_type, class: "form-control", readonly: readonly %>
+        <%= form.select :payment_type, PaymentTypesHelper.integration_options, {}, class: "form-select", disabled: readonly %>
         <%= form.label :payment_type %>
       </div>
     </div>
     <div class="col-sm-12 col-md-4 mb-1">
       <div class="form-floating">
-        <%= form.number_field :payment_day, class: "form-control", readonly: readonly %>
+        <%= form.number_field :payment_day, class: "form-control", readonly: readonly, min: 1, max: 31 %>
         <%= form.label :payment_day %>
       </div>
     </div>
     <div class="col-sm-12 col-md-4 mb-1">
       <div class="form-floating">
-        <%= form.number_field :plan_value, class: "form-control", readonly: readonly %>
+        <%= form.number_field :plan_value, class: "form-control", readonly: readonly, min: 0 %>
         <%= form.label :plan_value %>
       </div>
     </div>

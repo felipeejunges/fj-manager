@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class PaymentIntegration::CreditCard < PaymentIntegration::Base
+class PaymentIntegration::Ticket < PaymentIntegration::Base
+  PAYMENT_CHECK = 'daily'
+
   private
 
   def integrate; end

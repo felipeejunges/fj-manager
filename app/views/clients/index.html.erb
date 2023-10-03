@@ -28,7 +28,7 @@
                 <td><%= client.id %></td>
                 <td><%= client.name %></td>
                 <td><%= client.document %></td>
-                <td><%= client.document_type %></td>
+                <td><%= client.document_type.upcase %></td>
                 <td><%= link_to "Show", client %> | <%= link_to "Edit", edit_client_path(client) %> </td>
               </tr>
             <% end %>

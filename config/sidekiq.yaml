@@ -4,10 +4,9 @@
   - high_priority
   - default
   - low_priority
-# :schedule:
-# class_job:
-#   enabled: false
-#   every: ['60m', first_in: '15m']
-#   # cron: '0 0 * * * *'
-#   queue: high_priority
-#   class: Class
+:scheduler:
+  schedule_daily_invoice_job:
+    enabled: false
+    every: ["1d", first_in: "1m"]
+    queue: default
+    class: ScheduleDailyInvoiceJob

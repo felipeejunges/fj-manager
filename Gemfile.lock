@@ -189,6 +189,7 @@ GEM
     rake (13.0.6)
     rdoc (6.5.0)
       psych (>= 4.0.0)
+    redis (4.8.1)
     redis-client (0.17.0)
       connection_pool
     regexp_parser (2.8.1)
@@ -299,6 +300,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 5.0)
   rails (~> 7.0.4)
+  redis (~> 4.0)
   rspec-rails
   rspec_junit_formatter
   rubocop
