@@ -1,0 +1,20 @@
+<%= render "shared/menu" %>
+
+<div class="col-sm p-3 min-vh-100">
+  <%= render "header", title: 'Clients invoiced yesterday' %>
+
+  <div class="row mt-1">
+    <div class="col-12">
+      <div class="card mx-3">
+        <div class="card-body">
+          <h5 class="card-title">Data</h5>
+          <div class="row">
+            <div class="col-12">
+              <%= render "clients/table", clients: @clients, is_report: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div>

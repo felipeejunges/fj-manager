@@ -1,0 +1,57 @@
+<%= render "shared/menu" %>
+
+<div class="col-sm p-3 min-vh-100">
+  <%= render "header", title: 'Clients' %>
+
+  <div class="row mt-1">
+    <div class="col-12">
+      <div class="card mx-3">
+        <div class="card-body">
+          <h5 class="card-title">Filters</h5>
+          <%= form_tag('clients', method: :get) do |form| %>
+            <div class="row">
+              <div class="col-sm-12 col-md-4">
+                <div class="form-floating">
+                  <%= select_tag :document_type, options_for_select(ClientsHelper.document_type_options, params[:document_type]), class: "form-select", :prompt => "All" %>
+                  <%= label_tag :document_type %>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <div class="form-floating">
+                  <%= select_tag :payment_type, options_for_select(PaymentTypesHelper.integration_options, params[:payment_type]), class: "form-select", :prompt => "All" %>
+                  <%= label_tag :payment_type %>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <div class="form-floating">
+                  <%= select_tag :status, options_for_select(Client::InvoicesHelper.status_options, params[:status]), class: "form-select", :prompt => "All" %>
+                  <%= label_tag :status %>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-1">
+              <div class="col-sm-12">
+                <%= submit_tag "Filter Now", class: "btn btn-primary col-12" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-1">
+    <div class="col-12">
+      <div class="card mx-3">
+        <div class="card-body">
+          <h5 class="card-title">Data</h5>
+          <div class="row">
+            <div class="col-12">
+              <%= render "clients/table", clients: @clients, is_report: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div>

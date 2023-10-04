@@ -16,6 +16,7 @@ class Client::Invoice < ApplicationRecord
 
   scope :range_year_generated, ->(date) { where(status: %i[generated payed late], reference_date: date.beginning_of_year..date.end_of_year) }
   scope :range_month_generated, ->(date) { where(status: %i[generated payed late], reference_date: date.beginning_of_month..date.end_of_month) }
+  scope :range_day_generated, ->(date) { where(status: %i[generated payed late], reference_date: date.beginning_of_day..date.end_of_day) }
 
   scope :range_year, ->(date) { where(reference_date: date.beginning_of_year..date.end_of_year) }
   scope :range_month, ->(date) { where(reference_date: date.beginning_of_month..date.end_of_month) }

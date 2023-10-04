@@ -15,6 +15,12 @@ Rails.application.routes.draw do
       resources :error_logs, module: :invoice
     end
   end
+
+  namespace :reports do
+    get :new_clients
+    get :clients_invoiced_yesterday
+    get :clients
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
