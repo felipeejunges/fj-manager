@@ -16,9 +16,17 @@
         <td><%= user.last_name %></td>
         <td><%= user.admin %></td>
         <td>
-          <%= link_to "Show", user_path(user) %> | 
-          <%= link_to "Edit", edit_user_path(user) %> | 
-          <%= link_to "Delete", user_path(user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+          <div class="btn-group me-2">
+            <%= link_to user_path(user), class: "btn btn-sm btn-outline-secondary" do %>
+              <i class="bi bi-eye"></i>
+            <% end %>
+            <%= link_to edit_user_path(user), class: "btn btn-sm btn-outline-primary" do %>
+              <i class="bi bi-pencil-square"></i>
+            <% end %>
+            <%= link_to user_path(user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
+              <i class="bi bi-trash"></i>
+            <% end %>
+          </div>
         </td>
       </tr>
     <% end %>

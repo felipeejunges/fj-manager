@@ -5,7 +5,9 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
         <h1 class="h2">New user</h1>
         <div class="btn-toolbar mb-2 mb-md-0 mx-2">
-          <%= link_to "Back to users", users_path, class: "btn btn-sm btn-outline-secondary" %>
+          <%= link_to users_path, class: "btn btn-sm btn-outline-secondary" do %>
+            <i class="bi bi-arrow-return-left"></i> Back to Users
+          <% end %>
         </div>
       </div>
     </div>

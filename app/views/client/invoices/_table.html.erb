@@ -19,7 +19,11 @@
         <td><%= invoice.reference_date %></td>
         <td><%= render "client/invoices/status_badge", status: invoice.status, text: invoice.status.humanize %></td>
         <td><%= invoice.error_logs.count > 0 %></td>
-        <td><%= link_to "Show", client_invoice_path(client_id: @client.id, id: invoice.id) %> </td>
+        <td>
+          <%= link_to  client_invoice_path(client_id: @client.id, id: invoice.id), class: "btn btn-sm btn-outline-secondary" do %>
+            <i class="bi bi-eye"></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

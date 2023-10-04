@@ -23,7 +23,19 @@
         <td><%= client.document %></td>
         <td><%= client.document_type.upcase %></td>
         <% unless is_report %>
-          <td><%= link_to "Show", client %> | <%= link_to "Edit", edit_client_path(client) %> </td>
+          <td>
+            <div class="btn-group me-2">
+              <%= link_to client, class: "btn btn-sm btn-outline-secondary" do %>
+                <i class="bi bi-eye"></i>
+              <% end %>
+              <%= link_to edit_client_path(client), class: "btn btn-sm btn-outline-primary" do %>
+                <i class="bi bi-pencil-square"></i>
+              <% end %>
+              <%= link_to client_path(client), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
+                <i class="bi bi-trash"></i>
+              <% end %>
+            </div>
+          </td>
         <% end %>
       </tr>
     <% end %>
