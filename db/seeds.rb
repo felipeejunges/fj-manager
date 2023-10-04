@@ -21,12 +21,12 @@ c1.save
 c2.save
 
 i1 = c1.invoices.find_or_create_by(description: 'Seed generated', payment_type: 'credit_card', reference_date: '2023-09-07',
-                                   payment_day: 7, invoice_value: 39.90, payed_date: '2023-09-07', status: 3)
+                                   invoice_value: 39.90, payed_date: '2023-09-07', status: 3)
 
 i1.save
 
 i2 = c1.invoices.find_or_create_by(description: 'Seed generated', payment_type: 'credit_card', reference_date: '2023-08-07',
-                                   payment_day: 7, invoice_value: 39.90, payed_date: '2023-08-07', status: 3)
+                                   invoice_value: 39.90, payed_date: '2023-08-07', status: 3)
 
 i2.save
 

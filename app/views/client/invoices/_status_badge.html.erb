@@ -1,0 +1,11 @@
+<% if status == 'payed' %>
+  <span class="badge bg-success"><%= text %></span>
+<% elsif status == 'generated' %>
+  <span class="badge bg-primary"><%= text %></span>
+<% elsif status == 'error' %>
+  <span class="badge bg-danger"><%= text %></span>
+<% elsif status == 'late' %>
+  <span class="badge bg-danger"><%= text %></span>
+<% else %>
+  <span class="badge bg-secondary"><%= text %></span>
+<% end %>

@@ -1,18 +1,20 @@
-<p style="color: green"><%= notice %></p>
-<div class="row">
-  <div class="col-12">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
-      <h1 class="h2"><%= @user.name %></h1>
-      <div class="btn-toolbar mb-2 mb-md-0 mx-2">
-        <div class="btn-group me-2">
-          <%= link_to "Destroy", @user, method: :delete, class: "btn btn-sm btn-outline-danger" %>
-          <%= link_to "Edit", edit_user_path(@user), class: "btn btn-sm btn-outline-primary" %>
+<%= render "shared/menu" %>
+<div class="col-sm p-3 min-vh-100">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+        <h1 class="h2"><%= @user.name %></h1>
+        <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+          <div class="btn-group me-2">
+            <%= link_to "Delete", user_path(@user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
+            <%= link_to "Edit", edit_user_path(@user), class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to "Back to users", users_path, class: "btn btn-sm btn-outline-secondary" %>
+          </div>
         </div>
-        <%= link_to "Back to users", users_path, class: "btn btn-sm btn-outline-secondary" %>
       </div>
     </div>
   </div>
-</div>
 
-<%= render "form", user: @user, readonly: true %>
+  <%= render "form", user: @user, readonly: true %>
+</div>
 

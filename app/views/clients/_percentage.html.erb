@@ -1,0 +1,9 @@
+<small>
+  <% if percentage.negative? %>
+    <strong class="text-danger">
+  <% else %>
+    <strong class="text-success">
+  <% end %>
+  <%= percentage %>%
+  </strong> since <%= period %>
+</small>

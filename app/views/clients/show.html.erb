@@ -1,157 +1,108 @@
-<p style="color: green"><%= notice %></p>
-
-<div class="row">
-  <div class="col-12">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
-      <h1 class="h2"><%= @client.name %></h1>
-      <div class="btn-toolbar mb-2 mb-md-0 mx-2">
-        <div class="btn-group me-2">
-          <%= link_to "Destroy", @client, method: :delete, class: "btn btn-sm btn-outline-danger" %>
-          <%= link_to "Edit", edit_client_path(@client), class: "btn btn-sm btn-outline-primary" %>
+<%= render "shared/menu" %>
+<div class="col-sm p-3 min-vh-100">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+        <h1 class="h2">
+          <%= @client.name %>
+          <% if @client.current_status.present? %>
+            <%= render "client/invoices/status_badge", status: @client.current_status, text: @client.current_status.humanize %>
+          <% end %>
+        </h1>
+        <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+          <div class="btn-group me-2">
+            <%= link_to "Delete", client_path(@client), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
+            <%= link_to "Edit", edit_client_path(@client), class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to "Back to clients", clients_path, class: "btn btn-sm btn-outline-secondary" %>
+          </div>
+          
         </div>
-        <%= link_to "Back to clients", clients_path, class: "btn btn-sm btn-outline-secondary" %>
       </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-12">
-    <div id="carouseDashboard" class="carousel carousel-dark slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouseDashboard" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouseDashboard" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="row mx-1 mt-2 mb-5">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12">
-                  <h4>Monthly</h4>
+  <div class="row mx-1 mt-2 mb-1">
+    <div class="col-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
+            <h5 class="card-title">Yearly</h5>
+          </div>
+          <div class="row mt-1">
+            <div class="col-sm-12 col-md-3">
+              <div class="card border-secondary ">
+                <div class="card-header">Earnings</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= number_to_currency(@client.earnings_this_year) %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: @client.earnings_comparisson_yearly, period: "last year" %>
+                  </p>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Expected Invoices</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since yesterday</p>
-                    </div>
-                  </div>
+            </div>
+            <div class="col-sm-12 col-md-3">
+              <div class="card border-secondary ">
+                <div class="card-header">Expected Earnings</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= number_to_currency(@client.expected_earnings_this_year) %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: @client.expected_earnings_comparisson_yearly, period: "last year" %>
+                  </p>
                 </div>
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Generated Invoices</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since yesterday</p>
-                    </div>
-                  </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-3">
+              <div class="card border-secondary ">
+                <div class="card-header">Errors</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= @client.errors_this_year %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: @client.errors_comparisson_yearly, period: "last year" %>
+                  </p>
                 </div>
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Payed Invoices</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since last yesterday</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Error Logs</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since last month</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Expected Earnings</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since last month</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Earnings</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since last month</p>
-                    </div>
-                  </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-3">
+              <div class="card border-secondary ">
+                <div class="card-header">Generated Invoices</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= @client.generated_invoices_this_year %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: @client.generated_invoices_comparisson_yearly, period: "last year" %>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="carousel-item">
-          <div class="row mx-1 mt-2 mb-5">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12">
-                  <h4>Yearly</h4>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
+            <h5 class="card-title">Monthly</h5>
+          </div>
+          <div class="row mt-1">
+            <div class="col-sm-12 col-md-6">
+              <div class="card border-secondary ">
+                <div class="card-header">Earnings</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= number_to_currency(@client.earnings_this_month) %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: @client.earnings_comparisson_monthly, period: "last month" %>
+                  </p>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Expected Invoices</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since yesterday</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Generated Invoices</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since yesterday</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Payed Invoices</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since last yesterday</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Error Logs</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since last month</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Expected Earnings</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since last month</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-2">
-                  <div class="card border-secondary ">
-                    <div class="card-header">Earnings</div>
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">X</h5>
-                      <p class="card-text">X since last month</p>
-                    </div>
-                  </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="card border-secondary ">
+                <div class="card-header">Errors</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= @client.errors_this_month %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: @client.errors_comparisson_monthly, period: "this last year" %>
+                  </p>
                 </div>
               </div>
             </div>
@@ -160,30 +111,37 @@
       </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-12">
-    <div class="card mx-3">
-      <div class="card-body">
-        <h5 class="card-title">Data</h5>
-        <%= render "form", client: @client, readonly: true %>
+  <div class="row mx-1 mt-2 mb-1">
+    <div class="col-12">
+      <div class="row">
       </div>
     </div>
   </div>
-</div>
 
-
-<div class="row mt-2">
-  <div class="col-12">
-    <div class="card mx-3">
-      <div class="card-body">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
-          <h5 class="card-title">Invoices</h5>
+  <div class="row">
+    <div class="col-12">
+      <div class="card mx-3">
+        <div class="card-body">
+          <h5 class="card-title">Data</h5>
+          <%= render "form", client: @client, readonly: true %>
         </div>
-        <div class="row">
-          <div class="col-12">
-            <%= render "client/invoices/table", invoices: @client.invoices %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-2">
+    <div class="col-12">
+      <div class="card mx-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
+            <h5 class="card-title">Invoices</h5>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <%= render "client/invoices/table", invoices: @client.invoices %>
+            </div>
           </div>
         </div>
       </div>

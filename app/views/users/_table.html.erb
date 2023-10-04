@@ -15,7 +15,11 @@
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.admin %></td>
-        <td><%= link_to "Show", user_path(user) %> | <%= link_to "Edit", edit_user_path(user) %> | <%= link_to "Delete", user_path(user, method: :delete) %></td>
+        <td>
+          <%= link_to "Show", user_path(user) %> | 
+          <%= link_to "Edit", edit_user_path(user) %> | 
+          <%= link_to "Delete", user_path(user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>

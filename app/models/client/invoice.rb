@@ -11,4 +11,39 @@ class Client::Invoice < ApplicationRecord
     payed: 3,
     late: 4
   }, _default: 'generating'
+
+  validates :invoice_value, :payment_type, presence: true
+
+  scope :range_year_generated, ->(date) { where(status: %i[generated payed late], reference_date: date.beginning_of_year..date.end_of_year) }
+  scope :range_month_generated, ->(date) { where(status: %i[generated payed late], reference_date: date.beginning_of_month..date.end_of_month) }
+
+  scope :range_year, ->(date) { where(reference_date: date.beginning_of_year..date.end_of_year) }
+  scope :range_month, ->(date) { where(reference_date: date.beginning_of_month..date.end_of_month) }
+
+  def will_retry?
+    max_retries < error_logs.count && status == :error
+  end
+
+  def store_error(exception)
+    invoice.status = :error
+    retry_number = invoice_error_logs.count + 1
+    invoice.error_logs.new(retry_number:, log: exception.to_s, date: Time.now).save
+
+    return unless invoice.max_retries < invoice.error_logs.count
+
+    GenerateInvoiceJob.perform_in(30,
+                                  { 'client_id': invoice.client_id,
+                                    'date': invoice.reference_date }.to_json)
+
+    false
+  end
+
+  def error_logs?
+    error_logs.present?
+  end
+
+  def add_more_retries
+    self.max_retries += 10
+    update
+  end
 end

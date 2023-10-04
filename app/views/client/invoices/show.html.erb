@@ -1,95 +1,104 @@
-<p style="color: green"><%= notice %></p>
-
-<div class="row">
-  <div class="col-12">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
-      <h1 class="h2">
-        Invoice <%= @invoice.reference_date.month %>/<%= @invoice.reference_date.year%> 
-        - Client: <%= @client.name %>
-        (<%= @invoice.status %>)
-      </h1>
-      <div class="btn-toolbar mb-2 mb-md-0 mx-2">
-        <%= link_to "Back to client", client_path(@client), class: "btn btn-sm btn-outline-secondary" %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row mt-2 mx-1">
-  <div class="col-sm-12 col-md-2">
-    <div class="row">
-      <div class="col-12">
-        <div class="card border-secondary ">
-          <div class="card-header">Value</div>
-          <div class="card-body text-secondary">
-            <h5 class="card-title">X</h5>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-1">
-      <div class="col-12">
-        <div class="card border-secondary ">
-          <div class="card-header">Errors</div>
-          <div class="card-body text-secondary">
-            <h5 class="card-title">X</h5>
-          </div>
+<%= render "shared/menu" %>
+<div class="col-sm p-3 min-vh-100">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+        <h1 class="h2">
+          Invoice <%= @invoice.reference_date.month %>/<%= @invoice.reference_date.year%> 
+          - Client: <%= @client.name %>
+          <%= render "status_badge", status: @invoice.status, text: @invoice.status.humanize %>
+        </h1>
+        <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+          <%= link_to "Back to client", client_path(@client), class: "btn btn-sm btn-outline-secondary" %>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-sm-12 col-md-10">
-    <%= form_with(model: @invoice) do |form| %>
-      <div class="row">
-        <div class="col-12 mb-1">
-          <div class="form-floating">
-            <%= form.text_field :description, class: "form-control", readonly: true %>
-            <%= form.label :description %>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12 col-md-6 mb-1">
-          <div class="form-floating">
-            <%= form.select :payment_type, PaymentTypesHelper.integration_options, {}, class: "form-select", disabled: true %>
-            <%= form.label :payment_type %>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-6 mb-1">
-          <div class="form-floating">
-            <%= form.number_field :payment_day, class: "form-control", readonly: true %>
-            <%= form.label :payment_day %>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12 col-md-6 mb-1">
-          <div class="form-floating">
-            <%= form.datetime_field :payed_date, class: "form-control", readonly: true %>
-            <%= form.label :payed_date %>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-6 mb-1">
-          <div class="form-floating">
-            <%= form.number_field :invoice_value, class: "form-control", readonly: true %>
-            <%= form.label :invoice_value %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
 
-<div class="row mt-2">
-  <div class="col-12">
-    <div class="card mx-3">
-      <div class="card-body">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
-          <h5 class="card-title">Error Logs</h5>
+  <div class="row mt-2 mx-1">
+    <div class="col-sm-12 col-md-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="card border-secondary ">
+            <div class="card-header">Incoming</div>
+            <div class="card-body text-success">
+              <h5 class="card-title"><%= number_to_currency(@invoice.invoice_value) %></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-12">
+          <div class="card border-secondary ">
+            <div class="card-header">Errors</div>
+            <% if !@invoice.error_logs? %>
+              <div class="card-body text-success">
+                <h5 class="card-title">0</h5>
+            <% else %>
+              <div class="card-body text-danger">
+                <h5 class="card-title"><%= @invoice.error_logs.count %></h5>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-10">
+      <%= form_with(model: @invoice) do |form| %>
+        <div class="row">
+          <div class="col-12 mb-1">
+            <div class="form-floating">
+              <%= form.text_field :description, class: "form-control", readonly: true %>
+              <%= form.label :description %>
+            </div>
+          </div>
         </div>
         <div class="row">
-          <div class="col-12">
-            <%= render "client/invoice/error_logs/table", error_logs: @invoice.error_logs %>
+          <div class="col-sm-12 col-md-6 mb-1">
+            <div class="form-floating">
+              <%= form.datetime_field :payed_date, class: "form-control", readonly: true %>
+              <%= form.label :payed_date %>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 mb-1">
+            <div class="form-floating">
+              <%= form.datetime_field :reference_date, class: "form-control", readonly: true %>
+              <%= form.label :reference_date %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-6 mb-1">
+           <div class="form-floating">
+              <%= form.select :payment_type, PaymentTypesHelper.integration_options, {}, class: "form-select", disabled: true %>
+              <%= form.label :payment_type %>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 mb-1">
+            <div class="input-group form-floating">
+              <input type="text" value=<%= @invoice.will_retry? %> class="form-control" readonly: true>
+              <label>Will retry?</label>
+              <% if @invoice.will_retry? %>
+                <button class="btn btn-outline-primary" type="button" id="button-addon">Retry</button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-12">
+      <div class="card mx-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
+            <h5 class="card-title">Error Logs</h5>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <%= render "client/invoice/error_logs/table", error_logs: @invoice.error_logs %>
+            </div>
           </div>
         </div>
       </div>

@@ -25,10 +25,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_024420) do
     t.string "description"
     t.string "payment_type"
     t.datetime "reference_date"
-    t.integer "payment_day"
     t.integer "status"
     t.datetime "payed_date"
     t.float "invoice_value"
+    t.integer "max_retries", default: 10
     t.integer "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -52,7 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_024420) do
     t.string "email"
     t.string "password_digest"
     t.string "password_confirmation"
-    t.boolean "admin"
+    t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

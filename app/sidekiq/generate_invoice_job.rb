@@ -16,13 +16,7 @@ class GenerateInvoiceJob < ApplicationJob
     invoice = client.invoices.find_by(reference_date: date.beginning_of_month..date.end_of_month)
 
     if invoice.nil?
-      invoice = client.invoices.new(
-        description: 'Automated',
-        payment_type: client.payment_type,
-        reference_date: date,
-        payment_day: client.payment_day,
-        invoice_value: client.plan_value
-      )
+      invoice = new_invoice(client)
       invoice.save
     end
 
@@ -35,16 +29,20 @@ class GenerateInvoiceJob < ApplicationJob
 
   private
 
+  def new_invoice(client)
+    client.invoices.new(
+      description: 'Automated',
+      payment_type: client.payment_type,
+      reference_date: date,
+      invoice_value: client.plan_value
+    )
+  end
+
   def integrate(invoice, client)
     payment_type = ::PaymentType.new
     klass = payment_type.integration_by(name: client.payment_type)['class']
     klass.constantize.new.perform(invoice.id)
   rescue StandardError => e
-    invoice.status = :error
-    retry_number = invoice_error_logs.count + 1
-    error_log = invoice.error_logs.new(retry_number:, log: e.to_s, date: Time.now)
-    error_log.save
-    GenerateInvoiceJob.perform_in(30, { 'client_id': invoice.client_id, 'date': invoice.reference_date }.to_json)
-    false
+    invoice.store_error(e)
   end
 end

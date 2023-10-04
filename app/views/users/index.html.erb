@@ -1,14 +1,15 @@
-<p style="color: green"><%= notice %></p>
-
-<div class="row">
-  <div class="col-12">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">Users</h1>
-      <div class="btn-toolbar mb-2 mb-md-0 mx-2">
-          <%= link_to "New user", new_user_path, class: "btn btn-sm btn-outline-secondary" %>
-        </div>
+<%= render "shared/menu" %>
+<div class="col-sm p-3 min-vh-100">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Users</h1>
+        <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+            <%= link_to "New user", new_user_path, class: "btn btn-sm btn-outline-secondary" %>
+          </div>
+      </div>
     </div>
   </div>
-</div>
 
-<%= render "table", users: @users%>
+  <%= render "table", users: @users%>
+</div>

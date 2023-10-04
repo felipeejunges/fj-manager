@@ -10,12 +10,7 @@ class PaymentIntegration::Base
       invoice.status = :generated
       invoice.save
     rescue StandardError => e
-      invoice.status = :error
-      retry_number = invoice_error_logs.count + 1
-      error_log = invoice.error_logs.new(retry_number:, log: e.to_s, date: Time.now)
-      error_log.save
-      GenerateInvoiceJob.perform_in(30, { 'client_id': invoice.client_id, 'date': invoice.reference_date }.to_json)
-      false
+      invoice.store_error(e)
     end
   end
 

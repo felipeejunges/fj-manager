@@ -2,7 +2,7 @@
 
 class Client::InvoicesController < ApplicationController
   before_action :set_client
-  before_action :set_invoice, only: %i[show edit update destroy]
+  before_action :set_invoice, only: %i[show edit update]
 
   # GET /clients/1/invoices/1 or /clients/1/invoices/1.json
   def show; end
@@ -43,16 +43,6 @@ class Client::InvoicesController < ApplicationController
     end
   end
 
-  # DELETE /clients/1/invoices/1 or /clients/1/invoices/1.json
-  def destroy
-    @invoice.destroy
-
-    respond_to do |format|
-      format.html { redirect_to client_path(@client), notice: 'Client invoice was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -66,6 +56,6 @@ class Client::InvoicesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def invoice_params
-    params.require(:invoice).permit(:description, :payment_type, :reference_date, :payment_day, :status, :payed_date, :invoice_value, :client_id)
+    params.require(:invoice).permit(:description, :payment_type, :reference_date, :status, :payed_date, :invoice_value, :client_id, :max_retries)
   end
 end

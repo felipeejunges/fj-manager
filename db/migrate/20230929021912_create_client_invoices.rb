@@ -4,10 +4,10 @@ class CreateClientInvoices < ActiveRecord::Migration[7.0]
       t.string :description
       t.string :payment_type
       t.timestamp :reference_date
-      t.integer :payment_day
       t.integer :status
       t.timestamp :payed_date
       t.float :invoice_value
+      t.integer :max_retries, default: 10
       t.references :client, null: false, foreign_key: true
 
       t.timestamps
