@@ -37,26 +37,26 @@
     </div>
     <div class="col-sm-12 col-md-2 mb-1">
       <div class="form-floating">
-        <%= form.text_field :admin, class: "form-control", readonly: readonly %>
+        <%= form.select :admin, [['No', false], ['Yes', true]], {}, class: "form-select", disabled: readonly %>
         <%= form.label :admin %>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-12 col-md-6 mb-1">
-      <div class="form-floating">
-        <%= form.text_field :password_digest, class: "form-control", readonly: readonly %>
-        <%= form.label :password_digest %>
-      </div>
-    </div>
-    <div class="col-sm-12 col-md-6 mb-1">
-      <div class="form-floating">
-        <%= form.text_field :password_confirmation, class: "form-control", readonly: readonly %>
-        <%= form.label :password_confirmation %>
-      </div>
-    </div>
-  </div>
   <% unless readonly %>
+    <div class="row">
+      <div class="col-sm-12 col-md-6 mb-1">
+        <div class="form-floating">
+          <%= form.password_field :password, class: "form-control" %>
+          <%= form.label :password %>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 mb-1">
+        <div class="form-floating">
+          <%= form.password_field :password_confirmation, class: "form-control" %>
+          <%= form.label :password_confirmation %>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12">
         <%= form.submit 'Save', class: "btn btn-primary" %>

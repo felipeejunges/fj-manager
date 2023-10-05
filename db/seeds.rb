@@ -9,6 +9,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 u = User.find_or_create_by(first_name: 'Master', last_name: 'Admin', email: 'master@admin.com', admin: true)
+u.password = '123'
 u.save
 
 c1 = Client.find_or_create_by(name: 'The Client', document: '12345678901', document_type: 2, payment_type: 'credit_card',

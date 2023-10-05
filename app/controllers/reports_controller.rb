@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
+  before_action :authenticate_user
+
   def new_clients
     puts payment_type
     @clients = Client.all

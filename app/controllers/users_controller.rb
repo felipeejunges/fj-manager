@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  before_action :authenticate_user
   before_action :set_user, only: %i[show edit update destroy]
+  before_action :only_admin, only: %i[edit update destroy]
 
   # GET /users or /users.json
   def index
@@ -21,7 +23,7 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.merge(password_params))
 
     respond_to do |format|
       if @user.save
@@ -36,8 +38,10 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    all_params = user_params
+    all_params.merge!(password_params) if password_params[:password].present? && password_params[:password_confirmation].present?
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(all_params)
         format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -64,8 +68,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def only_admin
+    redirect users_path unless true
+  end
+
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password_digest, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :email)
+  end
+
+  def password_params
+    params.require(:user).permit(:password, :password_confirmation)
   end
 end

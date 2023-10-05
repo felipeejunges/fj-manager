@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_29_024420) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_00_423128) do
   create_table "client_invoice_error_logs", force: :cascade do |t|
     t.integer "client_invoice_id", null: false
     t.integer "retry_number"
@@ -51,7 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_024420) do
     t.string "last_name"
     t.string "email"
     t.string "password_digest"
-    t.string "password_confirmation"
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
