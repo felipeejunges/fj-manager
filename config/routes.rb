@@ -3,16 +3,12 @@ require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
-  # namespace :client do
-  #   resources :invoices
-  #   namespace :invoice do
-  #     resources :error_logs
-  #   end
-  # end
+  
   resources :users
   resources :clients do
-    resources :invoices, module: :client do
-      resources :error_logs, module: :invoice
+    resources :invoices, module: :client, only: :show do
+      patch :retry
+      resources :error_logs, module: :invoice, only: :show
     end
   end
 

@@ -22,7 +22,11 @@ class Client::Invoice < ApplicationRecord
   scope :range_month, ->(date) { where(reference_date: date.beginning_of_month..date.end_of_month) }
 
   def will_retry?
-    max_retries < error_logs.count && status == :error
+    error_logs.count < max_retries
+  end
+
+  def wont_retry?
+    !will_retry?
   end
 
   def store_error(exception)
@@ -30,7 +34,7 @@ class Client::Invoice < ApplicationRecord
     retry_number = invoice_error_logs.count + 1
     invoice.error_logs.new(retry_number:, log: exception.to_s, date: Time.now).save
 
-    return unless invoice.max_retries < invoice.error_logs.count
+    return if wont_retry?
 
     GenerateInvoiceJob.perform_in(30,
                                   { 'client_id': invoice.client_id,

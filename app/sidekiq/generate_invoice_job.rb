@@ -16,7 +16,7 @@ class GenerateInvoiceJob < ApplicationJob
     invoice = client.invoices.find_by(reference_date: date.beginning_of_month..date.end_of_month)
 
     if invoice.nil?
-      invoice = new_invoice(client)
+      invoice = new_invoice(client, date)
       invoice.save
     end
 
@@ -29,7 +29,7 @@ class GenerateInvoiceJob < ApplicationJob
 
   private
 
-  def new_invoice(client)
+  def new_invoice(client, date)
     client.invoices.new(
       description: 'Automated',
       payment_type: client.payment_type,

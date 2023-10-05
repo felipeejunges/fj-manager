@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="col-sm-12 col-md-10">
-      <%= form_with(model: @invoice) do |form| %>
+      <%= form_with(model: @invoice, url: client_invoice_retry_path(@client, @invoice)) do |form| %>
         <div class="row">
           <div class="col-12 mb-1">
             <div class="form-floating">
@@ -72,16 +72,16 @@
         <div class="row">
           <div class="col-sm-12 col-md-6 mb-1">
            <div class="form-floating">
-              <%= form.select :payment_type, PaymentTypesHelper.integration_options, {}, class: "form-select", disabled: true %>
+              <%= form.select :payment_type, PaymentTypesHelper.integration_options, {}, class: "form-select", disabled: @invoice.will_retry? || !@invoice.error? %>
               <%= form.label :payment_type %>
             </div>
           </div>
           <div class="col-sm-12 col-md-6 mb-1">
             <div class="input-group form-floating">
-              <input type="text" value=<%= @invoice.will_retry? %> class="form-control" readonly: true>
+              <input type="text" value=<%= @invoice.will_retry? %> class="form-control" disabled>
               <label>Will retry?</label>
-              <% if @invoice.will_retry? %>
-                <button class="btn btn-outline-primary" type="button" id="button-addon">Retry</button>
+              <% if @invoice.wont_retry? && @invoice.error? %>
+                <button type="submit" class="btn btn-outline-primary" id="button-addon">Retry</button>
               <% end %>
             </div>
           </div>
