@@ -3,7 +3,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :only_admin, only: %i[edit update destroy]
+  before_action :redirect_if_not_admin_or__not_same_user, only: %i[edit update destroy]
+  before_action :redirect_if_same_user, only: :destroy
 
   # GET /users or /users.json
   def index
@@ -43,6 +44,7 @@ class UsersController < ApplicationController
     all_params = user_params
     all_params.merge!(password_params) if password_params[:password].present? && password_params[:password_confirmation].present?
     respond_to do |format|
+      all_params.delete(:admin) unless current_user.admin?
       if @user.update(all_params)
         flash[:success] = 'User was successfully updated.'
         format.html { redirect_to user_url(@user) }
@@ -75,8 +77,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def only_admin
-    redirect users_path unless true
+  def redirect_if_not_admin_or__not_same_user
+    return if current_user.admin? || (!current_user.admin? && current_user.id == @user.id)
+
+    redirect_to users_path
+  end
+
+  def redirect_if_same_user
+    redirect_to users_path if current_user.id == @user.id
   end
 
   # Only allow a list of trusted parameters through.

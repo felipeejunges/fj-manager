@@ -7,12 +7,16 @@
         <h1 class="h2"><%= @user.name %></h1>
         <div class="btn-toolbar mb-2 mb-md-0 mx-2">
           <div class="btn-group me-2">
-            <%= link_to user_path(@user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
-              <i class="bi bi-trash"></i> Delete
-            <% end %>
-            <%= link_to edit_user_path(@user), class: "btn btn-sm btn-outline-primary" do %>
-              <i class="bi bi-pencil-square"></i> Edit
-            <% end %>
+            <% if current_user.admin? || current_user.id == @user.id %>
+              <% if current_user.id != @user.id %>
+                <%= link_to user_path(@user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
+                  <i class="bi bi-trash"></i> Delete
+                <% end %>
+              <% end %>
+              <%= link_to edit_user_path(@user), class: "btn btn-sm btn-outline-primary" do %>
+                <i class="bi bi-pencil-square"></i> Edit
+              <% end %>
+            <% end%>
             <%= link_to users_path, class: "btn btn-sm btn-outline-secondary" do %>
               <i class="bi bi-arrow-return-left"></i> Back to Users
             <% end %>

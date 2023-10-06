@@ -13,6 +13,10 @@ class User < ApplicationRecord
     User.where(admin: true).where.not(id:)
   end
 
+  def admin?
+    admin
+  end
+
   def name
     "#{first_name} #{last_name}"
   end

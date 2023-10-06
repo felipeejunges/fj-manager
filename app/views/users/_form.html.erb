@@ -37,7 +37,7 @@
     </div>
     <div class="col-sm-12 col-md-2 mb-1">
       <div class="form-floating">
-        <%= form.select :admin, [['No', false], ['Yes', true]], {}, class: "form-select", disabled: readonly %>
+        <%= form.select :admin, [['No', false], ['Yes', true]], {}, class: "form-select", disabled: readonly || !current_user.admin? %>
         <%= form.label :admin %>
       </div>
     </div>

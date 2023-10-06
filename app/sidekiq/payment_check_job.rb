@@ -8,15 +8,16 @@ class PaymentCheckJob < ApplicationJob
     payment_type = ::PaymentType.new
     klass = payment_type.integration_by(name: invoice.client.payment_type)['class']
     payment_check = klass.constantize.const_get(:PAYMENT_CHECK).to_sym
-    if payment_check == :not_needed
+    case payment_check
+    when :not_needed
       check(invoice)
-    elsif payment_check == :minutely
+    when :minutely
       check(invoice)
       PaymentCheckJob.perform_in(60, { 'invoice_id': invoice.id }.to_json)
-    elsif payment_check == :hourly
+    when :hourly
       check(invoice)
       ::PaymentCheckJob.perform_in(3600, { 'invoice_id': invoice.id }.to_json)
-    elsif payment_check == :daily
+    when :daily
       check(invoice)
       ::PaymentCheckJob.perform_in(86_400, { 'invoice_id': invoice.id }.to_json)
     end
