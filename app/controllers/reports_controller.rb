@@ -4,14 +4,17 @@ class ReportsController < ApplicationController
   before_action :authenticate_user
 
   def new_clients
-    puts payment_type
     @clients = Client.all
     @clients = @clients.where(payment_type:) if payment_type.present?
-    @clients = Client.where(created_at: start_date..end_date)
+    @clients = @clients.where(created_at: start_date..end_date)
   end
 
   def clients_invoiced_yesterday
-    @clients = Client::Invoice.range_day_generated(Time.now).map(&:client)
+    client_ids = Client::Invoice.range_day_generated(Time.now).pluck(:client_id)
+    @clients = Client.where(id: client_ids)
+    @clients = @clients.where(payment_type:) if payment_type.present?
+    @clients = @clients.where(document_type:) if document_type.present?
+    @clients
   end
 
   def clients
