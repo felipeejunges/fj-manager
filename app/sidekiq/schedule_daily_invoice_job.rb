@@ -10,7 +10,7 @@ class ScheduleDailyInvoiceJob < ApplicationJob
            end
 
     Client.select(:id).where(payment_day: days(date)).pluck(:id).each do |id|
-      GenerateInvoiceJob.perform_in(1, { 'client_id': id, date: }.to_json)
+      ::GenerateInvoiceJob.perform_in(1, { 'client_id': id, date: }.to_json)
     end
   end
 

@@ -24,7 +24,7 @@ class GenerateInvoiceJob < ApplicationJob
 
     integrate(invoice, client)
 
-    PaymentCheckJob.perform_in(30, { invoice_id: invoice.id }.to_json)
+    ::PaymentCheckJob.perform_in(5, { invoice_id: invoice.id }.to_json)
   end
 
   private

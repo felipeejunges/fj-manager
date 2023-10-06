@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_00_423128) do
   create_table "client_invoices", force: :cascade do |t|
     t.string "description"
     t.string "payment_type"
-    t.datetime "reference_date"
+    t.date "reference_date"
     t.integer "status"
     t.datetime "payed_date"
     t.float "invoice_value"

@@ -12,6 +12,96 @@
       </div>
     </div>
   </div>
+  <div class="row mx-1 mt-2 mb-1">
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
+            <h5 class="card-title">Yearly</h5>
+          </div>
+          <div class="row mt-1">
+            <div class="col-sm-12 col-md-4">
+              <div class="card border-secondary ">
+                <div class="card-header">Earnings</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= number_to_currency(earnings_this_year) %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: earnings_comparisson_yearly, period: "last year" %>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <div class="card border-secondary ">
+                <div class="card-header">Errors</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= errors_this_year %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: errors_comparisson_yearly, period: "last year" %>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <div class="card border-secondary ">
+                <div class="card-header">Generated Invoices</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= generated_invoices_this_year %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: generated_invoices_comparisson_yearly, period: "last year" %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
+            <h5 class="card-title">Monthly</h5>
+          </div>
+          <div class="row mt-1">
+            <div class="col-sm-12 col-md-4">
+              <div class="card border-secondary ">
+                <div class="card-header">Earnings</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= number_to_currency(earnings_this_month) %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: earnings_comparisson_monthly, period: "last month" %>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <div class="card border-secondary ">
+                <div class="card-header">Errors</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= errors_this_month %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: errors_comparisson_monthly, period: "this last year" %>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <div class="card border-secondary ">
+                <div class="card-header">Generated Invoices</div>
+                <div class="card-body text-secondary">
+                  <h5 class="card-title"><%= generated_invoices_this_month %></h5>
+                  <p class="card-text">
+                    <%= render "percentage", percentage: generated_invoices_comparisson_monthly, period: "last year" %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-12">
       <%= render "table", clients: @clients, is_report: false %>

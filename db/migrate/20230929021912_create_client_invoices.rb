@@ -3,7 +3,7 @@ class CreateClientInvoices < ActiveRecord::Migration[7.0]
     create_table :client_invoices do |t|
       t.string :description
       t.string :payment_type
-      t.timestamp :reference_date
+      t.date :reference_date
       t.integer :status
       t.timestamp :payed_date
       t.float :invoice_value

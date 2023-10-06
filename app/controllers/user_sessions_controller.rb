@@ -7,12 +7,14 @@ class UserSessionsController < ApplicationController
   def authenticate
     user = User.find_by(email: params[:user][:email])
 
-    if user&.authenticate(params[:user][:password])
-      session[:user_id] = user.id
-      redirect_to root_path
-    else
-      flash[:alert] = 'Login failed'
-      render login_path
+    respond_to do |format|
+      if user&.authenticate(params[:user][:password])
+        session[:user_id] = user.id
+        format.html { redirect_to root_path }
+        format.json { render :show, status: :created, location: @client }
+      else
+        format.html { render :login, status: :unprocessable_entity }
+      end
     end
   end
 

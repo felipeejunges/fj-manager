@@ -36,9 +36,9 @@ class Client::Invoice < ApplicationRecord
 
     return if wont_retry?
 
-    GenerateInvoiceJob.perform_in(30,
-                                  { 'client_id': invoice.client_id,
-                                    'date': invoice.reference_date }.to_json)
+    ::GenerateInvoiceJob.perform_in(10,
+                                    { 'client_id': invoice.client_id,
+                                      'date': invoice.reference_date }.to_json)
 
     false
   end

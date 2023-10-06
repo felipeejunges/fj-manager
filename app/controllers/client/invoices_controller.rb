@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Client::InvoicesController < ApplicationController
+  before_action :authenticate_user
   before_action :set_client
   before_action :set_invoice
 
@@ -14,9 +15,9 @@ class Client::InvoicesController < ApplicationController
     @invoice.max_retries += 10
     respond_to do |format|
       if @invoice.save
-        GenerateInvoiceJob.perform_in(1,
-                                      { 'client_id': @invoice.client_id,
-                                        'date': @invoice.reference_date }.to_json)
+        ::GenerateInvoiceJob.perform_in(1,
+                                        { 'client_id': @invoice.client_id,
+                                          'date': @invoice.reference_date }.to_json)
         format.html { redirect_to client_invoice_path(@client, @invoice) }
         format.json { render :show, status: :created, location: @invoice }
       else

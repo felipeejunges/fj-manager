@@ -12,18 +12,18 @@
       cron: "0 1 * * *"
       queue: daily_invoice
       class: ScheduleDailyInvoiceJob
-    reschedule_invoice_with_error_job:
-      enabled: true
-      cron: "0 1 * * *"
-      queue: high_priority
-      class: RescheduleInvoiceWithErrorJob
     immediate_schedule_daily_invoice_job:
       enabled: true
       in: 1m
       queue: daily_invoice
       class: ScheduleDailyInvoiceJob
     immediate_reschedule_invoice_with_error_job:
-      enabled: true
+      enabled: false
       in: 1m
       queue: high_priority
       class: RescheduleInvoiceWithErrorJob
+    immediate_refresh_payment_type_job:
+      enabled: true
+      in: 1h
+      queue: high_priority
+      class: RefreshPaymentTypeJob
