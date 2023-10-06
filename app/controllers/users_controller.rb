@@ -27,9 +27,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to user_url(@user), notice: 'User was successfully created.' }
+        flash[:success] = 'User was successfully created.'
+        format.html { redirect_to user_url(@user) }
         format.json { render :show, status: :created, location: @user }
       else
+        flash[:error] = 'User not created'
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -42,9 +44,11 @@ class UsersController < ApplicationController
     all_params.merge!(password_params) if password_params[:password].present? && password_params[:password_confirmation].present?
     respond_to do |format|
       if @user.update(all_params)
-        format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
+        flash[:success] = 'User was successfully updated.'
+        format.html { redirect_to user_url(@user) }
         format.json { render :show, status: :ok, location: @user }
       else
+        flash[:error] = 'User not updated'
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -53,12 +57,15 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    respond_to do |_format|
+      if @user.destroy
+        flash[:success] = 'User was successfully destroyed.'
+      else
+        flash[:error] = 'User not deleted'
+      end
     end
+    format.html { redirect_to users_url }
+    format.json { head :no_content }
   end
 
   private

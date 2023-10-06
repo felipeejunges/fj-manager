@@ -1,18 +1,29 @@
-<div class="col-12 login-page">
-  <div class="mt-2 card login-card">
-    <h1>FJ Manager</h1>
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+<div class="col-12">
+  <div class="row">
+    <div class="col-12">
+      <div class="login-block">
+        <%= render 'shared/notices' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="mt-2 card login-card">
+        <h1>FJ Manager</h1>
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-    <%= form_with(model: User.new, method: :post, url: login_path) do |form| %>
-      <div class="form-floating">
-        <%= form.email_field :email, class: "form-control" %>
-        <%= form.label :email %>
+        <%= form_with(model: User.new, method: :post, url: login_path) do |form| %>
+          <div class="form-floating">
+            <%= form.email_field :email, class: "form-control" %>
+            <%= form.label :email %>
+          </div>
+          <div class="form-floating mt-1">
+            <%= form.password_field :password, class: "form-control" %>
+            <%= form.label :password %>
+          </div>
+          <%= form.submit "Sign in", class: "w-100 btn btn-lg btn-primary mt-1" %>
+        <% end %>
       </div>
-      <div class="form-floating mt-1">
-        <%= form.password_field :password, class: "form-control" %>
-        <%= form.label :password %>
-      </div>
-      <%= form.submit "Sign in", class: "w-100 btn btn-lg btn-primary mt-1" %>
-    <% end %>
+    </div>
   </div>
 </div>

@@ -13,6 +13,7 @@ class UserSessionsController < ApplicationController
         format.html { redirect_to root_path }
         format.json { render :show, status: :created, location: @client }
       else
+        flash[:alert] = 'Invalid email or password'
         format.html { render :login, status: :unprocessable_entity }
       end
     end
