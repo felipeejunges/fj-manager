@@ -14,16 +14,16 @@
       class: ScheduleDailyInvoiceJob
     immediate_schedule_daily_invoice_job:
       enabled: true
-      in: 1m
+      in: 5m
       queue: daily_invoice
       class: ScheduleDailyInvoiceJob
     immediate_reschedule_invoice_with_error_job:
       enabled: false
-      in: 1m
+      in: 1h
       queue: high_priority
       class: RescheduleInvoiceWithErrorJob
     immediate_refresh_payment_type_job:
       enabled: true
-      in: 1h
+      in: 1m
       queue: high_priority
       class: RefreshPaymentTypeJob

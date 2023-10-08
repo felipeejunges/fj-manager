@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <% invoices.each do |invoice| %>
+    <% invoices.order(reference_date: :desc).each do |invoice| %>
       <tr>
         <td><%= invoice.id %></td>
         <td><%= invoice.description %></td>

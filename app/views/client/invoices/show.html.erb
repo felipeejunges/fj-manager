@@ -47,7 +47,7 @@
       </div>
     </div>
     <div class="col-sm-12 col-md-10">
-      <%= form_with(model: @invoice, url: client_invoice_retry_path(@client, @invoice)) do |form| %>
+      <%= form_with(model: @invoice, url: retry_client_invoice_path(@client, @invoice)) do |form| %>
         <div class="row">
           <div class="col-12 mb-1">
             <div class="form-floating">
