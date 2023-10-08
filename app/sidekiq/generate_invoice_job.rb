@@ -6,7 +6,7 @@ class GenerateInvoiceJob < ApplicationJob
     date = if args.present? && args['date'].present?
              Date.parse(args['date'])
            else
-             Date.today
+             Date.yesterday
            end
 
     client_id = args['client_id']
@@ -38,9 +38,9 @@ class GenerateInvoiceJob < ApplicationJob
     )
   end
 
-  def integrate(invoice, client)
+  def integrate(invoice, _client)
     payment_type = ::PaymentType.new
-    klass = payment_type.integration_by(name: client.payment_type)['class']
+    klass = payment_type.class_from_integration_by(name: invoice.payment_type)
     klass.constantize.new.perform(invoice.id)
   rescue StandardError => e
     invoice.store_error(e)

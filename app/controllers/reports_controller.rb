@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
   end
 
   def clients_invoiced_yesterday
-    client_ids = Client::Invoice.range_day_generated(Time.now).pluck(:client_id)
+    client_ids = Client::Invoice.generated_yesterday.pluck(:client_id).uniq
     @clients = Client.where(id: client_ids)
     @clients = @clients.where(payment_type:) if payment_type.present?
     @clients = @clients.where(document_type:) if document_type.present?
@@ -18,9 +18,12 @@ class ReportsController < ApplicationController
   end
 
   def clients
-    @clients = Client.all
+    @clients = if status.present?
+                 Client.where(id: Client::Invoice.where(status:).pluck(:client_id).uniq)
+               else
+                 Client.all
+               end
     @clients = @clients.where(payment_type:) if payment_type.present?
-    @clients = @clients.where(status:) if status.present?
     @clients = @clients.where(document_type:) if document_type.present?
     @clients
   end

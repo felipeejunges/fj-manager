@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Client < ApplicationRecord
-  has_many :invoices, class_name: 'Client::Invoice', inverse_of: :client
+  has_many :invoices, class_name: 'Client::Invoice', inverse_of: :client, dependent: :destroy
   has_many :error_logs, through: :invoices
 
   enum document_type: {
@@ -18,7 +18,7 @@ class Client < ApplicationRecord
   def expected_earnings_this_year
     return @expected_earnings_this_year if @expected_earnings_this_year.present?
 
-    extra = created_at < created_at.beginning_of_year ? 0 : created_at.month
+    extra = created_at < created_at.beginning_of_year ? created_at.month : 0
 
     pendency_value = (12 - extra - generated_invoices_this_year) * plan_value
     pendency_value = 0 if pendency_value.negative?
@@ -27,20 +27,8 @@ class Client < ApplicationRecord
     @expected_earnings_this_year = earnings_this_year + pendency_value + late_summed
   end
 
-  def expected_earnings_last_year
-    return @expected_earnings_last_year if @expected_earnings_last_year.present?
-
-    extra = created_at < created_at.beginning_of_year ? 0 : 12
-
-    pendency_value = (12 - extra - generated_invoices_last_year) * plan_value
-    pendency_value = 0 if pendency_value.negative?
-
-    late_summed = invoices.late.range_year(Time.now.last_year).sum(:invoice_value)
-    @expected_earnings_last_year = earnings_last_year + pendency_value + late_summed
-  end
-
   def expected_earnings_comparisson_yearly
-    @expected_earnings_comparisson_yearly ||= calculate_percentage_difference(expected_earnings_last_year, expected_earnings_this_year)
+    @expected_earnings_comparisson_yearly ||= calculate_percentage_difference(earnings_last_year, expected_earnings_this_year)
   end
 
   def earnings_this_year

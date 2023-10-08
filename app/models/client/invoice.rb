@@ -2,7 +2,9 @@
 
 class Client::Invoice < ApplicationRecord
   belongs_to :client
-  has_many :error_logs, class_name: 'Client::Invoice::ErrorLog', foreign_key: :client_invoice_id, inverse_of: :invoice
+  has_many :error_logs, class_name: 'Client::Invoice::ErrorLog',
+                        foreign_key: :client_invoice_id, inverse_of: :invoice,
+                        dependent: :destroy
 
   enum status: {
     generating: 0,
@@ -16,7 +18,8 @@ class Client::Invoice < ApplicationRecord
 
   scope :range_year_generated, ->(date) { where(status: %i[generated payed late], reference_date: date.beginning_of_year..date.end_of_year) }
   scope :range_month_generated, ->(date) { where(status: %i[generated payed late], reference_date: date.beginning_of_month..date.end_of_month) }
-  scope :range_day_generated, ->(date) { where(status: %i[generated payed late], reference_date: date.beginning_of_day..date.end_of_day) }
+  scope :range_day_generated, ->(date) { where(status: %i[generated payed late], reference_date: date..date) }
+  scope :generated_yesterday, -> { where(status: %i[generated payed late], reference_date: Date.yesterday) }
 
   scope :range_year, ->(date) { where(reference_date: date.beginning_of_year..date.end_of_year) }
   scope :range_month, ->(date) { where(reference_date: date.beginning_of_month..date.end_of_month) }
@@ -30,15 +33,15 @@ class Client::Invoice < ApplicationRecord
   end
 
   def store_error(exception)
-    invoice.status = :error
-    retry_number = invoice_error_logs.count + 1
-    invoice.error_logs.new(retry_number:, log: exception.to_s, date: Time.now).save
+    self.status = :error
+    retry_number = error_logs.count + 1
+    error_logs.new(retry_number:, log: exception.to_s, date: Time.now).save
 
     return if wont_retry?
 
     ::GenerateInvoiceJob.perform_in(10,
-                                    { 'client_id': invoice.client_id,
-                                      'date': invoice.reference_date }.to_json)
+                                    { 'client_id': client_id,
+                                      'date': reference_date }.to_json)
 
     false
   end
@@ -48,7 +51,6 @@ class Client::Invoice < ApplicationRecord
   end
 
   def add_more_retries
-    self.max_retries += 10
-    update
+    update(max_retries: self.max_retries += 10)
   end
 end

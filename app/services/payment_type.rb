@@ -40,6 +40,20 @@ class PaymentType
     end
   end
 
+  def class_from_integration_by(name:)
+    integration = integration_by(name:)
+    return unless integration.present?
+
+    integration['class'] || integration[:class]
+  end
+
+  def payment_check(name:, klass: nil)
+    klass = class_from_integration_by(name:) unless klass.present?
+    return unless klass.present?
+
+    klass.constantize.const_get(:PAYMENT_CHECK)
+  end
+
   def clean
     @integrations = @integration_names = nil
   end

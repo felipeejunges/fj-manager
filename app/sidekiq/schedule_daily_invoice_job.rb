@@ -6,11 +6,11 @@ class ScheduleDailyInvoiceJob < ApplicationJob
     date = if args.present? && args['date'].present?
              Date.parse(args['date'])
            else
-             Date.today
+             Date.yesterday
            end
 
-    Client.select(:id).where(payment_day: days(date)).pluck(:id).each do |id|
-      ::GenerateInvoiceJob.perform_in(1, { 'client_id': id, date: }.to_json)
+    Client.select(:id).where(payment_day: days(date)).pluck(:id).map do |id|
+      ::GenerateInvoiceJob.perform_at(1, { 'client_id': id, date: }.to_json)
     end
   end
 

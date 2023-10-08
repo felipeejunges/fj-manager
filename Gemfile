@@ -67,6 +67,8 @@ group :test do
   gem 'factory_bot_rails'
   gem "faker", "~> 3.2"
   gem 'rspec_junit_formatter'
+  gem "shoulda-matchers", "~> 5.3"
+  gem "rspec-sidekiq", "~> 4.0"
 end
 
 
@@ -84,3 +86,5 @@ end
 gem "sidekiq", "~> 7.1"
 
 gem "sidekiq-scheduler", "~> 5.0"
+
+gem "rails-controller-testing", "~> 1.0"

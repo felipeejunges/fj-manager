@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :users
   resources :clients do
     resources :invoices, module: :client, only: :show do
-      patch :retry
+      patch :retry, on: :member
       resources :error_logs, module: :invoice, only: :show
     end
   end
