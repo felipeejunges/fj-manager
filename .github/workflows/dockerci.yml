@@ -1,0 +1,27 @@
+name: Docker CI
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Build server container
+        run: docker-compose build
+      - name: "Create database"
+        run: docker-compose run --rm server bin/rails db:create db:migrate
+      - name: "Start container"
+        run: docker-compose up -d
+      - name: "Run rspec"
+        run: docker-compose exec -T server bundle exec rspec
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Build server container
+        run: docker-compose build
+      - name: "Start container"
+        run: docker-compose up -d
+      - name: Check Rubocop Styles
+        run: docker-compose exec -T server bundle exec rubocop
