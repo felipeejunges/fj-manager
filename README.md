@@ -47,5 +47,8 @@ Link com vídeo da apresentação do projeto: https://www.loom.com/share/b98d97c
 - O faturamento ocorre todo dia as 01:00 para clientes com dia de pagamento de ontem e que ainda não foram faturados no mês (gerados ou pagos)
 - O faturamento pode ter alteração de forma de pagamento caso atinja 10 tentativas com erro na mesma forma de pagamento.
 
+### Driagrama base/inicio
+![Diagrama](https://private-user-images.githubusercontent.com/20795458/273672967-071e6706-afa7-45cf-8521-2eecb03e126f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTY4Nzc4NDAsIm5iZiI6MTY5Njg3NzU0MCwicGF0aCI6Ii8yMDc5NTQ1OC8yNzM2NzI5NjctMDcxZTY3MDYtYWZhNy00NWNmLTg1MjEtMmVlY2IwM2UxMjZmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEwMDklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMDA5VDE4NTIyMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWZhOWQyN2U3N2Y5MGZlYWI2N2I4OTAwMjU4MTBmMDU4MTAxYzUzZGIxMmIxODZlZmQ3ZTUwNmNlZTk2ZmUzY2UmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.MjqkgaxLiC4qZ8ibb2xdgr5WBGsby7TwyaaTwz_erx0)
+
 ***
 ###### [readme antigo](https://github.com/monde-testes/teste-ruby-felipe/blob/3bdec39ac9eebabe06a83fb53418ff42e62ccdbf/README.md)
