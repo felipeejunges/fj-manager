@@ -47,5 +47,8 @@ Link with project presentation: https://www.loom.com/share/b98d97c256e14a1393a82
 - The invoice happens every day at 1AM for clients with payment day for 1 day ago that didn't get invoiced yet.
 - The invoice can have changes on payment type, if it hits 10 try's with error on same payment type.
 
+### Driagrama base/inicio
+
+
 ***
 ###### [Old readme](https://github.com/monde-testes/teste-ruby-felipe/blob/3bdec39ac9eebabe06a83fb53418ff42e62ccdbf/README.md)
