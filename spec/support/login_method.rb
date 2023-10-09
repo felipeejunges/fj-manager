@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def login(email, password = '123')
   visit login_path
 
