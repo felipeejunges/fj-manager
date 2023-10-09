@@ -14,7 +14,9 @@
     <% invoices.order(reference_date: :desc).each do |invoice| %>
       <tr>
         <td><%= invoice.id %></td>
-        <td><%= invoice.description %></td>
+        <td>
+          <%= link_to invoice.description, client_invoice_path(client_id: @client.id, id: invoice.id) %>
+        </td>
         <td><%= invoice.payment_type.humanize %></td>
         <td><%= invoice.reference_date %></td>
         <td><%= render "client/invoices/status_badge", status: invoice.status, text: invoice.status.humanize %></td>

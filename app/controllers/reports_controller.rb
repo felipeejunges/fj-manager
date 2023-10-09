@@ -4,9 +4,16 @@ class ReportsController < ApplicationController
   before_action :authenticate_user
 
   def new_clients
+    if params[:start_date].nil? && params[:end_date].nil?
+      params[:start_date] = Date.today.strftime
+      params[:end_date] = Date.today.strftime
+    end
+
     @clients = Client.all
     @clients = @clients.where(payment_type:) if payment_type.present?
     @clients = @clients.where(created_at: start_date..end_date)
+
+    @clients
   end
 
   def clients_invoiced_yesterday
@@ -34,14 +41,18 @@ class ReportsController < ApplicationController
     return @start_date if @start_date.present?
 
     date = params.permit(:start_date)[:start_date]
-    @start_date = (date.present? ? Date.parse(date) : Date.today).beginning_of_day
+    return unless date.present?
+
+    @start_date = Date.parse(date).beginning_of_day
   end
 
   def end_date
     return @end_date if @end_date.present?
 
     date = params.permit(:end_date)[:end_date]
-    @end_date = (date.present? ? Date.parse(date) : Date.today).end_of_day
+    return unless date.present?
+
+    @end_date = Date.parse(date).end_of_day
   end
 
   def status

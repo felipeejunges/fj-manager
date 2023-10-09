@@ -2,8 +2,7 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
+      <th scope="col">Name</th>
       <th scope="col">Admin</th>
       <th scope="col">Actions</th>
     </tr>
@@ -12,8 +11,8 @@
     <% users.each do |user| %>
       <tr>
         <td><%= user.id %></td>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
+        <td><%= link_to user.name, user_path(user) %></td>
+        <td><%= user.email %></td>
         <td><%= user.admin %></td>
         <td>
           <div class="btn-group me-2">

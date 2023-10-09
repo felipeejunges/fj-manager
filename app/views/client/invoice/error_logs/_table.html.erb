@@ -14,7 +14,7 @@
         <td><%= error_log.retry_number %></td>
         <td><%= error_log.date %></td>
         <td>
-          <%= link_to  client_invoice_error_log_path(client_id: @client.id, invoice_id: @invoice.id, id: error_log.id), class: "btn btn-sm btn-outline-secondary" do %>
+          <%= link_to client_invoice_error_log_path(client_id: @client.id, invoice_id: @invoice.id, id: error_log.id), class: "btn btn-sm btn-outline-secondary" do %>
             <i class="bi bi-eye"></i>
           <% end %>
         </td>

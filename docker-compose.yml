@@ -28,10 +28,30 @@ services:
       - /newpay/node_modules
     ports:
       - "3000:3000"
+      - "4000:4000"
     depends_on:
      - redis
+     - chrome
     environment:
+     - APP_HOST=http://server:4000
      - REDIS_URL_SIDEKIQ=redis://redis:6379/1
+     - SELENIUM_HOST=chrome
+     - SELENIUM_PORT=4444
+
+  chrome:
+    image: selenium/standalone-chrome-debug:3.141.59
+    ports:
+      - "4444:4444"
+      - "5900:5900"
+    environment:
+      - SELENIUM_HOST=chrome
+      - SELENIUM_PORT=4444
+  
+  #selenium_chrome:
+  #  image: selenium/standalone-chrome-debug:3.141.59
+  #  ports:
+  #    - "5900:5900"
 
 volumes:
   redis:
+  chrome: 

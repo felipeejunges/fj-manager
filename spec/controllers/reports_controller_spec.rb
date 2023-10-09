@@ -10,7 +10,7 @@ RSpec.describe ReportsController, type: :controller do
 
   describe 'GET #new_clients' do
     it 'assigns all clients to @clients' do
-      clients = create_list(:client, 3)
+      clients = create_list(:client, 3, created_at: Date.today)
       get :new_clients
       expect(assigns(:clients)).to match_array(clients)
     end
@@ -66,7 +66,7 @@ RSpec.describe ReportsController, type: :controller do
       create(:client_invoice, client: client_without_options, invoice_value: 1000, reference_date: Date.today, status: :error)
       
       get :clients, params: { payment_type: 'credit_card', status: 'generated', document_type: 'cnpj' }
-      
+
       expect(assigns(:clients)).to match_array([client_with_options])
     end
 

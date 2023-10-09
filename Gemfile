@@ -60,6 +60,8 @@ group :development, :test do
   gem "pry-rails"
   gem "rubocop-rails"
   gem "rubocop-rspec"
+  gem 'capybara', '~> 3.32', '>= 3.32.1'
+  gem 'selenium-webdriver', '~> 3.142', '>= 3.142.7'
 end
 
 group :test do
@@ -69,6 +71,7 @@ group :test do
   gem 'rspec_junit_formatter'
   gem "shoulda-matchers", "~> 5.3"
   gem "rspec-sidekiq", "~> 4.0"
+  gem "rails-controller-testing", "~> 1.0"
 end
 
 
@@ -87,4 +90,4 @@ gem "sidekiq", "~> 7.1"
 
 gem "sidekiq-scheduler", "~> 5.0"
 
-gem "rails-controller-testing", "~> 1.0"
+gem "database_cleaner", "~> 2.0"

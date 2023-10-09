@@ -31,7 +31,7 @@ class GenerateInvoiceJob < ApplicationJob
 
   def new_invoice(client, date)
     client.invoices.new(
-      description: 'Automated',
+      description: "Automated ##{client.invoices.count + 1}",
       payment_type: client.payment_type,
       reference_date: date,
       invoice_value: client.plan_value

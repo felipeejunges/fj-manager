@@ -10,6 +10,7 @@ class UserSessionsController < ApplicationController
     respond_to do |format|
       if user&.authenticate(params[:user][:password])
         session[:user_id] = user.id
+        flash[:success] = "Welcome, #{current_user.name}"
         format.html { redirect_to root_path }
         format.json { render :show, status: :created, location: @client }
       else

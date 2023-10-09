@@ -15,7 +15,11 @@
       <tr>
         <td><%= client.id %></td>
         <td>
-          <%= client.name %>
+          <% if is_report %>
+            <%= client.name %>
+          <% else %>
+            <%= link_to client.name, client %>
+          <% end %>
           <% if client.current_status.present? %>
             <%= render "client/invoices/status_badge", status: client.current_status, text: client.current_status.humanize %>
           <% end %>
