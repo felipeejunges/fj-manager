@@ -1,6 +1,6 @@
 
 # Felipe Ruby Test
-[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/felipeejunges/teste-ruby-felipe/blob/main/README.md)
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/monde-testes/teste-ruby-felipe/blob/main/README.md)
 [![Docker CI](https://github.com/monde-testes/teste-ruby-felipe/actions/workflows/dockerci.yml/badge.svg?branch=main)](https://github.com/monde-testes/teste-ruby-felipe/actions/workflows/dockerci.yml?query=branch%3Amain)
 
 This project is a client-invoice manager.
@@ -30,8 +30,22 @@ This instructions shows how to initialize the project and using it with [docker]
     - Specs may not working correctly without docker, as it depends on sidekiq, redis and selenium
 
 ## Project presentation
-Link with project presentation: 
+Link with project presentation: https://www.loom.com/share/b98d97c256e14a1393a826696c25a636
 
-## Project screenshots
+## Default user
+- email: master@email.com
+- password: 123
 
+## Business Rules
 
+### User
+- The last admin user can't be deleted
+- Only admin users can create new, edit or delete users
+- Even user being admin, can't auto-delete itself
+
+### Clientes e Faturamento
+- The invoice happens every day at 1AM for clients with payment day for 1 day ago that didn't get invoiced yet.
+- The invoice can have changes on payment type, if it hits 10 try's with error on same payment type.
+
+***
+###### [Old readme](https://github.com/monde-testes/teste-ruby-felipe/blob/3bdec39ac9eebabe06a83fb53418ff42e62ccdbf/README.md)
