@@ -28,9 +28,6 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - run:
-          command: "dockerize -wait tcp://localhost:27017 -timeout 1m"
-          name: Wait for DB
       - run: sudo apt-get update && sudo apt install -y imagemagick
       - browser-tools/install-browser-tools
       - run:
