@@ -34,6 +34,24 @@ jobs:
           command: "curl -LO http://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi6_3.2.1-8_amd64.deb && sudo dpkg -i libffi6_3.2.1-8_amd64.deb"
           name: "Install libffi6 for backwards-compatibility"
       - run:
+          command: "curl -L https://deb.nodesource.com/setup_14.x | bash && apt-get install nodejs"
+          name: "Install nod 14.x"
+      - run:
+          command: "npm install -g yarn"
+          name: "Install yarn from npm"
+      - run:
+          command: "npm install -g esbuild"
+          name: "Install esbuild from npm"
+      - run:
+          command: "yarn install"
+          name: "yarn install"
+      - run:
+          command: "yarn build"
+          name: "Build JS files"
+      - run:
+          command: "yarn build:css"
+          name: "Build CSS files"
+      - run:
           command: |
             mkdir /tmp/test-results
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
