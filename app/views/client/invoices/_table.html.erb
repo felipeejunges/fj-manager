@@ -26,7 +26,7 @@
         <tr>
           <td><%= invoice.id %></td>
           <td>
-            <%= link_to invoice.description, client_invoice_path(client_id: @client.id, id: invoice.id) %>
+            <%= link_to invoice.description, client_invoice_path(client_id: @client.id, id: invoice.id), data: { turbo: false } %>
           </td>
           <td><%= invoice.payment_type.humanize %></td>
           <td><%= invoice.reference_date %></td>

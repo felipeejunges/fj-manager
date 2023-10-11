@@ -35,7 +35,7 @@
             <% if is_report %>
               <%= client.name %>
             <% else %>
-              <%= link_to client.name, client %>
+              <%= link_to client.name, client, data: { turbo: false } %>
             <% end %>
             <% if client.current_status.present? %>
               <%= render "client/invoices/status_badge", status: client.current_status, text: client.current_status.humanize %>
