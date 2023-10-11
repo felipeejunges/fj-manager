@@ -36,14 +36,13 @@ jobs:
       - node/install:
           install-yarn: true
           node-version: "14.21.3"
-      - node/run:
-          yarn-run: "install esbuild"
-      - node/run:
-          yarn-run: "install"
-      - node/run:
-          yarn-run: "build"
-      - node/run:
-          yarn-run: "build:css"
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: "yarn build"
+      - run:
+          command: "yarn build:css"
+      
       - run:
           command: |
             mkdir /tmp/test-results
