@@ -2,14 +2,13 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user
+  before_action :set_users, only: %i[index list]
   before_action :set_user, only: %i[show edit update destroy]
   before_action :redirect_if_not_admin_or__not_same_user, only: %i[edit update destroy]
   before_action :redirect_if_same_user, only: :destroy
 
   # GET /users or /users.json
-  def index
-    @users = User.all
-  end
+  def index; end
 
   # GET /users/1 or /users/1.json
   def show; end
@@ -70,6 +69,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def list
+    render(partial: 'users/table', locals: { users: @users })
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -94,5 +97,28 @@ class UsersController < ApplicationController
 
   def password_params
     params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  def set_users
+    @users = User.all
+    sort_users
+    @users
+  end
+
+  def allow_sort
+    %w[id name email admin].include?(params[:sort_by].to_s)
+  end
+
+  def sort_users
+    return unless allow_sort
+
+    sort_order = params[:sort_order] == 'DESC' ? 'DESC' : 'ASC'
+    sort = if params[:sort_by] == 'name'
+             { first_name: sort_order, last_name: sort_order }
+           else
+             params[:sort_by].to_sym => sort_order
+           end
+
+    @users = @users.order(sort)
   end
 end

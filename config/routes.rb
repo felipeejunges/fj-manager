@@ -8,11 +8,18 @@ Rails.application.routes.draw do
   post 'login' => 'user_sessions#authenticate'
   get 'logout' => 'user_sessions#logout'
 
-  resources :users
+  resources :users do
+    collection do
+      get 'list'
+    end
+  end
   resources :clients do
-    resources :invoices, module: :client, only: :show do
+    collection do
+      get 'list'
+    end
+    resources :invoices, module: :client, only: [:index, :show] do
       patch :retry, on: :member
-      resources :error_logs, module: :invoice, only: :show
+      resources :error_logs, module: :invoice, only: [:index, :show]
     end
   end
 

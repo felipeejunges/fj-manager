@@ -4,6 +4,11 @@ class Client::InvoicesController < ApplicationController
   before_action :authenticate_user
   before_action :set_client
   before_action :set_invoice
+  before_action :set_invoices, only: :index
+
+  def index
+    render(partial: 'client/invoices/table', locals: { invoices: @invoices })
+  end
 
   # GET /clients/1/invoices/1 or /clients/1/invoices/1.json
   def show; end
@@ -48,5 +53,23 @@ class Client::InvoicesController < ApplicationController
 
   def payment_type_param
     params.require(:client_invoice)
+  end
+
+  def set_invoices
+    @invoices = @client.invoices.all
+    sort_invoices
+    @invoices
+  end
+
+  def allow_sort
+    %w[id description payment_type reference_month status].include?(params[:sort_by].to_s)
+  end
+
+  def sort_invoices
+    return unless allow_sort
+
+    sort = { params[:sort_by].to_sym => params[:sort_order] == 'DESC' ? 'DESC' : 'ASC' }
+
+    @invoices = @invoices.order(sort)
   end
 end
