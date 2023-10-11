@@ -8,6 +8,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+require 'faker'
+
 u = User.find_or_create_by(first_name: 'Master', last_name: 'Admin', email: 'master@admin.com', admin: true)
 u.password = '123'
 u.save
@@ -37,3 +39,23 @@ e = i1.error_logs.find_or_create_by(retry_number: 1, log: 'Example')
 e.date = Time.new('2023-09-07')
 
 e.save
+
+yesterday = Date.yesterday
+50.times do
+  client = Client.create(
+    name: Faker::Company.name,
+    document: Faker::IDNumber.unique.brazilian_citizen_number,
+    document_type: :cpf,
+    payment_type: %w[credit_card debit_card ticket].sample,
+    plan_value: Faker::Number.decimal(l_digits: 3, r_digits: 2),
+    payment_day: yesterday.day
+  )
+  client.invoices.create(
+    description: Faker::Lorem.sentence,
+    status: :payed,
+    payed_date: yesterday,
+    reference_date: yesterday,
+    invoice_value: client.plan_value,
+    payment_type: client.payment_type
+  )
+end

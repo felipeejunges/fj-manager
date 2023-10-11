@@ -2,12 +2,11 @@
 
 class ClientsController < ApplicationController
   before_action :authenticate_user
+  before_action :set_clients, only: %i[index list]
   before_action :set_client, only: %i[show edit update destroy]
 
   # GET /clients or /clients.json
-  def index
-    @clients = Client.all
-  end
+  def index; end
 
   # GET /clients/1 or /clients/1.json
   def show; end
@@ -64,6 +63,10 @@ class ClientsController < ApplicationController
     end
   end
 
+  def list
+    render(partial: 'clients/table', locals: { clients: @clients, is_report: false })
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -74,5 +77,23 @@ class ClientsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def client_params
     params.require(:client).permit(:name, :document, :document_type, :payment_type, :payment_day, :plan_value)
+  end
+
+  def set_clients
+    @clients = Client.all
+    sort_clients
+    @clients
+  end
+
+  def allow_sort
+    %w[id name document document_type].include?(params[:sort_by].to_s)
+  end
+
+  def sort_clients
+    return unless allow_sort
+
+    sort = { params[:sort_by].to_sym => params[:sort_order] == 'DESC' ? 'DESC' : 'ASC' }
+
+    @clients = @clients.order(sort)
   end
 end
