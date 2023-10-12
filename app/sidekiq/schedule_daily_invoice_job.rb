@@ -6,7 +6,7 @@ class ScheduleDailyInvoiceJob < ApplicationJob
     date = if args.present? && args['date'].present?
              Date.parse(args['date'])
            else
-             Date.yesterday
+             Date.current.yesterday
            end
 
     Client.select(:id).where(payment_day: days(date)).pluck(:id).map do |id|

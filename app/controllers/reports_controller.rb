@@ -5,8 +5,8 @@ class ReportsController < ApplicationController
 
   def new_clients
     if params[:start_date].nil? && params[:end_date].nil?
-      params[:start_date] = Date.today.strftime
-      params[:end_date] = Date.today.strftime
+      params[:start_date] = Date.current.strftime
+      params[:end_date] = Date.current.strftime
     end
 
     @clients = Client.all

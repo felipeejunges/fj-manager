@@ -90,3 +90,5 @@ gem "sidekiq", "~> 7.1"
 gem "sidekiq-scheduler", "~> 5.0"
 
 gem "database_cleaner", "~> 2.0"
+
+gem "pagy", "~> 6.1"

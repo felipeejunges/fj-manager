@@ -6,7 +6,7 @@ class GenerateInvoiceJob < ApplicationJob
     date = if args.present? && args['date'].present?
              Date.parse(args['date'])
            else
-             Date.yesterday
+             Date.current.yesterday
            end
 
     client_id = args['client_id']

@@ -12,7 +12,7 @@ RSpec.describe Client::Invoice, type: :model do
   end
 
   describe 'scopes' do
-    date = Date.new(Date.today.year, 1, 1)
+    date = Date.new(Date.current.year, 1, 1)
     let!(:invoice) { create(:client_invoice, status: :generated, reference_date: date) }
     let!(:late_invoice) { create(:client_invoice, status: :late, reference_date: date) }
     let!(:payed_invoice) { create(:client_invoice, status: :payed, reference_date: date) }

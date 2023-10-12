@@ -102,7 +102,7 @@ class UsersController < ApplicationController
   def set_users
     @users = User.all
     sort_users
-    @users
+    @pagy, @users = pagy(@users)
   end
 
   def allow_sort
