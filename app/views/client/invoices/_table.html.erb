@@ -33,7 +33,7 @@
               <td><%= invoice.payment_type.humanize %></td>
               <td><%= invoice.reference_date %></td>
               <td><%= render "client/invoices/status_badge", status: invoice.status, text: invoice.status.humanize %></td>
-              <td><%= invoice.error_logs.count > 0 %></td>
+              <td><%= invoice.old_error_logs.count > 0 %></td>
               <td>
                 <%= link_to  client_invoice_path(client_id: @client.id, id: invoice.id), class: "btn btn-sm btn-outline-secondary", data: { turbo: false } do %>
                   <i class="bi bi-eye"></i>

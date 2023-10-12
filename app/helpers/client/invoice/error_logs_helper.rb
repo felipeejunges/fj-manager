@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-module Client::Invoice::ErrorLogsHelper
+module Client::Invoice::OldErrorLogsHelper
 end

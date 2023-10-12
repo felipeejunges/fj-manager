@@ -18,11 +18,11 @@ module ClientsHelper
   end
 
   def errors_this_year
-    Client::Invoice::ErrorLog.range_year(Time.now.in_time_zone).count
+    Client::Invoice::OldErrorLog.range_year(Time.now.in_time_zone).count
   end
 
   def errors_last_year
-    Client::Invoice::ErrorLog.range_year(Time.now.in_time_zone.last_year).count
+    Client::Invoice::OldErrorLog.range_year(Time.now.in_time_zone.last_year).count
   end
 
   def errors_comparisson_yearly
@@ -66,11 +66,11 @@ module ClientsHelper
   end
 
   def errors_this_month
-    Client::Invoice::ErrorLog.range_month(Time.now.in_time_zone).count
+    Client::Invoice::OldErrorLog.range_month(Time.now.in_time_zone).count
   end
 
   def errors_last_month
-    Client::Invoice::ErrorLog.range_month(Time.now.in_time_zone.last_month).count
+    Client::Invoice::OldErrorLog.range_month(Time.now.in_time_zone.last_month).count
   end
 
   def errors_comparisson_monthly

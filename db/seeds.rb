@@ -35,7 +35,7 @@ i2.payed_date = '2023-08-07'
 
 i2.save
 
-e = i1.error_logs.find_or_create_by(retry_number: 1, log: 'Example')
+e = i1.old_error_logs.find_or_create_by(retry_number: 1, log: 'Example')
 e.date = Time.new('2023-09-07')
 
 e.save

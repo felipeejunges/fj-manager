@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class Client::Invoice::ErrorLogsController < ApplicationController
+class Client::Invoice::OldErrorLogsController < ApplicationController
   before_action :authenticate_user
   before_action :set_client
   before_action :set_client_invoice
-  before_action :set_client_invoice_error_log
-  before_action :set_error_logs, only: :index
+  before_action :set_client_invoice_old_error_log
+  before_action :set_old_error_logs, only: :index
 
   # GET /clients/1/invoices/1/old_error_logs/1 or /clients/1/invoices/1/old_error_logs/1.json
   def index
@@ -17,7 +17,7 @@ class Client::Invoice::ErrorLogsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_client_invoice_error_log
+  def set_client_invoice_old_error_log
     @old_error_log = @invoice.old_error_logs.find(params[:id])
   end
 
@@ -30,13 +30,13 @@ class Client::Invoice::ErrorLogsController < ApplicationController
   end
 
   # Only allow a list of trusted parameters through.
-  def client_invoice_error_log_params
-    params.require(:client_invoice_error_log).permit(:client_invoice_id, :retry_number, :date, :log)
+  def client_invoice_old_error_log_params
+    params.require(:client_invoice_old_error_log).permit(:client_invoice_id, :retry_number, :date, :log)
   end
 
-  def set_error_logs
+  def set_old_error_logs
     @old_error_logs = @invoice.old_error_logs.all
-    sort_error_logs
+    sort_old_error_logs
     @pagy, @old_error_logs = pagy(@old_error_logs)
   end
 
@@ -44,7 +44,7 @@ class Client::Invoice::ErrorLogsController < ApplicationController
     %w[id retry_number date].include?(params[:sort_by].to_s)
   end
 
-  def sort_error_logs
+  def sort_old_error_logs
     return unless allow_sort
 
     sort = { params[:sort_by].to_sym => params[:sort_order] == 'DESC' ? 'DESC' : 'ASC' }

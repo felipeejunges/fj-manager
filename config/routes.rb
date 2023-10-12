@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     end
     resources :invoices, module: :client, only: [:index, :show] do
       patch :retry, on: :member
+      resources :old_error_logs, module: :invoice, only: [:index, :show]
       resources :error_logs, module: :invoice, only: [:index, :show]
     end
   end

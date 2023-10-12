@@ -5,7 +5,7 @@ RSpec.feature 'Invoice Page', type: :system do
   let(:user) { create(:user, :admin, password: password) }
   let(:client) { create(:client) }
   let(:invoice) { create(:client_invoice, client: client, invoice_value: 100) }
-  let!(:error_log) { create(:client_invoice_error_log, invoice: invoice) }
+  let!(:old_error_log) { create(:client_invoice_old_error_log, invoice: invoice) }
 
   it 'displays invoice details' do
     login(user.email, password)
