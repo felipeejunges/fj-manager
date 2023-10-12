@@ -4,7 +4,7 @@ class Client::Invoice::OldErrorLogsController < ApplicationController
   before_action :authenticate_user
   before_action :set_client
   before_action :set_client_invoice
-  before_action :set_client_invoice_old_error_log
+  before_action :set_client_invoice_old_error_log, only: :show
   before_action :set_old_error_logs, only: :index
 
   # GET /clients/1/invoices/1/old_error_logs/1 or /clients/1/invoices/1/old_error_logs/1.json

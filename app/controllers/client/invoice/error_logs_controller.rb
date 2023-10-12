@@ -4,12 +4,12 @@ class Client::Invoice::ErrorLogsController < ApplicationController
   before_action :authenticate_user
   before_action :set_client
   before_action :set_client_invoice
-  before_action :set_client_invoice_error_log
+  before_action :set_client_invoice_error_log, only: :show
   before_action :set_error_logs, only: :index
 
-  # GET /clients/1/invoices/1/old_error_logs/1 or /clients/1/invoices/1/old_error_logs/1.json
+  # GET /clients/1/invoices/1/error_logs/1 or /clients/1/invoices/1/error_logs/1.json
   def index
-    render(partial: 'client/invoice/old_error_logs/table', locals: { old_error_logs: @old_error_logs })
+    render(partial: 'client/invoice/error_logs/table', locals: { error_logs: @error_logs })
   end
 
   def show; end
@@ -18,7 +18,7 @@ class Client::Invoice::ErrorLogsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_client_invoice_error_log
-    @old_error_log = @invoice.old_error_logs.find(params[:id])
+    @error_log = @invoice.error_logs.find(params[:id])
   end
 
   def set_client_invoice
@@ -35,9 +35,9 @@ class Client::Invoice::ErrorLogsController < ApplicationController
   end
 
   def set_error_logs
-    @old_error_logs = @invoice.old_error_logs.all
+    @error_logs = @invoice.error_logs.all
     sort_error_logs
-    @pagy, @old_error_logs = pagy(@old_error_logs)
+    @pagy, @error_logs = pagy(@error_logs)
   end
 
   def allow_sort
@@ -49,6 +49,6 @@ class Client::Invoice::ErrorLogsController < ApplicationController
 
     sort = { params[:sort_by].to_sym => params[:sort_order] == 'DESC' ? 'DESC' : 'ASC' }
 
-    @old_error_logs = @old_error_logs.order(sort)
+    @error_logs = @error_logs.order(sort)
   end
 end
