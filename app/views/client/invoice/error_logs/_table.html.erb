@@ -1,32 +1,37 @@
 <%= turbo_frame_tag "client_invoice_error_logs_table" do %>
-  <table class="table table-striped table-sm">
-    <thead>
-      <tr>
-        <th scope="col">
-          <%= sort_link(column: :id, label: '#', link: client_invoice_error_logs_path(@client, @invoice)) %>
-        </th>
-        <th scope="col">
-          <%= sort_link(column: :retry_number, label: 'Retry Number', link: client_invoice_error_logs_path(@client, @invoice)) %>
-        </th>
-        <th scope="col">
-          <%= sort_link(column: :date, label: 'Date', link: client_invoice_error_logs_path(@client, @invoice)) %>
-        </th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% error_logs.each do |error_log| %>
-        <tr>
-          <td><%= error_log.id %></td>
-          <td><%= error_log.retry_number %></td>
-          <td><%= error_log.date %></td>
-          <td>
-            <%= link_to client_invoice_error_log_path(client_id: @client.id, invoice_id: @invoice.id, id: error_log.id), class: "btn btn-sm btn-outline-secondary", data: { turbo: false } do %>
-              <i class="bi bi-eye"></i>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">
+              <%= sort_link(column: :id, label: '#', link: client_invoice_error_logs_path(@client, @invoice)) %>
+            </th>
+            <th scope="col">
+              <%= sort_link(column: :retry_number, label: 'Retry Number', link: client_invoice_error_logs_path(@client, @invoice)) %>
+            </th>
+            <th scope="col">
+              <%= sort_link(column: :date, label: 'Date', link: client_invoice_error_logs_path(@client, @invoice)) %>
+            </th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% error_logs.each do |error_log| %>
+            <tr>
+              <td><%= error_log.id %></td>
+              <td><%= error_log.retry_number %></td>
+              <td><%= error_log.date %></td>
+              <td>
+                <%= link_to client_invoice_error_log_path(client_id: @client.id, invoice_id: @invoice.id, id: error_log.id), class: "btn btn-sm btn-outline-secondary", data: { turbo: false } do %>
+                  <i class="bi bi-eye"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <%= render "shared/pagination" %>
 <% end %>

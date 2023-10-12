@@ -37,7 +37,7 @@ class Client::Invoice::ErrorLogsController < ApplicationController
   def set_error_logs
     @error_logs = @invoice.error_logs.all
     sort_error_logs
-    @error_logs
+    @pagy, @error_logs = pagy(@error_logs)
   end
 
   def allow_sort

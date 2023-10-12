@@ -9,7 +9,9 @@ class ClientsController < ApplicationController
   def index; end
 
   # GET /clients/1 or /clients/1.json
-  def show; end
+  def show
+    @pagy, @client.invoices = pagy(@client.invoices)
+  end
 
   # GET /clients/new
   def new
@@ -82,7 +84,7 @@ class ClientsController < ApplicationController
   def set_clients
     @clients = Client.all
     sort_clients
-    @clients
+    @pagy, @clients = pagy(@clients)
   end
 
   def allow_sort

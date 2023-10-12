@@ -2,6 +2,7 @@
 
 module ApplicationHelper
   include ActionView::Helpers::NumberHelper
+  include Pagy::Frontend
 
   def flash_class_for(flash_type)
     {

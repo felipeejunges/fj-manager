@@ -11,7 +11,9 @@ class Client::InvoicesController < ApplicationController
   end
 
   # GET /clients/1/invoices/1 or /clients/1/invoices/1.json
-  def show; end
+  def show
+    @pagy, @invoice.error_logs = pagy(@invoice.error_logs)
+  end
 
   def retry
     payment_type = payment_type_param[:payment_type]
@@ -58,7 +60,7 @@ class Client::InvoicesController < ApplicationController
   def set_invoices
     @invoices = @client.invoices.all
     sort_invoices
-    @invoices
+    @pagy, @invoices = pagy(@invoices)
   end
 
   def allow_sort
