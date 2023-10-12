@@ -6,7 +6,7 @@ RSpec.describe GenerateInvoiceJob, type: :job do
 
     context "when invoice does not exist for the given date" do
       it "creates a new invoice for the client" do
-        described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.yesterday }.to_json)
+        described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current.yesterday }.to_json)
         expect(client.invoices.count).to eq(1)
       end
     end
@@ -15,13 +15,13 @@ RSpec.describe GenerateInvoiceJob, type: :job do
       let(:status) { :generated }
 
       before do
-        create(:client_invoice, client: client, reference_date: Date.yesterday, status: status)
+        create(:client_invoice, client: client, reference_date: Date.current.yesterday, status: status)
       end
 
       context "status is generated" do
         it "does not change the status of the existing invoice" do
           existing_invoice = client.invoices.last
-          described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.yesterday }.to_json)
+          described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current.yesterday }.to_json)
           expect(client.invoices.count).to eq(1)
           expect(existing_invoice.reload.status).to eq('generated')
         end      
@@ -32,7 +32,7 @@ RSpec.describe GenerateInvoiceJob, type: :job do
 
         it "does change the status of the existing invoice" do
           existing_invoice = client.invoices.last
-          described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.yesterday }.to_json)
+          described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current.yesterday }.to_json)
           expect(client.invoices.count).to eq(1)
           expect(existing_invoice.reload.status).to eq('generated')
         end      

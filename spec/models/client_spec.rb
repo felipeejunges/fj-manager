@@ -22,14 +22,14 @@ RSpec.describe Client, type: :model do
     let(:client) { create(:client, created_at: Time.zone.parse('2022-01-01')) }
 
     it 'calculates expected earnings this year' do
-      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :payed)
+      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :payed)
       create(:client_invoice, client: client, invoice_value: 1500, reference_date: 1.month.ago, status: :payed)
       expected_earnings_this_year = 1000 + 1500 + (client.plan_value * 10)
       expect(client.expected_earnings_this_year).to eq(expected_earnings_this_year)
     end
 
     it 'calculates current status' do
-      create(:client_invoice, client: client, status: 'payed', reference_date: Date.today)
+      create(:client_invoice, client: client, status: 'payed', reference_date: Date.current)
       create(:client_invoice, client: client, status: 'generating',reference_date: 1.month.ago)
       create(:client_invoice, client: client, status: 'error', reference_date: 2.month.ago)
 
@@ -37,7 +37,7 @@ RSpec.describe Client, type: :model do
     end
 
     it 'calculates expected earnings comparisson yearly correctly' do
-      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :payed)
+      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :payed)
       create(:client_invoice, client: client, invoice_value: 1500, reference_date: 1.month.ago, status: :payed)
       expected_earnings_this_year = 1000 + 1500 + (client.plan_value * 10)
       
@@ -49,7 +49,7 @@ RSpec.describe Client, type: :model do
     end
 
     it 'calculates earnings for the current year correctly' do
-      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :payed)
+      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :payed)
       create(:client_invoice, client: client, invoice_value: 1500, reference_date: 1.month.ago, status: :payed)
       earnings_this_year = 1000 + 1500
 
@@ -73,8 +73,8 @@ RSpec.describe Client, type: :model do
     end
 
     it 'calculates errors for the current year correctly' do
-      invoice = create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :error)
-      create(:client_invoice_error_log, invoice: invoice, date: Date.today)
+      invoice = create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :error)
+      create(:client_invoice_error_log, invoice: invoice, date: Date.current)
       errors_this_year = 1
 
       expect(client.errors_this_year).to eq(errors_this_year)
@@ -89,8 +89,8 @@ RSpec.describe Client, type: :model do
     end
 
     it 'calculates errors comparisson yearly correctly' do
-      invoice = create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :error) 
-      create(:client_invoice_error_log, invoice: invoice, date: Date.today)
+      invoice = create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :error) 
+      create(:client_invoice_error_log, invoice: invoice, date: Date.current)
       invoice_last_year = create(:client_invoice, client: client, invoice_value: 1000, reference_date: 1.year.ago, status: :payed) 
       create(:client_invoice_error_log, invoice: invoice_last_year, date: 1.year.ago)
       create(:client_invoice_error_log, invoice: invoice_last_year, date: 1.year.ago)
@@ -103,7 +103,7 @@ RSpec.describe Client, type: :model do
     end
 
     it 'calculates generated invoices for the current year correctly' do
-      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :generated) 
+      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :generated) 
       generated_invoices_this_year = 1
       expect(client.generated_invoices_this_year).to eq(generated_invoices_this_year)
     end
@@ -116,7 +116,7 @@ RSpec.describe Client, type: :model do
     end
 
     it 'calculates generated invoices comparisson yearly correctly' do
-      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :generated) 
+      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :generated) 
       create(:client_invoice, client: client, invoice_value: 1000, reference_date: 1.year.ago, status: :generated) 
       generated_invoices_this_year = 1
       generated_invoices_last_year = 1
@@ -128,7 +128,7 @@ RSpec.describe Client, type: :model do
     end
 
     it 'calculates earnings for the current month correctly' do
-      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :payed)
+      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :payed)
       earnings_this_month = 1000
 
       expect(client.earnings_this_month).to eq(earnings_this_month)
@@ -142,7 +142,7 @@ RSpec.describe Client, type: :model do
     end
 
     it 'calculates earnings comparisson monthly correctly' do
-      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :payed)
+      create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :payed)
       create(:client_invoice, client: client, invoice_value: 500, reference_date: 1.year.ago, status: :payed)
       earnings_this_month = 1000
       earnings_last_month = 500
@@ -153,8 +153,8 @@ RSpec.describe Client, type: :model do
     end
 
     it 'calculates errors for the current month correctly' do
-      invoice = create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :error)
-      create(:client_invoice_error_log, invoice: invoice, date: Date.today)
+      invoice = create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :error)
+      create(:client_invoice_error_log, invoice: invoice, date: Date.current)
       errors_this_month = 1
 
       expect(client.errors_this_month).to eq(errors_this_month)
@@ -169,8 +169,8 @@ RSpec.describe Client, type: :model do
     end
 
     it 'calculates errors comparisson monthly correctly' do
-      invoice = create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.today, status: :error) 
-      create(:client_invoice_error_log, invoice: invoice, date: Date.today)
+      invoice = create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :error) 
+      create(:client_invoice_error_log, invoice: invoice, date: Date.current)
       invoice_last_year = create(:client_invoice, client: client, invoice_value: 1000, reference_date: 1.month.ago, status: :payed) 
       create(:client_invoice_error_log, invoice: invoice_last_year, date: 1.month.ago)
       create(:client_invoice_error_log, invoice: invoice_last_year, date: 1.month.ago)

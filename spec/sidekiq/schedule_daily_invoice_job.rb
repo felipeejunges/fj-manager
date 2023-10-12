@@ -6,8 +6,8 @@ RSpec.describe ScheduleDailyInvoiceJob, type: :job do
   describe 'perform' do
     it 'enqueues GenerateInvoiceJob' do
       create(:client, payment_day: Date.tomorrow)
-      create(:client, payment_day: Date.today)
-      create(:client, payment_day: Date.yesterday)
+      create(:client, payment_day: Date.current)
+      create(:client, payment_day: Date.current.yesterday)
 
       described_class.perform_sync
 

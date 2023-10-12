@@ -40,7 +40,7 @@ e.date = Time.new('2023-09-07')
 
 e.save
 
-yesterday = Date.yesterday
+yesterday = Date.current.yesterday
 50.times do
   client = Client.create(
     name: Faker::Company.name,
