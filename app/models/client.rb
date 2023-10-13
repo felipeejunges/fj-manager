@@ -2,7 +2,6 @@
 
 class Client < ApplicationRecord
   has_many :invoices, class_name: 'Client::Invoice', inverse_of: :client, dependent: :destroy
-  has_many :old_error_logs, through: :invoices
 
   enum document_type: {
     cnpj: 1,
@@ -48,11 +47,11 @@ class Client < ApplicationRecord
   end
 
   def errors_this_year
-    @errors_this_year ||= old_error_logs.range_year(Time.now.in_time_zone).count
+    @errors_this_year ||= error_logs.range_year(Time.now.in_time_zone).count
   end
 
   def errors_last_year
-    @errors_last_year ||= old_error_logs.range_year(Time.now.in_time_zone.last_year).count
+    @errors_last_year ||= error_logs.range_year(Time.now.in_time_zone.last_year).count
   end
 
   def errors_comparisson_yearly
@@ -84,11 +83,11 @@ class Client < ApplicationRecord
   end
 
   def errors_this_month
-    @errors_this_month ||= old_error_logs.range_month(Time.now.in_time_zone).count
+    @errors_this_month ||= error_logs.range_month(Time.now.in_time_zone).count
   end
 
   def errors_last_month
-    @errors_last_month ||= old_error_logs.range_month(Time.now.in_time_zone.last_month).count
+    @errors_last_month ||= error_logs.range_month(Time.now.in_time_zone.last_month).count
   end
 
   def errors_comparisson_monthly

@@ -2,9 +2,6 @@
 
 class Client::Invoice < ApplicationRecord
   belongs_to :client
-  has_many :old_error_logs, class_name: 'Client::Invoice::OldErrorLog',
-                            foreign_key: :client_invoice_id, inverse_of: :invoice,
-                            dependent: :destroy
 
   enum status: {
     generating: 0,
@@ -29,7 +26,7 @@ class Client::Invoice < ApplicationRecord
   end
 
   def will_retry?
-    old_error_logs.count < max_retries
+    error_logs.count < max_retries
   end
 
   def wont_retry?
@@ -38,8 +35,8 @@ class Client::Invoice < ApplicationRecord
 
   def store_error(exception)
     self.status = :error
-    retry_number = old_error_logs.count + 1
-    old_error_logs.new(retry_number:, log: exception.to_s, date: Time.now.in_time_zone).save
+    retry_number = error_logs.count + 1
+    error_logs.new(retry_number:, log: exception.to_s, date: Time.now.in_time_zone).save
 
     return if wont_retry?
 
@@ -50,8 +47,8 @@ class Client::Invoice < ApplicationRecord
     false
   end
 
-  def old_error_logs?
-    old_error_logs.present?
+  def error_logs?
+    error_logs.present?
   end
 
   def add_more_retries
