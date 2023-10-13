@@ -9,8 +9,11 @@ class Client::Invoice::ErrorLog
   field :log, type: String
   field :retry_number, type: Integer
 
+  scope :range_year, ->(date) { where(date: date.beginning_of_year..date.end_of_year) }
+  scope :range_month, ->(date) { where(date: date.beginning_of_month..date.end_of_month) }
+
   def invoice
-    Client::Invoice.find(client_invoice_id)
+    @invoice ||= Client::Invoice.find(client_invoice_id)
   end
 
   def client
