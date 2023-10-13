@@ -5,7 +5,7 @@ RSpec.feature 'Invoice Page', type: :system do
   let(:user) { create(:user, :admin, password: password) }
   let(:client) { create(:client) }
   let(:invoice) { create(:client_invoice, client: client, invoice_value: 100) }
-  let!(:old_error_log) { create(:client_invoice_old_error_log, invoice: invoice) }
+  let!(:error_log) { create(:client_invoice_error_log, client_invoice_id: invoice.id) }
 
   it 'displays invoice details' do
     login(user.email, password)
@@ -14,7 +14,7 @@ RSpec.feature 'Invoice Page', type: :system do
     visit client_invoice_path(client.id, invoice)
     expect(page).to have_content('Incoming')
     expect(page).to have_content("$100.00")
-    all("table tbody")[1] do |tbody|
+    within("table tbody") do |tbody|
       expect(tbody.all('tr').count).to be > 0
     end
   end

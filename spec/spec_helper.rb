@@ -127,11 +127,12 @@ RSpec.configure do |config|
     Capybara.reset_sessions!
   end
 
-  config.before(:all) do
-    DatabaseCleaner.strategy = :truncation
+  config.before(:each) do
+    DatabaseCleaner[:active_record].strategy = :truncation
+    DatabaseCleaner[:mongoid].strategy = [:deletion]
   end
 
-  config.after(:all) do
+  config.after(:each) do
     DatabaseCleaner.clean
   end
 end

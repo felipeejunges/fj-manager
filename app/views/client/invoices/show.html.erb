@@ -34,12 +34,12 @@
         <div class="col-12">
           <div class="card border-secondary ">
             <div class="card-header">Errors</div>
-            <% if !@invoice.old_error_logs? %>
+            <% if !@invoice.error_logs? %>
               <div class="card-body text-success">
                 <h5 class="card-title">0</h5>
             <% else %>
               <div class="card-body text-danger">
-                <h5 class="card-title"><%= @invoice.old_error_logs.count %></h5>
+                <h5 class="card-title"><%= @invoice.error_logs.count %></h5>
             <% end %>
             </div>
           </div>
@@ -100,24 +100,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <%= render "client/invoice/error_logs/table", error_logs: @invoice.error_logs %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mt-2">
-    <div class="col-12">
-      <div class="card mx-3">
-        <div class="card-body">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
-            <h5 class="card-title">Old Error Logs</h5>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <%= render "client/invoice/old_error_logs/table", old_error_logs: @invoice.old_error_logs %>
+              <%= render "client/invoice/error_logs/table", error_logs: @error_logs %>
             </div>
           </div>
         </div>

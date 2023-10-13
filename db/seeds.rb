@@ -36,13 +36,6 @@ i2.payed_date = '2023-08-07'
 i2.save
 
 33.times do |i|
-  e = i1.old_error_logs.find_or_create_by(retry_number: i + 1, log: Faker::Lorem.sentence)
-  e.date = Time.new('2023-09-07')
-
-  e.save
-end
-
-33.times do |i|
   e = i1.error_logs.find_or_create_by(retry_number: i + 1, log: Faker::Lorem.sentence)
   e.date = Time.new('2023-09-07')
 

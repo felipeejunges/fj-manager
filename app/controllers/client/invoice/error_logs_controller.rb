@@ -51,11 +51,4 @@ class Client::Invoice::ErrorLogsController < ApplicationController
 
     @error_logs = @error_logs.order(sort)
   end
-
-  def pagy_get_vars(collection, vars)
-    pagy_set_items_from_params(vars) if defined?(ItemsExtra)
-    vars[:count] ||= (count = collection.count).is_a?(Hash) ? count.size : count
-    vars[:page]  ||= params[vars[:page_param]]
-    vars
-  end
 end

@@ -10,17 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_10_023128) do
-  create_table "client_invoice_old_error_logs", force: :cascade do |t|
-    t.integer "client_invoice_id", null: false
-    t.integer "retry_number"
-    t.datetime "date"
-    t.string "log"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["client_invoice_id"], name: "index_client_invoice_old_error_logs_on_client_invoice_id"
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2023_11_13_004128) do
   create_table "client_invoices", force: :cascade do |t|
     t.string "description"
     t.string "payment_type"
@@ -56,6 +46,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_10_023128) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "client_invoice_old_error_logs", "client_invoices"
   add_foreign_key "client_invoices", "clients"
 end

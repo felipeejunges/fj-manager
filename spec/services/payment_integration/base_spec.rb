@@ -23,7 +23,7 @@ RSpec.describe PaymentIntegration::Base do
 
         payment_integration.perform(invoice.id)
 
-        expect(invoice.old_error_logs.last.log).to eq('Integration error message')
+        expect(invoice.error_logs.last.log).to eq('Integration error message')
       end
     end
   end
