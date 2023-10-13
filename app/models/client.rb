@@ -11,7 +11,7 @@ class Client < ApplicationRecord
   validates :name, :document, :document_type, :payment_type, :payment_day, :plan_value, presence: true
 
   def error_logs
-    Client::Invoice::ErrorLog.where(client_invoice_id: invoices.pluck(:id))
+    Client::Invoice::ErrorLog.where(:client_invoice_id.in => invoices.pluck(:id))
   end
 
   def current_status

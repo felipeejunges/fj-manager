@@ -71,6 +71,8 @@ group :test do
   gem "shoulda-matchers", "~> 5.3"
   gem "rspec-sidekiq", "~> 4.0"
   gem "rails-controller-testing", "~> 1.0"
+  gem "database_cleaner", "~> 2.0"
+  gem "database_cleaner-mongoid", "~> 2.0"
 end
 
 
@@ -89,9 +91,8 @@ gem "sidekiq", "~> 7.1"
 
 gem "sidekiq-scheduler", "~> 5.0"
 
-gem "database_cleaner", "~> 2.0"
-
 gem "pagy", "~> 6.1"
 
 gem 'mongoid', "~>7.5.3"
 gem "mongoid-enum", :git => 'https://github.com/choilive/mongoid-enum.git'
+

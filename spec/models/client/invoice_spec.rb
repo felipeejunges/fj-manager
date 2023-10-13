@@ -94,7 +94,7 @@ RSpec.describe Client::Invoice, type: :model do
 
     describe '#error_logs?' do
       it 'returns true if there are error logs' do
-        create(:client_invoice_error_log, invoice: invoice)
+        create(:client_invoice_error_log, client_invoice_id: invoice.id)
         expect(invoice.error_logs?).to be_truthy
       end
 

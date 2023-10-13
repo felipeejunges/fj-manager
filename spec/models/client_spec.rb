@@ -92,8 +92,8 @@ RSpec.describe Client, type: :model do
       invoice = create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :error) 
       create(:client_invoice_error_log, client_invoice_id: invoice.id, date: Date.current)
       invoice_last_year = create(:client_invoice, client: client, invoice_value: 1000, reference_date: 1.year.ago, status: :payed) 
-      create(:client_invoice_error_log, client_invoice_id: invoice.id_last_year, date: 1.year.ago)
-      create(:client_invoice_error_log, client_invoice_id: invoice.id_last_year, date: 1.year.ago)
+      create(:client_invoice_error_log, client_invoice_id: invoice_last_year.id, date: 1.year.ago)
+      create(:client_invoice_error_log, client_invoice_id: invoice_last_year.id, date: 1.year.ago)
       errors_this_year = 1
       errors_last_year = 2
 
@@ -162,7 +162,7 @@ RSpec.describe Client, type: :model do
 
     it 'calculates errors for the last month correctly' do
       invoice_last_year = create(:client_invoice, client: client, invoice_value: 1000, reference_date: 1.month.ago, status: :payed) 
-      create(:client_invoice_error_log, client_invoice_id: invoice.id_last_year, date: 1.month.ago)
+      create(:client_invoice_error_log, client_invoice_id: invoice_last_year.id, date: 1.month.ago)
       errors_last_month = 1
 
       expect(client.errors_last_month).to eq(errors_last_month)
@@ -172,8 +172,8 @@ RSpec.describe Client, type: :model do
       invoice = create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :error) 
       create(:client_invoice_error_log, client_invoice_id: invoice.id, date: Date.current)
       invoice_last_year = create(:client_invoice, client: client, invoice_value: 1000, reference_date: 1.month.ago, status: :payed) 
-      create(:client_invoice_error_log, client_invoice_id: invoice.id_last_year, date: 1.month.ago)
-      create(:client_invoice_error_log, client_invoice_id: invoice.id_last_year, date: 1.month.ago)
+      create(:client_invoice_error_log, client_invoice_id: invoice_last_year.id, date: 1.month.ago)
+      create(:client_invoice_error_log, client_invoice_id: invoice_last_year.id, date: 1.month.ago)
       errors_this_month = 1
       errors_last_month = 2
 
