@@ -3,7 +3,7 @@
 class Client::InvoicesController < ApplicationController
   before_action :authenticate_user
   before_action :set_client
-  before_action :set_invoice
+  before_action :set_invoice, only: %i[show retry]
   before_action :set_invoices, only: :index
 
   def index
@@ -12,7 +12,7 @@ class Client::InvoicesController < ApplicationController
 
   # GET /clients/1/invoices/1 or /clients/1/invoices/1.json
   def show
-    @pagy, @invoice.error_logs = pagy(@invoice.error_logs)
+    @pagy, @invoice.old_error_logs = pagy(@invoice.old_error_logs)
   end
 
   def retry

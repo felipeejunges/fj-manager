@@ -23,22 +23,31 @@ c2 = Client.find_or_create_by(name: 'Second Client', document: '23456789012', do
 c1.save
 c2.save
 
-i1 = c1.invoices.find_or_create_by(description: 'Seed generated', payment_type: 'credit_card', reference_date: '2023-09-07',
+i1 = c1.invoices.find_or_create_by(description: 'Seed generated #1', payment_type: 'credit_card', reference_date: '2023-09-07',
                                    invoice_value: 39.90, status: 3)
 
 i1.payed_date = '2023-09-07'
 i1.save
 
-i2 = c1.invoices.find_or_create_by(description: 'Seed generated', payment_type: 'credit_card', reference_date: '2023-08-07',
+i2 = c1.invoices.find_or_create_by(description: 'Seed generated #2', payment_type: 'credit_card', reference_date: '2023-08-07',
                                    invoice_value: 39.90, status: 3)
 i2.payed_date = '2023-08-07'
 
 i2.save
 
-e = i1.error_logs.find_or_create_by(retry_number: 1, log: 'Example')
-e.date = Time.new('2023-09-07')
+33.times do |i|
+  e = i1.old_error_logs.find_or_create_by(retry_number: i + 1, log: Faker::Lorem.sentence)
+  e.date = Time.new('2023-09-07')
 
-e.save
+  e.save
+end
+
+33.times do |i|
+  e = i1.error_logs.find_or_create_by(retry_number: i + 1, log: Faker::Lorem.sentence)
+  e.date = Time.new('2023-09-07')
+
+  e.save
+end
 
 yesterday = Date.current.yesterday
 50.times do

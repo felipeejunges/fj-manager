@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Client::Invoice::ErrorLogsController, type: :controller do
+RSpec.describe Client::Invoice::OldErrorLogsController, type: :controller do
   let(:user) { create(:user) }
   let(:client) { create(:client) }
   let(:invoice) { create(:client_invoice, client: client) }
-  let(:error_log) { create(:client_invoice_error_log, client_invoice_id: invoice.id) }
+  let(:old_error_log) { create(:client_invoice_old_error_log, invoice: invoice) }
 
   before do
     allow(controller).to receive(:authenticate_user).and_return(true)
@@ -13,7 +13,7 @@ RSpec.describe Client::Invoice::ErrorLogsController, type: :controller do
 
   describe 'GET #show' do
     it 'returns a success response' do
-      get :show, params: { client_id: client.id, invoice_id: invoice.id, id: error_log.id }
+      get :show, params: { client_id: client.id, invoice_id: invoice.id, id: old_error_log.id }
       expect(response).to be_successful
     end
   end

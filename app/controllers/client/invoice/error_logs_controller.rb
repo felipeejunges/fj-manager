@@ -4,7 +4,7 @@ class Client::Invoice::ErrorLogsController < ApplicationController
   before_action :authenticate_user
   before_action :set_client
   before_action :set_client_invoice
-  before_action :set_client_invoice_error_log
+  before_action :set_client_invoice_error_log, only: :show
   before_action :set_error_logs, only: :index
 
   # GET /clients/1/invoices/1/error_logs/1 or /clients/1/invoices/1/error_logs/1.json
@@ -50,5 +50,12 @@ class Client::Invoice::ErrorLogsController < ApplicationController
     sort = { params[:sort_by].to_sym => params[:sort_order] == 'DESC' ? 'DESC' : 'ASC' }
 
     @error_logs = @error_logs.order(sort)
+  end
+
+  def pagy_get_vars(collection, vars)
+    pagy_set_items_from_params(vars) if defined?(ItemsExtra)
+    vars[:count] ||= (count = collection.count).is_a?(Hash) ? count.size : count
+    vars[:page]  ||= params[vars[:page_param]]
+    vars
   end
 end

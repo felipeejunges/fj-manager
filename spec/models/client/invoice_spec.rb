@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Client::Invoice, type: :model do
   describe 'associations' do
     it { should belong_to(:client) }
-    it { should have_many(:error_logs).class_name('Client::Invoice::ErrorLog').dependent(:destroy) }
+    it { should have_many(:old_error_logs).class_name('Client::Invoice::OldErrorLog').dependent(:destroy) }
   end
 
   describe 'validations' do
@@ -55,12 +55,12 @@ RSpec.describe Client::Invoice, type: :model do
 
     describe '#will_retry?' do
       it 'returns true if error logs count is less than max_retries' do
-        allow(invoice).to receive(:error_logs).and_return(double(count: invoice.max_retries - 1))
+        allow(invoice).to receive(:old_error_logs).and_return(double(count: invoice.max_retries - 1))
         expect(invoice.will_retry?).to be_truthy
       end
 
       it 'returns false if error logs count is equal to max_retries' do
-        allow(invoice).to receive(:error_logs).and_return(double(count: invoice.max_retries))
+        allow(invoice).to receive(:old_error_logs).and_return(double(count: invoice.max_retries))
         expect(invoice.will_retry?).to be_falsey
       end
     end
@@ -82,25 +82,25 @@ RSpec.describe Client::Invoice, type: :model do
         allow(invoice).to receive(:will_retry?).and_return(true)
         expect(::GenerateInvoiceJob).to receive(:perform_in).with(10, any_args)
         invoice.store_error(StandardError.new('Example error'))
-        expect(invoice.error_logs.count).to eq(1)
+        expect(invoice.old_error_logs.count).to eq(1)
       end
 
       it 'does not create a new error log and does not schedule GenerateInvoiceJob when retries are not allowed' do
         allow(invoice).to receive(:will_retry?).and_return(false)
         expect(::GenerateInvoiceJob).not_to receive(:perform_in)
         invoice.store_error(StandardError.new('Example error'))
-        expect(invoice.error_logs.count).to eq(1)
+        expect(invoice.old_error_logs.count).to eq(1)
       end
     end
 
-    describe '#error_logs?' do
+    describe '#old_error_logs?' do
       it 'returns true if there are error logs' do
-        create(:client_invoice_error_log, invoice: invoice)
-        expect(invoice.error_logs?).to be_truthy
+        create(:client_invoice_old_error_log, invoice: invoice)
+        expect(invoice.old_error_logs?).to be_truthy
       end
 
       it 'returns false if there are no error logs' do
-        expect(invoice.error_logs?).to be_falsey
+        expect(invoice.old_error_logs?).to be_falsey
       end
     end
 

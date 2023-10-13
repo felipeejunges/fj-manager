@@ -48,6 +48,13 @@ services:
     environment:
       - SELENIUM_HOST=chrome
       - SELENIUM_PORT=4444
+      
+  mongo:
+    image: mongo:4.4.3
+    volumes:
+      - ./tmp/mongodata:/data/db/data
+    ports:
+      - "27017:27017"
   
   #selenium_chrome:
   #  image: selenium/standalone-chrome-debug:3.141.59
