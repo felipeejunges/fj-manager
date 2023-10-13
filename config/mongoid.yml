@@ -178,7 +178,7 @@ test:
     default:
       database: fj_manager_test
       hosts:
-        - localhost:27017
+        - mongo:27017
       options:
         read:
           mode: :primary

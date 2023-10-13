@@ -18,6 +18,7 @@ jobs:
     docker:
       - image: "cimg/ruby:3.2.1-browsers"
       - image: "cimg/redis:7.0.8"
+      - image: "circleci/mongo:4.4.3"
       - image: "selenium/standalone-chrome-debug:3.141.59"
     environment:
       PAGER: cat
@@ -33,6 +34,11 @@ jobs:
       - run:
           command: "curl -LO http://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi6_3.2.1-8_amd64.deb && sudo dpkg -i libffi6_3.2.1-8_amd64.deb"
           name: "Install libffi6 for backwards-compatibility"
+      - run:
+          command: |
+            sudo tee -a /etc/hosts \<<<'127.0.0.1 mongo'
+            cat /etc/hosts
+          name: "Configure network"
       - node/install:
           install-yarn: true
           node-version: "14.21.3"
@@ -42,7 +48,7 @@ jobs:
           command: "yarn build"
       - run:
           command: "yarn build:css"
-      
+
       - run:
           command: |
             mkdir /tmp/test-results

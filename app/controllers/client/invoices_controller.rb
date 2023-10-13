@@ -3,7 +3,7 @@
 class Client::InvoicesController < ApplicationController
   before_action :authenticate_user
   before_action :set_client
-  before_action :set_invoice, only: :show
+  before_action :set_invoice, only: %i[show retry]
   before_action :set_invoices, only: :index
 
   def index

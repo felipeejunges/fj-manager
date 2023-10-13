@@ -14,7 +14,7 @@ RSpec.feature 'Invoice Page', type: :system do
     visit client_invoice_path(client.id, invoice)
     expect(page).to have_content('Incoming')
     expect(page).to have_content("$100.00")
-    within("table tbody") do |tbody|
+    all("table tbody")[1] do |tbody|
       expect(tbody.all('tr').count).to be > 0
     end
   end
