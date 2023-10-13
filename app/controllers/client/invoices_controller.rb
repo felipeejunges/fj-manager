@@ -12,7 +12,7 @@ class Client::InvoicesController < ApplicationController
 
   # GET /clients/1/invoices/1 or /clients/1/invoices/1.json
   def show
-    @pagy, @invoice.error_logs = pagy(@invoice.error_logs)
+    @pagy, @error_logs = pagy(@invoice.error_logs)
   end
 
   def retry
