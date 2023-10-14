@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_13_004128) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_14_423128) do
   create_table "client_invoices", force: :cascade do |t|
     t.string "description"
     t.string "payment_type"
@@ -25,15 +25,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_004128) do
     t.index ["client_id"], name: "index_client_invoices_on_client_id"
   end
 
+  create_table "client_plans", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.float "price", default: 0.0
+    t.boolean "signable", default: true
+    t.boolean "sale", default: false
+    t.string "code"
+    t.datetime "start_date", default: "2023-10-14 06:50:52"
+    t.datetime "end_date"
+    t.integer "billable_period", default: 0
+    t.float "max_discount", default: 100.0
+    t.boolean "commissionable", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "name"
     t.string "document"
     t.integer "document_type"
     t.string "payment_type"
     t.integer "payment_day"
-    t.float "plan_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "discount", default: 0.0
+    t.integer "client_plan_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,4 +64,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_004128) do
   end
 
   add_foreign_key "client_invoices", "clients"
+  add_foreign_key "clients", "client_plans"
 end

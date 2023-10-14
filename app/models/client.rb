@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 class Client < ApplicationRecord
+  attr_accessor :plan_value
+
   has_many :invoices, class_name: 'Client::Invoice', inverse_of: :client, dependent: :destroy
+  belongs_to :plan
 
   enum document_type: {
     cnpj: 1,
     cpf: 2
   }
 
-  validates :name, :document, :document_type, :payment_type, :payment_day, :plan_value, presence: true
+  validates :name, :document, :document_type, :payment_type, :payment_day, presence: true
 
   def error_logs
     Client::Invoice::ErrorLog.where(:client_invoice_id.in => invoices.pluck(:id))
