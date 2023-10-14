@@ -34,7 +34,7 @@ class GenerateInvoiceJob < ApplicationJob
       description: "Automated ##{client.invoices.count + 1}",
       payment_type: client.payment_type,
       reference_date: date,
-      invoice_value: client.plan_value
+      invoice_value: client.plan_price
     )
   end
 

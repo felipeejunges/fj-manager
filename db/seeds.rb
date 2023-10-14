@@ -51,7 +51,7 @@ yesterday = Date.current.yesterday
     status: :payed,
     payed_date: yesterday,
     reference_date: yesterday,
-    invoice_value: client.plan_value,
+    invoice_value: client.plan_price,
     payment_type: client.payment_type
   )
 end

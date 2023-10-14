@@ -112,3 +112,28 @@ RSpec.describe Client::Invoice, type: :model do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: client_invoices
+#
+#  id             :integer          not null, primary key
+#  description    :string
+#  payment_type   :string
+#  reference_date :date
+#  status         :integer
+#  payed_date     :datetime
+#  invoice_value  :float
+#  max_retries    :integer          default(10)
+#  client_id      :integer          not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+# Indexes
+#
+#  index_client_invoices_on_client_id  (client_id)
+#
+# Foreign Keys
+#
+#  client_id  (client_id => clients.id)
+#

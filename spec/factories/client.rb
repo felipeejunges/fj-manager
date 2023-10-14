@@ -7,6 +7,6 @@ FactoryBot.define do
     document_type { Client.document_types.keys.sample }
     payment_type { %w[credit_card debit_card ticket].sample }
     payment_day { Faker::Number.between(from: 1, to: 31) }
-    plan_value { Faker::Number.decimal(l_digits: 3, r_digits: 2) }
+    plan_price { Faker::Number.decimal(l_digits: 3, r_digits: 2) }
   end
 end

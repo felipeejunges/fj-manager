@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_423128) do
     t.boolean "signable", default: true
     t.boolean "sale", default: false
     t.string "code"
-    t.datetime "start_date", default: "2023-10-14 06:50:52"
+    t.datetime "start_date", default: "2023-10-14 19:03:47"
     t.datetime "end_date"
     t.integer "billable_period", default: 0
     t.float "max_discount", default: 100.0
@@ -50,7 +50,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_423128) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "discount", default: 0.0
+    t.string "email"
     t.integer "client_plan_id"
+    t.integer "created_by_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,4 +67,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_423128) do
 
   add_foreign_key "client_invoices", "clients"
   add_foreign_key "clients", "client_plans"
+  add_foreign_key "clients", "users", column: "created_by_id"
 end
