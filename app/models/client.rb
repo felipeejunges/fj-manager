@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Client < ApplicationRecord
-  attr_accessor :plan_price
-
   has_many :invoices, class_name: 'Client::Invoice', inverse_of: :client, dependent: :destroy
   belongs_to :plan, foreign_key: :client_plan_id
 
@@ -12,6 +10,10 @@ class Client < ApplicationRecord
   }
 
   validates :name, :document, :document_type, :payment_type, :payment_day, presence: true
+
+  def plan_price
+    plan&.price || 0
+  end
 
   def error_logs
     Client::Invoice::ErrorLog.where(:client_invoice_id.in => invoices.pluck(:id))

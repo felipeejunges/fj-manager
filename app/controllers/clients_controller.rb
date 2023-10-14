@@ -24,6 +24,7 @@ class ClientsController < ApplicationController
   # POST /clients or /clients.json
   def create
     @client = Client.new(client_params)
+    @client.created_by_id = current_user.id
 
     respond_to do |format|
       if @client.save
@@ -78,7 +79,7 @@ class ClientsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def client_params
-    params.require(:client).permit(:name, :document, :document_type, :payment_type, :payment_day, :plan_price)
+    params.require(:client).permit(:name, :document, :document_type, :payment_type, :payment_day, :discount, :email, :client_plan_id)
   end
 
   def set_clients
