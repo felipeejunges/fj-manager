@@ -1,10 +1,21 @@
-<h1>Editing plan</h1>
+<%= render "shared/menu" %>
+<div class="col-sm p-3 min-vh-100">
+  <%= render 'shared/notices' %>
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+        <h1 class="h2">Editing <%= @client_plan.name %></h1>
+        <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+          <div class="btn-group me-2">
+            <%= link_to "Show", @client_plan, class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to "Back to plans", client_plans_path, class: "btn btn-sm btn-outline-secondary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <%= render "form", client_plan: @client_plan %>
 
 <br>
-
-<div>
-  <%= link_to "Show this plan", @client_plan %> |
-  <%= link_to "Back to plans", client_plans_path %>
 </div>

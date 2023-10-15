@@ -14,17 +14,21 @@ u = User.find_or_create_by(first_name: 'Master', last_name: 'Admin', email: 'mas
 u.password = '123'
 u.save
 
-p1 = Client::Plan.new(name: 'Example', description: Faker::Lorem.sentence, billable_period: 1, price: 49.90)
+p1 = Client::Plan.new(name: 'Example', description: Faker::Lorem.sentence, billable_period: 1, price: 49.90, max_discount: 20)
 
 p1.save
 
+p2 = Client::Plan.new(name: '2nd Second', description: Faker::Lorem.sentence, billable_period: 2, price: 29.90)
+
+p2.save
+
 c1 = Client.find_or_create_by(name: 'The Client', document: '12345678901', document_type: 2, payment_type: 'credit_card',
-                              payment_day: 7, client_plan_id: p1.id)
+                              payment_day: 7, client_plan_id: p1.id, discount: 10)
 
 c1.save
 
 i1 = c1.invoices.find_or_create_by(description: 'Seed generated #1', payment_type: 'credit_card', reference_date: '2023-09-07',
-                                   invoice_value: 39.90, status: 3)
+                                   invoice_value: 39.90, status: 3, client_plan_id: c1.plan.id)
 
 i1.payed_date = '2023-09-07'
 i1.save
@@ -52,6 +56,7 @@ yesterday = Date.current.yesterday
     payed_date: yesterday,
     reference_date: yesterday,
     invoice_value: client.plan_price,
-    payment_type: client.payment_type
+    payment_type: client.payment_type,
+    client_plan_id: client.plan.id
   )
 end

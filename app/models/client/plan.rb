@@ -3,7 +3,7 @@
 class Client::Plan < ApplicationRecord
   has_many :clients, class_name: 'Client', inverse_of: :plan, dependent: :destroy
 
-  enum status: {
+  enum billable_period: {
     never: 0,
     monthly: 1,
     three_months: 2,
@@ -23,9 +23,9 @@ end
 #  signable        :boolean          default(TRUE)
 #  sale            :boolean          default(FALSE)
 #  code            :string
-#  start_date      :datetime         default(Sat, 14 Oct 2023 16:03:47.014772000 -03 -03:00)
+#  start_date      :datetime         default(Sun, 15 Oct 2023 17:28:05.329738000 -03 -03:00)
 #  end_date        :datetime
-#  billable_period :integer          default(0)
+#  billable_period :integer          default("never")
 #  max_discount    :float            default(100.0)
 #  commissionable  :boolean          default(TRUE)
 #  created_at      :datetime         not null

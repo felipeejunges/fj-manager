@@ -12,7 +12,16 @@ class Client < ApplicationRecord
   validates :name, :document, :document_type, :payment_type, :payment_day, presence: true
 
   def plan_price
+    pp = plan_price_without_discount
+    pp - ((pp * discount) / 100)
+  end
+
+  def plan_price_without_discount
     plan&.price || 0
+  end
+
+  def plan_billable_period
+    (plan&.billable_period || :never).humanize
   end
 
   def error_logs

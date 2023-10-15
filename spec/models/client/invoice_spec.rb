@@ -128,6 +128,7 @@ end
 #  client_id      :integer          not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  client_plan_id :integer
 #
 # Indexes
 #
@@ -135,5 +136,6 @@ end
 #
 # Foreign Keys
 #
-#  client_id  (client_id => clients.id)
+#  client_id       (client_id => clients.id)
+#  client_plan_id  (client_plan_id => client_plans.id)
 #

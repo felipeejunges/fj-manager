@@ -1,6 +1,20 @@
-<p style="color: green"><%= notice %></p>
+<%= render "shared/menu" %>
+<div class="col-sm p-3 min-vh-100">
+  <%= render 'shared/notices' %>
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Plans</h1>
+        <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+            <%= link_to new_client_plan_path, class: "btn btn-sm btn-outline-secondary" do %>
+              <i class="bi bi-plus-circle"></i> New plan
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
 
-<h1>Plans</h1>
+<p style="color: green"><%= notice %></p>
 
 <div id="client_plans">
   <% @client_plans.each do |client_plan| %>
@@ -12,3 +26,4 @@
 </div>
 
 <%= link_to "New plan", new_client_plan_path %>
+</div>

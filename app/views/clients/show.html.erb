@@ -9,6 +9,7 @@
           <% if @client.current_status.present? %>
             <%= render "client/invoices/status_badge", status: @client.current_status, text: @client.current_status.humanize %>
           <% end %>
+          - <%= number_to_currency(@client.plan_price) %>
         </h1>
         <div class="btn-toolbar mb-2 mb-md-0 mx-2">
           <div class="btn-group me-2">

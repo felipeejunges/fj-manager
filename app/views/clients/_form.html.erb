@@ -27,7 +27,7 @@
         <%= form.label :document %>
       </div>
     </div>
-    <div class="col-sm-12 col-md-2 mb-1">
+    <div class="col-sm-12 col-md-4 mb-1">
       <div class="form-floating">
         <div class="form-floating">
          <div class="form-floating">
@@ -35,12 +35,6 @@
             <%= form.label :document_type %>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-sm-12 col-md-2 mb-1">
-      <div class="form-floating">
-        <%= form.select :payment_type, PaymentTypesHelper.integration_options, {}, class: "form-select", disabled: readonly %>
-        <%= form.label :payment_type %>
       </div>
     </div>
   </div>
@@ -51,22 +45,28 @@
         <%= form.label :email %>
       </div>
     </div>
-    <div class="col-sm-12 col-md-4 mb-1">
-      <div class="form-floating">
-        <%= form.select :plan, Client::PlansHelper.plan_options, {}, class: "form-select", disabled: readonly %>
-        <%= form.label :plan %>
-      </div>
-    </div>
     <div class="col-sm-12 col-md-2 mb-1">
       <div class="form-floating">
-        <%= form.number_field :plan_price, class: "form-control", readonly: true, min: 0, step: "0.01" %>
-        <%= form.label :plan_price %>
+        <%= form.select :payment_type, PaymentTypesHelper.integration_options, {}, class: "form-select", disabled: readonly %>
+        <%= form.label :payment_type %>
       </div>
     </div>
     <div class="col-sm-12 col-md-2 mb-1">
       <div class="form-floating">
         <%= form.number_field :payment_day, class: "form-control", readonly: readonly, min: 1, max: 31 %>
         <%= form.label :payment_day %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-3 mb-1">
+      <div class="form-floating">
+        <%= form.select :client_plan_id, Client::PlansHelper.plan_options, {}, class: "form-select", disabled: readonly, id: :client_plan %>
+        <%= form.label :plan %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-1 mb-1">
+      <div class="form-floating">
+        <%= form.number_field :discount, class: "form-control", readonly: readonly, min: 0, max: 100, step: 0.01 %>
+        <%= form.label :discount %>
       </div>
     </div>
   </div>
