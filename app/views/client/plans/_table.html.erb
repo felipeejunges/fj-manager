@@ -1,0 +1,57 @@
+<%= turbo_frame_tag "client_plans_table" do %>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">
+              <%= sort_link(column: :id, label: '#', controller: :plans, action: 'list') %> 
+            </th>
+            <th scope="col">
+              <%= sort_link(column: :name, label: 'Name', controller: :plans, action: 'list') %> 
+            </th>
+            <th scope="col">
+              <%= sort_link(column: :price, label: 'Price', controller: :plans, action: 'list') %> 
+            </th>
+            <th scope="col">
+              <%= sort_link(column: :start_date, label: 'Start Date', controller: :plans, action: 'list') %> 
+            </th>
+            <th scope="col">
+              <%= sort_link(column: :end_date, label: 'End Date', controller: :plans, action: 'list') %> 
+            </th>
+            <th scope="col">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% client_plans.each do |client_plan| %>
+            <tr>
+              <td><%= client_plan.id %></td>
+              <td>
+                <%= link_to client_plan.name, client_plan, data: { turbo: false } %>
+              </td>
+              <td><%= number_to_currency(client_plan.price) %></td>
+              <td><%= client_plan.start_date %></td>
+              <td><%= client_plan.end_date %></td>
+              <td>
+                <div class="btn-group me-2">
+                  <%= link_to client_plan, class: "btn btn-sm btn-outline-secondary", data: { turbo: false } do %>
+                    <i class="bi bi-eye"></i>
+                  <% end %>
+                  <%= link_to edit_client_plan_path(client_plan), class: "btn btn-sm btn-outline-primary", data: { turbo: false } do %>
+                    <i class="bi bi-pencil-square"></i>
+                  <% end %>
+                  <%= link_to client_plan_path(client_plan), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
+                    <i class="bi bi-trash"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <%= render "shared/pagination" %>
+<% end %>

@@ -14,7 +14,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :plans, module: :client, as: :client_plans
+  resources :plans, module: :client, as: :client_plans do
+    collection do
+      get 'list'
+    end
+  end
 
   resources :clients do
     collection do

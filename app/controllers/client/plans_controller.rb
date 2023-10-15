@@ -1,10 +1,13 @@
 class Client::PlansController < ApplicationController
   before_action :authenticate_user
+  before_action :set_client_plans, only: %i[index list]
   before_action :set_client_plan, only: %i[show edit update destroy]
 
   # GET /client/plans or /client/plans.json
-  def index
-    @client_plans = Client::Plan.all
+  def index; end
+
+  def list
+    render(partial: 'client/plans/table', locals: { client_plans: @client_plans })
   end
 
   # GET /client/plans/1 or /client/plans/1.json
@@ -66,5 +69,23 @@ class Client::PlansController < ApplicationController
   # Only allow a list of trusted parameters through.
   def client_plan_params
     params.fetch(:client_plan, {})
+  end
+
+  def set_client_plans
+    @client_plans = Client::Plan.all
+    sort_client_plans
+    @pagy, @client_plans = pagy(@client_plans)
+  end
+
+  def allow_sort
+    %w[id name price start_date end_date].include?(params[:sort_by].to_s)
+  end
+
+  def sort_client_plans
+    return unless allow_sort
+
+    sort = { params[:sort_by].to_sym => params[:sort_order] == 'DESC' ? 'DESC' : 'ASC' }
+
+    @client_plans = @client_plans.order(sort)
   end
 end
