@@ -13,6 +13,9 @@ Rails.application.routes.draw do
       get 'list'
     end
   end
+
+  resources :plans, module: :client, as: :client_plans
+
   resources :clients do
     collection do
       get 'list'
