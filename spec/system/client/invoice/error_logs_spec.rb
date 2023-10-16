@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.feature 'Error Logs Page', type: :system do
   let(:password) { '123' }
-  let(:user) { create(:user, :admin, password: password) }
+  let(:user) { create(:user, :admin, password:) }
   let(:client) { create(:client) }
   let(:invoice) { create(:client_invoice, client:) }
   let(:error_log) { create(:client_invoice_error_log, client_invoice_id: invoice.id) }

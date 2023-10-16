@@ -30,6 +30,5 @@ AllCops:
     - "db/schema.rb"
     - "db/migrate/*.rb"
     - "config/**/*.rb"
-    - "spec/**/*_spec.rb"
     - "spec/*_helper.rb"
     - "**/vendor/**/*"

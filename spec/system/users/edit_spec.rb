@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 RSpec.describe 'Edit and Update User', type: :system do
   let(:password) { '123' }
-  let(:user) { create(:user, :admin, password: password) }
+  let(:user) { create(:user, :admin, password:) }
 
   before do
     login(user.email, user.password)

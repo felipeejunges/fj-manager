@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.feature 'Clients Page', type: :system do
+RSpec.feature 'Clients Page', type: :system do # rubocop:disable Metrics/BlockLength
   let(:password) { '123' }
-  let(:user) { create(:user, :admin, password: password) }
+  let(:user) { create(:user, :admin, password:) }
   let!(:clients) { create_list(:client, 5) }
   let!(:client) { clients.first }
 
-  it 'displays clients list' do 
+  it 'displays clients list' do
     login(user.email, password)
     visit clients_path
 
@@ -25,9 +27,9 @@ RSpec.feature 'Clients Page', type: :system do
   it 'deletes the client' do
     login(user.email, password)
     visit clients_path
-    within("table tbody") do |tbody|
-      first('tr') do |tr|
-        all('td').last do |td|
+    within('table tbody') do |_tbody|
+      first('tr') do |_tr|
+        all('td').last do |_td|
           click(all('a').last)
           page.accept_confirm
           expect(page).to have_content('Client was successfully destroyed.')
@@ -37,7 +39,7 @@ RSpec.feature 'Clients Page', type: :system do
     end
   end
 
-  context "Editing a client" do
+  context 'Editing a client' do
     it 'displays the edit form' do
       login(user.email, password)
       visit clients_path

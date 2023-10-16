@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Client::Invoice, type: :model do
+RSpec.describe Client::Invoice, type: :model do # rubocop:disable Metrics/BlockLength
   describe 'associations' do
     it { should belong_to(:client) }
   end
@@ -10,7 +12,7 @@ RSpec.describe Client::Invoice, type: :model do
     it { should validate_presence_of(:payment_type) }
   end
 
-  describe 'scopes' do
+  describe 'scopes' do # rubocop:disable Metrics/BlockLength
     date = Date.new(Date.current.year, 1, 1)
     let!(:invoice) { create(:client_invoice, status: :generated, reference_date: date) }
     let!(:late_invoice) { create(:client_invoice, status: :late, reference_date: date) }
@@ -37,7 +39,7 @@ RSpec.describe Client::Invoice, type: :model do
 
     describe '.range_year' do
       it 'returns invoices within the given year' do
-        year = Date.current.year
+        Date.current.year
         expect(Client::Invoice.range_year(date).count).to eq(3)
       end
     end
@@ -49,7 +51,7 @@ RSpec.describe Client::Invoice, type: :model do
     end
   end
 
-  describe 'methods' do
+  describe 'methods' do # rubocop:disable Metrics/BlockLength
     let(:invoice) { create(:client_invoice) }
 
     describe '#will_retry?' do

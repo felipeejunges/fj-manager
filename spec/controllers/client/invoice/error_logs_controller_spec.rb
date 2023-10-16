@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Client::Invoice::ErrorLogsController, type: :controller do
   let(:user) { create(:user) }
   let(:client) { create(:client) }
-  let(:invoice) { create(:client_invoice, client: client) }
+  let(:invoice) { create(:client_invoice, client:) }
   let(:error_log) { create(:client_invoice_error_log, client_invoice_id: invoice.id) }
 
   before do

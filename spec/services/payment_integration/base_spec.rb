@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe PaymentIntegration::Base do
@@ -9,10 +11,10 @@ RSpec.describe PaymentIntegration::Base do
       it 'updates invoice status to generated' do
         allow(payment_integration).to receive(:integrate).and_return(true)
 
-        expect {
+        expect do
           payment_integration.perform(invoice.id)
           invoice.reload
-        }.to change { invoice.status }.from('generating').to('generated')
+        end.to change { invoice.status }.from('generating').to('generated')
       end
     end
 
