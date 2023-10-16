@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ClientsController < ApplicationController
-  before_action :authenticate_user
   before_action :redirect_if_not_admin, only: %i[edit update destroy]
   before_action :set_clients, only: %i[index list]
   before_action :set_client, only: %i[show edit update destroy]
