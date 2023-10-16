@@ -17,6 +17,8 @@ class ClientsController < ApplicationController
   # GET /clients/new
   def new
     @client = Client.new
+    @client.created_by = current_user
+    @client
   end
 
   # GET /clients/1/edit
@@ -24,18 +26,16 @@ class ClientsController < ApplicationController
 
   # POST /clients or /clients.json
   def create
-    @client = Client.new(client_params)
+    @client = Client.new(new_client_params)
     @client.created_by_id = current_user.id
 
     respond_to do |format|
       if @client.save
         flash[:success] = 'Client was successfully created.'
         format.html { redirect_to client_url(@client) }
-        format.json { render :show, status: :created, location: @client }
       else
         flash[:error] = 'Client not created.'
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,13 +43,11 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1 or /clients/1.json
   def update
     respond_to do |format|
-      if @client.update(client_params)
+      if @client.update(update_client_params)
         format.html { redirect_to client_url(@client), notice: 'Client was successfully updated.' }
-        format.json { render :show, status: :ok, location: @client }
       else
         flash[:error] = 'Client not updated.'
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -63,7 +61,6 @@ class ClientsController < ApplicationController
         flash[:error] = 'Client not destroyed.'
       end
       format.html { redirect_to clients_url }
-      format.json { head :no_content }
     end
   end
 
@@ -79,8 +76,12 @@ class ClientsController < ApplicationController
   end
 
   # Only allow a list of trusted parameters through.
-  def client_params
+  def new_client_params
     params.require(:client).permit(:name, :document, :document_type, :payment_type, :payment_day, :discount, :email, :client_plan_id)
+  end
+
+  def update_client_params
+    params.require(:client).permit(:name, :document, :document_type, :payment_type, :next_payment_day, :discount, :email, :client_plan_id)
   end
 
   def set_clients

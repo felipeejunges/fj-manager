@@ -3,6 +3,7 @@ class ChangeColumnsOnClients < ActiveRecord::Migration[7.0]
     remove_column :clients, :plan_value
     add_column :clients, :discount, :float, default: 0.0
     add_column :clients, :email, :string
+    add_column :clients, :next_payment_day, :integer
     add_column :clients, :client_plan_id, :integer
     add_column :clients, :created_by_id, :integer, null: true
 

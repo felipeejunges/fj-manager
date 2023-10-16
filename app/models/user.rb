@@ -3,6 +3,11 @@
 class User < ApplicationRecord
   has_secure_password :password, validations: true
 
+  has_many :created_clients, class_name: 'Client',
+                             inverse_of: :created_by,
+                             dependent: :destroy,
+                             foreign_key: :created_by_id
+
   validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true
 

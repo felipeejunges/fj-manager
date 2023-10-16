@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_172128) do
     t.boolean "signable", default: true
     t.boolean "sale", default: false
     t.string "code"
-    t.datetime "start_date", default: "2023-10-15 20:28:05"
+    t.datetime "start_date"
     t.datetime "end_date"
     t.integer "billable_period", default: 0
     t.float "max_discount", default: 100.0
@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_172128) do
     t.datetime "updated_at", null: false
     t.float "discount", default: 0.0
     t.string "email"
+    t.integer "next_payment_day"
     t.integer "client_plan_id"
     t.integer "created_by_id"
   end

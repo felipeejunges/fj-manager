@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :client do
     association :plan, factory: :client_plan
+    association :created_by, factory: :user
     name { Faker::Company.name }
     document { Faker::IDNumber.unique.brazilian_citizen_number }
     document_type { Client.document_types.keys.sample }

@@ -24,7 +24,7 @@ RSpec.describe Client, type: :model do
     it 'calculates expected earnings this year' do
       create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :payed)
       create(:client_invoice, client: client, invoice_value: 1500, reference_date: 1.month.ago, status: :payed)
-      expected_earnings_this_year = 1000 + 1500 + (client.plan_price * 10)
+      expected_earnings_this_year = 1000 + 1500 + (client.net_value * 10)
       expect(client.expected_earnings_this_year).to eq(expected_earnings_this_year)
     end
 
@@ -39,7 +39,7 @@ RSpec.describe Client, type: :model do
     it 'calculates expected earnings comparisson yearly correctly' do
       create(:client_invoice, client: client, invoice_value: 1000, reference_date: Date.current, status: :payed)
       create(:client_invoice, client: client, invoice_value: 1500, reference_date: 1.month.ago, status: :payed)
-      expected_earnings_this_year = 1000 + 1500 + (client.plan_price * 10)
+      expected_earnings_this_year = 1000 + 1500 + (client.net_value * 10)
       
       earnings_last_year = client.earnings_last_year
 
@@ -197,18 +197,19 @@ end
 #
 # Table name: clients
 #
-#  id             :integer          not null, primary key
-#  name           :string
-#  document       :string
-#  document_type  :integer
-#  payment_type   :string
-#  payment_day    :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  discount       :float            default(0.0)
-#  email          :string
-#  client_plan_id :integer
-#  created_by_id  :integer
+#  id               :integer          not null, primary key
+#  name             :string
+#  document         :string
+#  document_type    :integer
+#  payment_type     :string
+#  payment_day      :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  discount         :float            default(0.0)
+#  email            :string
+#  next_payment_day :integer
+#  client_plan_id   :integer
+#  created_by_id    :integer
 #
 # Foreign Keys
 #

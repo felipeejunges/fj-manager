@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authenticate_user
   before_action :set_users, only: %i[index list]
   before_action :set_user, only: %i[show edit update destroy]
   before_action :redirect_if_not_admin_or_not_same_user, only: %i[new edit update destroy]
@@ -29,11 +28,9 @@ class UsersController < ApplicationController
       if @user.save
         flash[:success] = 'User was successfully created.'
         format.html { redirect_to user_url(@user) }
-        format.json { render :show, status: :created, location: @user }
       else
         flash[:error] = 'User not created'
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -47,11 +44,9 @@ class UsersController < ApplicationController
       if @user.update(all_params)
         flash[:success] = 'User was successfully updated.'
         format.html { redirect_to user_url(@user) }
-        format.json { render :show, status: :ok, location: @user }
       else
         flash[:error] = 'User not updated'
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -65,7 +60,6 @@ class UsersController < ApplicationController
         flash[:error] = 'User not deleted'
       end
       format.html { redirect_to users_url }
-      format.json { head :no_content }
     end
   end
 

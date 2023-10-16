@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Client::PlansController < ApplicationController
-  before_action :authenticate_user
   before_action :redirect_if_not_admin, only: %i[edit update destroy]
   before_action :set_client_plans, only: %i[index list]
   before_action :set_client_plan, only: %i[show edit update destroy]
@@ -33,10 +32,8 @@ class Client::PlansController < ApplicationController
     respond_to do |format|
       if @client_plan.save
         format.html { redirect_to client_plan_url(@client_plan), notice: 'Plan was successfully created.' }
-        format.json { render :show, status: :created, location: @client_plan }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @client_plan.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -46,10 +43,8 @@ class Client::PlansController < ApplicationController
     respond_to do |format|
       if @client_plan.update(client_plan_params)
         format.html { redirect_to client_plan_url(@client_plan), notice: 'Plan was successfully updated.' }
-        format.json { render :show, status: :ok, location: @client_plan }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @client_plan.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -60,7 +55,6 @@ class Client::PlansController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to client_plans_url, notice: 'Plan was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

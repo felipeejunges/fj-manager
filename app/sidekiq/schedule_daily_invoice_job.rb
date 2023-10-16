@@ -10,6 +10,8 @@ class ScheduleDailyInvoiceJob < ApplicationJob
            end
 
     Client.select(:id).where(payment_day: days(date)).pluck(:id).map do |id|
+      next if client.plan.billable_period == :never
+
       ::GenerateInvoiceJob.perform_at(1, { 'client_id': id, date: }.to_json)
     end
   end

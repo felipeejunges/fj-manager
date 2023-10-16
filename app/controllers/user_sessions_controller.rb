@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UserSessionsController < ApplicationController
+  skip_before_action :authenticate_user
   before_action :redirect_already_logged, only: %i[login authenticate]
   def login; end
 
@@ -12,7 +13,6 @@ class UserSessionsController < ApplicationController
         session[:user_id] = user.id
         flash[:success] = "Welcome, #{current_user.name}"
         format.html { redirect_to root_path }
-        format.json { render :show, status: :created, location: @client }
       else
         flash[:alert] = 'Invalid email or password'
         format.html { render :login, status: :unprocessable_entity }

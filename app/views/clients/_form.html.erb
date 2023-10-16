@@ -21,13 +21,13 @@
         <%= form.label :name %>
       </div>
     </div>
-    <div class="col-sm-12 col-md-4 mb-1">
+    <div class="col-sm-12 col-md-2 mb-1">
       <div class="form-floating">
         <%= form.text_field :document, class: "form-control", readonly: readonly %>
         <%= form.label :document %>
       </div>
     </div>
-    <div class="col-sm-12 col-md-4 mb-1">
+    <div class="col-sm-12 col-md-2 mb-1">
       <div class="form-floating">
         <div class="form-floating">
          <div class="form-floating">
@@ -35,6 +35,18 @@
             <%= form.label :document_type %>
           </div>
         </div>
+      </div>
+    </div>
+     <div class="col-sm-12 col-md-2 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :created_by, value: "#{@client.created_by.id} - #{  @client.created_by.name}", class: "form-control", disabled: true %>
+        <%= form.label :created_by %>
+      </div>
+    </div>
+     <div class="col-sm-12 col-md-2 mb-1">
+      <div class="form-floating">
+        <%= form.datetime_field :created_at, class: "form-control", disabled: true %>
+        <%= form.label :created_at %>
       </div>
     </div>
   </div>
@@ -51,12 +63,27 @@
         <%= form.label :payment_type %>
       </div>
     </div>
-    <div class="col-sm-12 col-md-2 mb-1">
-      <div class="form-floating">
-        <%= form.number_field :payment_day, class: "form-control", readonly: readonly, min: 1, max: 31 %>
-        <%= form.label :payment_day %>
+    <% if @client.persisted? %>
+      <div class="col-sm-12 col-md-1 mb-1">
+        <div class="form-floating">
+          <%= form.number_field :payment_day, class: "form-control", readonly: readonly || @client.persisted?, min: 1, max: 31 %>
+          <%= form.label :payment_day %>
+        </div>
       </div>
-    </div>
+      <div class="col-sm-12 col-md-1 mb-1">
+        <div class="form-floating">
+          <%= form.number_field :next_payment_day, class: "form-control", readonly: readonly, min: 1, max: 31 %>
+          <%= form.label :next_payment_day %>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-sm-12 col-md-2 mb-1">
+        <div class="form-floating">
+          <%= form.number_field :payment_day, class: "form-control", min: 1, max: 31 %>
+          <%= form.label :payment_day %>
+        </div>
+      </div>
+    <% end %>
     <div class="col-sm-12 col-md-3 mb-1">
       <div class="form-floating">
         <%= form.select :client_plan_id, Client::PlansHelper.plan_options, {}, class: "form-select", disabled: readonly, id: :client_plan %>

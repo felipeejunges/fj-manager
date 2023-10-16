@@ -18,12 +18,12 @@ p1 = Client::Plan.new(name: 'Example', description: Faker::Lorem.sentence, billa
 
 p1.save
 
-p2 = Client::Plan.new(name: '2nd Second', description: Faker::Lorem.sentence, billable_period: 2, price: 29.90)
+p2 = Client::Plan.new(name: '2nd Second', description: Faker::Lorem.sentence, billable_period: 3, price: 29.90)
 
 p2.save
 
 c1 = Client.find_or_create_by(name: 'The Client', document: '12345678901', document_type: 2, payment_type: 'credit_card',
-                              payment_day: 7, client_plan_id: p1.id, discount: 10, email: Faker::Internet.email)
+                              payment_day: 7, client_plan_id: p1.id, discount: 10, email: Faker::Internet.email, created_by_id: u.id)
 
 c1.save
 
@@ -49,14 +49,15 @@ yesterday = Date.current.yesterday
     payment_type: %w[credit_card debit_card ticket].sample,
     payment_day: yesterday.day,
     client_plan_id: p1.id,
-    email: Faker::Internet.email
+    email: Faker::Internet.email,
+    created_by_id: u.id
   )
   client.invoices.create(
     description: Faker::Lorem.sentence,
     status: :payed,
     payed_date: yesterday,
     reference_date: yesterday,
-    invoice_value: client.plan_price,
+    invoice_value: client.net_value,
     payment_type: client.payment_type,
     client_plan_id: client.plan.id
   )
