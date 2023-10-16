@@ -22,6 +22,11 @@ RSpec.describe Client, type: :model do # rubocop:disable Metrics/BlockLength
 
   describe 'methods' do # rubocop:disable Metrics/BlockLength
     let(:client) { create(:client, created_at: Time.zone.parse('2022-01-01')) }
+    let(:plan_price) { client.plan.price }
+
+    it 'calculates net values correctly' do
+      expect(client.net_value).to eq(plan_price - ((plan_price * client.discount) / 100))
+    end
 
     it 'calculates expected earnings this year' do
       create(:client_invoice, client:, invoice_value: 1000, reference_date: Date.current, status: :payed)

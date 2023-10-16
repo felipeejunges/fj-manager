@@ -4,6 +4,8 @@ class Client::Plan < ApplicationRecord
   has_many :clients, class_name: 'Client', inverse_of: :plan, dependent: :destroy, foreign_key: :client_plan_id
   has_many :invoices, class_name: 'Client', inverse_of: :plan, dependent: :destroy, foreign_key: :client_plan_id
 
+  validates :name, :price, :start_date, :max_discount, presence: true
+
   enum billable_period: {
     never: 0,
     monthly: 1,
