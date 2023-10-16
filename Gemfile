@@ -61,10 +61,10 @@ group :development, :test do
   gem "rubocop-rspec"
   gem 'capybara', '~> 3.32', '>= 3.32.1'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.7'
+  gem "annotate", "~> 3.2"
 end
 
 group :test do
-  gem "annotate", "~> 3.2"
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem "faker", "~> 3.2"
