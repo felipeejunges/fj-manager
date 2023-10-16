@@ -78,7 +78,6 @@ end
 
 
 group :development do
-  gem "annotate", "~> 3.2"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
@@ -98,3 +97,5 @@ gem "pagy", "~> 6.1"
 gem 'mongoid', "~>7.5.3"
 gem "mongoid-enum", :git => 'https://github.com/choilive/mongoid-enum.git'
 
+
+gem "annotate", "~> 3.2"
