@@ -67,8 +67,9 @@ class Client::PlansController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def client_plan_params
-    params.require(:client_plan).permit(:name, :description, :price, :signable, :sale, :code, :start_date, :end_date, :billable_period,
-                                        :max_discount, :commissionable)
+    params.require(:client_plan).permit(:name, :description, :price, :signable,
+                                        :start_date, :end_date, :billable_period,
+                                        :max_discount, :commissionable, :sale, :code)
   end
 
   def set_client_plans
