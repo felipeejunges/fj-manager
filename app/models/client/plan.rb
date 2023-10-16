@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Client::Plan < ApplicationRecord
-  has_many :clients, class_name: 'Client', inverse_of: :plan, dependent: :destroy
+  has_many :clients, class_name: 'Client', inverse_of: :plan, dependent: :destroy, foreign_key: :client_plan_id
 
   enum billable_period: {
     never: 0,

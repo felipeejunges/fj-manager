@@ -7,7 +7,7 @@ class CreateClientPlans < ActiveRecord::Migration[7.0]
       t.boolean :signable, default: true
       t.boolean :sale, default: false
       t.string :code
-      t.timestamp :start_date, default: Time.current
+      t.timestamp :start_date, default: nil
       t.timestamp :end_date
       t.integer :billable_period, default: 0
       t.float :max_discount, default: 100.0

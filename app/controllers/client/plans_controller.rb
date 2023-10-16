@@ -11,7 +11,9 @@ class Client::PlansController < ApplicationController
   end
 
   # GET /client/plans/1 or /client/plans/1.json
-  def show; end
+  def show
+    @pagy, @client_plan.clients = pagy(@client_plan.clients)
+  end
 
   # GET /client/plans/new
   def new
@@ -68,7 +70,8 @@ class Client::PlansController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def client_plan_params
-    params.fetch(:client_plan, {})
+    params.require(:client_plan).permit(:name, :description, :price, :signable, :sale, :code, :start_date, :end_date, :billable_period,
+                                        :max_discount, :commissionable)
   end
 
   def set_client_plans

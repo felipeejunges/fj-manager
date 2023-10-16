@@ -1,7 +1,7 @@
 <%= render "shared/menu" %>
 <div class="col-sm p-3 min-vh-100">
   <%= render 'shared/notices' %>
-  <div class="row">
+  <div class="row mb-1">
     <div class="col-12">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">New plan</h1>
@@ -14,6 +14,6 @@
     </div>
   </div>
 
-<%= render "form", client_plan: @client_plan %>
+<%= render "form", client_plan: @client_plan, readonly: false %>
 
 </div>

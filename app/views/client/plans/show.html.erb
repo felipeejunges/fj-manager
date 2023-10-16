@@ -24,7 +24,32 @@
     </div>
   </div>
 
-<p style="color: green"><%= notice %></p>
+  <div class="row mt-2">
+    <div class="col-12">
+      <div class="card mx-3">
+        <div class="card-body">
+          <h5 class="card-title">Data</h5>
+          <%= render "form", client_plan: @client_plan, readonly: true %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<%= render @client_plan %>
+  
+  <div class="row mt-2">
+    <div class="col-12">
+      <div class="card mx-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
+            <h5 class="card-title">Clients</h5>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <%= render "clients/table", clients: @client_plan.clients, is_report: false %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
