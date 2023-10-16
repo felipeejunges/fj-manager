@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ClientsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :admin) }
 
   before do
     allow(controller).to receive(:authenticate_user).and_return(true)
@@ -33,14 +33,16 @@ RSpec.describe ClientsController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid parameters' do
+      let(:client_plan) { create(:client_plan) }
+      let(:client_attributes) { attributes_for(:client).merge(client_plan_id: client_plan.id) }
       it 'creates a new client' do
         expect {
-          post :create, params: { client: attributes_for(:client) }
+          post :create, params: { client: client_attributes}
         }.to change(Client, :count).by(1)
       end
 
       it 'redirects to the created client' do
-        post :create, params: { client: attributes_for(:client) }
+        post :create, params: { client: client_attributes }
         expect(response).to redirect_to(client_url(Client.last))
       end
     end
