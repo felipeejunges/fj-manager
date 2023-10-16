@@ -64,6 +64,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "annotate", "~> 3.2"
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem "faker", "~> 3.2"
@@ -73,6 +74,7 @@ group :test do
   gem "rails-controller-testing", "~> 1.0"
   gem "database_cleaner", "~> 2.0"
   gem "database_cleaner-mongoid", "~> 2.0"
+  gem "simplecov", "~> 0.22.0"
 end
 
 
