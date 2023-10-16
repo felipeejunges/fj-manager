@@ -39,11 +39,13 @@
                   <%= link_to client_plan, class: "btn btn-sm btn-outline-secondary", data: { turbo: false } do %>
                     <i class="bi bi-eye"></i>
                   <% end %>
-                  <%= link_to edit_client_plan_path(client_plan), class: "btn btn-sm btn-outline-primary", data: { turbo: false } do %>
-                    <i class="bi bi-pencil-square"></i>
-                  <% end %>
-                  <%= link_to client_plan_path(client_plan), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
-                    <i class="bi bi-trash"></i>
+                  <% if current_user.admin? %>
+                    <%= link_to edit_client_plan_path(client_plan), class: "btn btn-sm btn-outline-primary", data: { turbo: false } do %>
+                      <i class="bi bi-pencil-square"></i>
+                    <% end %>
+                    <%= link_to client_plan_path(client_plan), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
                   <% end %>
                 </div>
               </td>

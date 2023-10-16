@@ -24,4 +24,10 @@ class ApplicationController < ActionController::Base
     vars[:page]  ||= params[vars[:page_param] || Pagy::DEFAULT[:page_param]]
     vars
   end
+
+  def redirect_if_not_admin
+    return if current_user.admin?
+
+    redirect_to '/'
+  end
 end

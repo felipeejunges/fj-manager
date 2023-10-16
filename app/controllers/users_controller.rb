@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user
   before_action :set_users, only: %i[index list]
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :redirect_if_not_admin_or__not_same_user, only: %i[edit update destroy]
+  before_action :redirect_if_not_admin_or_not_same_user, only: %i[new edit update destroy]
   before_action :redirect_if_same_user, only: :destroy
 
   # GET /users or /users.json
@@ -80,7 +80,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def redirect_if_not_admin_or__not_same_user
+  def redirect_if_not_admin_or_not_same_user
     return if current_user.admin? || (!current_user.admin? && current_user.id == @user.id)
 
     redirect_to users_path
