@@ -61,7 +61,6 @@ group :development, :test do
   gem "rubocop-rspec"
   gem 'capybara', '~> 3.32', '>= 3.32.1'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.7'
-  gem "annotate", "~> 3.2"
 end
 
 group :test do
@@ -98,3 +97,5 @@ gem "pagy", "~> 6.1"
 gem 'mongoid', "~>7.5.3"
 gem "mongoid-enum", :git => 'https://github.com/choilive/mongoid-enum.git'
 
+
+gem "annotate", "~> 3.2"
