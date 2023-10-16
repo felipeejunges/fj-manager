@@ -7,7 +7,7 @@ RSpec.describe Client, type: :model do
     it { should validate_presence_of(:document_type) }
     it { should validate_presence_of(:payment_type) }
     it { should validate_presence_of(:payment_day) }
-    it { should validate_presence_of(:plan_price) }
+    it { should validate_presence_of(:discount) }
   end
 
   describe 'associations' do

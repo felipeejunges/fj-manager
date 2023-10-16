@@ -2,6 +2,7 @@
 
 class Client::Invoice < ApplicationRecord
   belongs_to :client
+  belongs_to :plan, foreign_key: :client_plan_id
 
   enum status: {
     generating: 0,

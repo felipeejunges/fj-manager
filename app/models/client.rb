@@ -9,7 +9,15 @@ class Client < ApplicationRecord
     cpf: 2
   }
 
-  validates :name, :document, :document_type, :payment_type, :payment_day, presence: true
+  validates :name, :document, :document_type, :payment_type, :payment_day, :discount, presence: true
+
+  validate :discount_less_or_equal_than_plan_max_discount
+
+  def discount_less_or_equal_than_plan_max_discount
+    return if plan.present? && discount <= plan&.max_discount
+
+    errors.add(:discount, :invalid, message: 'must be less or euqal than plan max discount')
+  end
 
   def plan_price
     pp = plan_price_without_discount

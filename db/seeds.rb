@@ -23,7 +23,7 @@ p2 = Client::Plan.new(name: '2nd Second', description: Faker::Lorem.sentence, bi
 p2.save
 
 c1 = Client.find_or_create_by(name: 'The Client', document: '12345678901', document_type: 2, payment_type: 'credit_card',
-                              payment_day: 7, client_plan_id: p1.id, discount: 10)
+                              payment_day: 7, client_plan_id: p1.id, discount: 10, email: Faker::Internet.email)
 
 c1.save
 
@@ -48,7 +48,8 @@ yesterday = Date.current.yesterday
     document_type: :cpf,
     payment_type: %w[credit_card debit_card ticket].sample,
     payment_day: yesterday.day,
-    client_plan_id: p1.id
+    client_plan_id: p1.id,
+    email: Faker::Internet.email
   )
   client.invoices.create(
     description: Faker::Lorem.sentence,
