@@ -4,11 +4,12 @@ require 'rails_helper'
 
 RSpec.describe GenerateInvoiceJob, type: :job do # rubocop:disable Metrics/BlockLength
   describe 'perform' do # rubocop:disable Metrics/BlockLength
-    let(:client) { create(:client) }
+    let(:client_plan) { create(:client_plan, billable_period: :monthly) }
+    let(:client) { create(:client, client_plan_id: client_plan.id) }
 
     context 'when invoice does not exist for the given date' do
       it 'creates a new invoice for the client' do
-        described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current.yesterday }.to_json)
+        described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current }.to_json)
         expect(client.invoices.count).to eq(1)
       end
     end
@@ -17,13 +18,13 @@ RSpec.describe GenerateInvoiceJob, type: :job do # rubocop:disable Metrics/Block
       let(:status) { :generated }
 
       before do
-        create(:client_invoice, client:, reference_date: Date.current.yesterday, status:)
+        create(:client_invoice, client:, reference_date: Date.current, status:)
       end
 
       context 'status is generated' do
         it 'does not change the status of the existing invoice' do
           existing_invoice = client.invoices.last
-          described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current.yesterday }.to_json)
+          described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current }.to_json)
           expect(client.invoices.count).to eq(1)
           expect(existing_invoice.reload.status).to eq('generated')
         end
@@ -33,9 +34,8 @@ RSpec.describe GenerateInvoiceJob, type: :job do # rubocop:disable Metrics/Block
         let(:status) { :error }
 
         it 'does change the status of the existing invoice' do
-          allow_any_instance_of(Client::Invoice).to receive(:save).and_return(true)
           existing_invoice = client.invoices.last
-          described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current.yesterday }.to_json)
+          described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current }.to_json)
           expect(client.invoices.count).to eq(1)
           expect(existing_invoice.reload.status).to eq('generated')
         end

@@ -13,7 +13,7 @@ class GenerateInvoiceJob < ApplicationJob
 
     client = ::Client.find(client_id)
 
-    return if client.plan.billable_period == :never
+    return if client.plan.billable_period == 'never'
 
     invoice = client.invoices.find_by(reference_date: period(date, client.plan))
 
@@ -28,7 +28,7 @@ class GenerateInvoiceJob < ApplicationJob
 
     update_payment_day_with_next_payment_day(client)
 
-    ::PaymentCheckJob.perform_in(5, { invoice_id: invoice.id }.to_json)
+    ::PaymentCheckJob.perform_in(5, { invoice_id: invoice.id }.to_json) unless %w[generating error].include?(invoice.status)
   end
 
   private
