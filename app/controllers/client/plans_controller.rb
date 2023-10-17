@@ -31,8 +31,10 @@ class Client::PlansController < ApplicationController
 
     respond_to do |format|
       if @client_plan.save
+        flash[:success] = 'Plan was successfully created.'
         format.html { redirect_to client_plan_url(@client_plan), notice: 'Plan was successfully created.' }
       else
+        flash[:error] = 'Plan not created.'
         format.html { render :new, status: :unprocessable_entity }
       end
     end
@@ -51,10 +53,13 @@ class Client::PlansController < ApplicationController
 
   # DELETE /client/plans/1 or /client/plans/1.json
   def destroy
-    @client_plan.destroy
-
     respond_to do |format|
-      format.html { redirect_to client_plans_url, notice: 'Plan was successfully destroyed.' }
+      if @client_plan.destroy
+        flash[:success] = 'Plan was successfully destroyed.'
+      else
+        flash[:error] = 'Plan not deleted'
+      end
+      format.html { redirect_to client_plans_url }
     end
   end
 
