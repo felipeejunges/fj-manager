@@ -3,6 +3,8 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
 
+  before_action :authenticate_user
+
   helper_method :current_user
 
   def current_user
@@ -23,5 +25,11 @@ class ApplicationController < ActionController::Base
     vars[:count] ||= count.is_a?(Hash) ? count.size : count
     vars[:page]  ||= params[vars[:page_param] || Pagy::DEFAULT[:page_param]]
     vars
+  end
+
+  def redirect_if_not_admin
+    return if current_user.admin?
+
+    redirect_to '/'
   end
 end

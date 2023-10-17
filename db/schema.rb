@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_13_004128) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_15_172128) do
   create_table "client_invoices", force: :cascade do |t|
     t.string "description"
     t.string "payment_type"
@@ -22,7 +22,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_004128) do
     t.integer "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "client_plan_id"
     t.index ["client_id"], name: "index_client_invoices_on_client_id"
+  end
+
+  create_table "client_plans", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.float "price", default: 0.0
+    t.boolean "signable", default: true
+    t.boolean "sale", default: false
+    t.string "code"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "billable_period", default: 0
+    t.float "max_discount", default: 100.0
+    t.boolean "commissionable", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients", force: :cascade do |t|
@@ -31,9 +48,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_004128) do
     t.integer "document_type"
     t.string "payment_type"
     t.integer "payment_day"
-    t.float "plan_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "discount", default: 0.0
+    t.string "email"
+    t.integer "next_payment_day"
+    t.integer "client_plan_id"
+    t.integer "created_by_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,5 +67,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_004128) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "client_invoices", "client_plans"
   add_foreign_key "client_invoices", "clients"
+  add_foreign_key "clients", "client_plans"
+  add_foreign_key "clients", "users", column: "created_by_id"
 end

@@ -2,20 +2,41 @@
 
 class Client < ApplicationRecord
   has_many :invoices, class_name: 'Client::Invoice', inverse_of: :client, dependent: :destroy
+  belongs_to :plan, foreign_key: :client_plan_id, class_name: 'Client::Plan'
+  belongs_to :created_by, foreign_key: :created_by_id, class_name: 'User'
 
   enum document_type: {
     cnpj: 1,
     cpf: 2
   }
 
-  validates :name, :document, :document_type, :payment_type, :payment_day, :plan_value, presence: true
+  before_validation :ensure_next_payment_day_be_filled
+
+  validates :name, :document, :document_type, :payment_type, :payment_day, :discount, presence: true
+
+  validate :discount_less_or_equal_than_plan_max_discount
+
+  def ensure_next_payment_day_be_filled
+    self.next_payment_day = payment_day if next_payment_day.nil? || next_payment_day.zero? || next_payment_day > 31
+  end
+
+  def discount_less_or_equal_than_plan_max_discount
+    return if plan.present? && discount <= plan.max_discount
+
+    errors.add(:discount, :invalid, message: 'must be less or equal than plan max discount')
+  end
+
+  def net_value
+    pp = plan.price
+    pp - ((pp * discount) / 100)
+  end
 
   def error_logs
     Client::Invoice::ErrorLog.where(:client_invoice_id.in => invoices.pluck(:id))
   end
 
   def current_status
-    @current_status ||= invoices&.order(reference_date: :desc)&.first&.status
+    @current_status ||= invoices.order(reference_date: :desc).first.status if invoices.present?
   end
 
   def expected_earnings_this_year
@@ -23,7 +44,7 @@ class Client < ApplicationRecord
 
     extra = created_at < created_at.beginning_of_year ? created_at.month : 0
 
-    pendency_value = (12 - extra - generated_invoices_this_year) * plan_value
+    pendency_value = (12 - extra - generated_invoices_this_year) * net_value
     pendency_value = 0 if pendency_value.negative?
 
     late_summed = invoices.late.range_year(Time.now.in_time_zone).sum(:invoice_value)
@@ -104,3 +125,27 @@ class Client < ApplicationRecord
     percentage_difference.round(2)
   end
 end
+
+# == Schema Information
+#
+# Table name: clients
+#
+#  id               :integer          not null, primary key
+#  name             :string
+#  document         :string
+#  document_type    :integer
+#  payment_type     :string
+#  payment_day      :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  discount         :float            default(0.0)
+#  email            :string
+#  next_payment_day :integer
+#  client_plan_id   :integer
+#  created_by_id    :integer
+#
+# Foreign Keys
+#
+#  client_plan_id  (client_plan_id => client_plans.id)
+#  created_by_id   (created_by_id => users.id)
+#

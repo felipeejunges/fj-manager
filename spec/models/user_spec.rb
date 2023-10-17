@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User, type: :model do # rubocop:disable Metrics/BlockLength
   describe 'validations' do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
@@ -34,3 +36,17 @@ RSpec.describe User, type: :model do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  first_name      :string
+#  last_name       :string
+#  email           :string
+#  password_digest :string
+#  admin           :boolean          default(FALSE)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#

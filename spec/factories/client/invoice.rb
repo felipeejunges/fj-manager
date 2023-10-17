@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :client_invoice, class: 'Client::Invoice' do
     association :client, factory: :client
+    association :plan, factory: :client_plan
     description { Faker::Lorem.sentence }
     payment_type { %w[credit_card debit_card ticket].sample }
     reference_date { Faker::Date.between(from: 1.year.ago, to: Time.now.in_time_zone) }

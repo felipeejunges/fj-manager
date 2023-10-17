@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Client::Invoice::ErrorLogsController < ApplicationController
-  before_action :authenticate_user
   before_action :set_client
   before_action :set_client_invoice
   before_action :set_client_invoice_error_log, only: :show

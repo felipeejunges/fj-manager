@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-  before_action :authenticate_user
-
   def new_clients
     if params[:start_date].nil? && params[:end_date].nil?
       params[:start_date] = Date.current.strftime

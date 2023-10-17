@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # spec/controllers/user_sessions_controller_spec.rb
 
 require 'rails_helper'
 
-RSpec.describe UserSessionsController, type: :controller do
+RSpec.describe UserSessionsController, type: :controller do # rubocop:disable Metrics/BlockLength
   let(:password) { '123' }
-  let(:user) { create(:user, password: password) }
+  let(:user) { create(:user, password:) }
 
   describe 'GET #login' do
     it 'renders the login template' do
@@ -16,7 +18,7 @@ RSpec.describe UserSessionsController, type: :controller do
   describe 'POST #authenticate' do
     context 'with valid credentials' do
       it 'redirects to the root path' do
-        post :authenticate, params: { user: { email: user.email, password: password } }
+        post :authenticate, params: { user: { email: user.email, password: } }
         expect(response).to redirect_to(root_path)
       end
     end

@@ -18,6 +18,9 @@ This project is a client-invoice manager.
 - Faker
 - Selenium
 - Capybara
+- Simplecov
+- Pagy
+- Annotate
 - GitActions for CI
 
 ## Instructions
@@ -30,7 +33,7 @@ This instructions shows how to initialize the project and using it with [docker]
     - Specs may not working correctly without docker, as it depends on sidekiq, redis and selenium
 
 ## Project presentation
-Link with project presentation: https://www.loom.com/share/b98d97c256e14a1393a826696c25a636
+Link with project presentation: https://www.loom.com/share/0599be79f6524f7ba1d232050f01ca7b
 
 ## Default user
 - email: master@email.com
@@ -47,3 +50,6 @@ Link with project presentation: https://www.loom.com/share/b98d97c256e14a1393a82
 - The invoice happens every day at 1AM for clients with payment day for 1 day ago that didn't get invoiced yet.
 - The invoice can have changes on payment type, if it hits 10 try's with error on same payment type.
 
+## Coverage
+
+[coverage](https://github.com/felipeejunges/fj-manager/assets/20795458/6776816b-d60b-4d89-866c-fdb2fa2b1cb4)

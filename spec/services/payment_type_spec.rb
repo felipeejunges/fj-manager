@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe PaymentType do
+RSpec.describe PaymentType do # rubocop:disable Metrics/BlockLength
   describe '.integrations' do
     it 'returns a list of payment integrations' do
       integrations = PaymentType.integrations
@@ -30,7 +32,9 @@ RSpec.describe PaymentType do
   describe '#integration_names' do
     it 'returns an array of integration names' do
       allow(::Redis).to receive(:new).and_return(redis_instance = instance_double(Redis))
-      expect(redis_instance).to receive(:get).with('payment_integration_classes').and_return('[{"name":"credit_card","class":"PaymentIntegration::CreditCard"}]')
+      expect(redis_instance).to receive(:get)
+        .with('payment_integration_classes')
+        .and_return('[{"name":"credit_card","class":"PaymentIntegration::CreditCard"}]')
       payment_type = PaymentType.new
       expect(payment_type.integration_names).to eq(['credit_card'])
     end
@@ -39,7 +43,9 @@ RSpec.describe PaymentType do
   describe '#integration_by' do
     it 'returns integration details by name' do
       allow(::Redis).to receive(:new).and_return(redis_instance = instance_double(Redis))
-      expect(redis_instance).to receive(:get).with('payment_integration_classes').and_return('[{"name":"credit_card","class":"PaymentIntegration::CreditCard"}]')
+      expect(redis_instance).to receive(:get)
+        .with('payment_integration_classes')
+        .and_return('[{"name":"credit_card","class":"PaymentIntegration::CreditCard"}]')
       payment_type = PaymentType.new
       integration = payment_type.integration_by(name: 'credit_card')
       expect(integration).to be_a(Hash)
@@ -62,8 +68,10 @@ RSpec.describe PaymentType do
   describe '#class_from_integration_by' do
     it 'returns the class corresponding to the given integration name' do
       allow(::Redis).to receive(:new).and_return(redis_instance = instance_double(Redis))
-      expect(redis_instance).to receive(:get).with('payment_integration_classes').and_return('[{"name":"credit_card","class":"PaymentIntegration::CreditCard"}]')
-      
+      expect(redis_instance).to receive(:get)
+        .with('payment_integration_classes')
+        .and_return('[{"name":"credit_card","class":"PaymentIntegration::CreditCard"}]')
+
       payment_type = PaymentType.new
       integration_class = payment_type.class_from_integration_by(name: 'credit_card')
       expect(integration_class).to eq(PaymentIntegration::CreditCard.to_s)
@@ -71,8 +79,10 @@ RSpec.describe PaymentType do
 
     it 'returns nil if integration class is not found' do
       allow(::Redis).to receive(:new).and_return(redis_instance = instance_double(Redis))
-      expect(redis_instance).to receive(:get).with('payment_integration_classes').and_return('[{"name":"invalid_integration","class":"NonExistentIntegration"}]')
-      
+      expect(redis_instance).to receive(:get)
+        .with('payment_integration_classes')
+        .and_return('[{"name":"invalid_integration","class":"NonExistentIntegration"}]')
+
       payment_type = PaymentType.new
       integration_class = payment_type.class_from_integration_by(name: 'credit_card')
       expect(integration_class).to be_nil
@@ -82,8 +92,10 @@ RSpec.describe PaymentType do
   describe '#payment_check' do
     it 'returns the PAYMENT_CHECK constant from the specified integration class' do
       allow(::Redis).to receive(:new).and_return(redis_instance = instance_double(Redis))
-      expect(redis_instance).to receive(:get).with('payment_integration_classes').and_return('[{"name":"credit_card","class":"PaymentIntegration::CreditCard"}]')
-      
+      expect(redis_instance).to receive(:get)
+        .with('payment_integration_classes')
+        .and_return('[{"name":"credit_card","class":"PaymentIntegration::CreditCard"}]')
+
       payment_type = PaymentType.new
       payment_check = payment_type.payment_check(name: 'credit_card')
       expect(payment_check).to eq(PaymentIntegration::CreditCard::PAYMENT_CHECK)
@@ -91,8 +103,10 @@ RSpec.describe PaymentType do
 
     it 'returns nil if integration class is not found' do
       allow(::Redis).to receive(:new).and_return(redis_instance = instance_double(Redis))
-      expect(redis_instance).to receive(:get).with('payment_integration_classes').and_return('[{"name":"invalid_integration","class":"NonExistentIntegration"}]')
-      
+      expect(redis_instance).to receive(:get)
+        .with('payment_integration_classes')
+        .and_return('[{"name":"invalid_integration","class":"NonExistentIntegration"}]')
+
       payment_type = PaymentType.new
       payment_check = payment_type.payment_check(name: 'credit_card')
       expect(payment_check).to be_nil

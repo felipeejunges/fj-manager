@@ -9,14 +9,17 @@
           <% if @client.current_status.present? %>
             <%= render "client/invoices/status_badge", status: @client.current_status, text: @client.current_status.humanize %>
           <% end %>
+          - <%= number_to_currency(@client.net_value) %>
         </h1>
         <div class="btn-toolbar mb-2 mb-md-0 mx-2">
           <div class="btn-group me-2">
-            <%= link_to client_path(@client), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
-              <i class="bi bi-trash"></i> Delete
-            <% end %>
-            <%= link_to edit_client_path(@client), class: "btn btn-sm btn-outline-primary" do %>
-              <i class="bi bi-pencil-square"></i> Edit
+            <% if current_user.admin? %>
+              <%= link_to client_path(@client), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
+                <i class="bi bi-trash"></i> Delete
+              <% end %>
+              <%= link_to edit_client_path(@client), class: "btn btn-sm btn-outline-primary" do %>
+                <i class="bi bi-pencil-square"></i> Edit
+              <% end %>
             <% end %>
             <%= link_to clients_path, class: "btn btn-sm btn-outline-secondary" do %>
               <i class="bi bi-arrow-return-left"></i> Back to clients
@@ -28,7 +31,7 @@
   </div>
 
   <div class="row mx-1 mt-2 mb-1">
-    <div class="col-8">
+    <div class="col-sm-12 col-md-8">
       <div class="card">
         <div class="card-body">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
@@ -83,7 +86,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-sm col-md-4">
       <div class="card">
         <div class="card-body">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">

@@ -1,0 +1,57 @@
+<%= render "shared/menu" %>
+<div class="col-sm p-3 min-vh-100">
+  <%= render 'shared/notices' %>
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+        <h1 class="h2">
+          <%= @client_plan.name %>
+        </h1>
+        <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+          <div class="btn-group me-2">
+            <% if current_user.admin? %>
+              <%= link_to client_plan_path(@client_plan), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
+                <i class="bi bi-trash"></i> Delete
+              <% end %>
+              <%= link_to edit_client_plan_path(@client_plan), class: "btn btn-sm btn-outline-primary" do %>
+                <i class="bi bi-pencil-square"></i> Edit
+              <% end %>
+            <% end %>
+            <%= link_to client_plans_path, class: "btn btn-sm btn-outline-secondary" do %>
+              <i class="bi bi-arrow-return-left"></i> Back to Plans
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-12">
+      <div class="card mx-3">
+        <div class="card-body">
+          <h5 class="card-title">Data</h5>
+          <%= render "form", client_plan: @client_plan, readonly: true %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="row mt-2">
+    <div class="col-12">
+      <div class="card mx-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 border-bottom">
+            <h5 class="card-title">Clients</h5>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <%= render "clients/table", clients: @client_plan.clients, is_report: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

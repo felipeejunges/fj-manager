@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe UsersController, type: :controller do # rubocop:disable Metrics/BlockLength
   let(:user) { create(:user, :admin) }
 
   before do
@@ -8,18 +10,17 @@ RSpec.describe UsersController, type: :controller do
     allow(controller).to receive(:current_user).and_return(user)
   end
 
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     { first_name: 'John', last_name: 'Doe', email: 'john.doe@example.com', password: 'password123' }
-  }
+  end
 
-  let(:invalid_attributes) {
+  let(:invalid_attributes) do
     { first_name: '', last_name: '', email: 'invalid_email', password: 'short' }
-  }
-
+  end
 
   describe 'GET #index' do
     it 'returns a success response' do
-      user = create(:user)
+      create(:user)
       get :index
       expect(response).to be_successful
       expect(assigns(:users).pluck(:id)).to eq(User.all.order(:id).pluck(:id))
@@ -54,9 +55,9 @@ RSpec.describe UsersController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new User' do
-        expect {
+        expect do
           post :create, params: { user: valid_attributes }
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
       end
 
       it 'redirects to the created user' do
@@ -75,9 +76,9 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'PUT #update' do
     context 'with valid params' do
-      let(:new_attributes) {
+      let(:new_attributes) do
         { first_name: 'Updated Name' }
-      }
+      end
 
       it 'updates the requested user' do
         user = User.create! valid_attributes
@@ -105,9 +106,9 @@ RSpec.describe UsersController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested user' do
       user = User.create! valid_attributes
-      expect {
+      expect do
         delete :destroy, params: { id: user.to_param }
-      }.to change(User, :count).by(-1)
+      end.to change(User, :count).by(-1)
     end
 
     it 'redirects to the users list' do
