@@ -24,7 +24,7 @@ p2 = Client::Plan.new(name: '2nd Second', description: Faker::Lorem.sentence, bi
 p2.save
 
 c1 = Client.find_or_create_by(name: 'The Client', document: '12345678901', document_type: 2, payment_type: 'credit_card',
-                              payment_day: 7, client_plan_id: p1.id, discount: 10, email: Faker::Internet.email, created_by_id: u.id)
+                              payment_day: Time.current.day, client_plan_id: p1.id, discount: 10, email: Faker::Internet.email, created_by_id: u.id)
 
 c1.save
 
