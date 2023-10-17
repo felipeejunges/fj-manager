@@ -1,10 +1,23 @@
+require 'simplecov'
+
+SimpleCov.start do
+  add_group "Models", "app/models"
+  add_group "Controllers", "app/controllers"
+  add_group "Services", "app/services"
+  add_group "Sidekiq", "app/sidekiq"
+  add_group "Views", "app/views"
+  add_group "Helpers", "app/helpers"
+  add_group "Config", "config"
+  add_filter "spec"
+end
+
 require 'rspec-sidekiq'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 
-
 selenium_host = ENV.fetch('SELENIUM_HOST', 'localhost')
 selenium_port = ENV.fetch('SELENIUM_PORT', '4444')
+
 
 Capybara.register_driver :headless_selenium_chrome_in_container do |app|
   options = ::Selenium::WebDriver::Chrome::Options.new

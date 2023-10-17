@@ -73,10 +73,12 @@ group :test do
   gem "rails-controller-testing", "~> 1.0"
   gem "database_cleaner", "~> 2.0"
   gem "database_cleaner-mongoid", "~> 2.0"
+  gem "simplecov", "~> 0.22.0"
 end
 
 
 group :development do
+  gem "annotate", "~> 3.2"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 

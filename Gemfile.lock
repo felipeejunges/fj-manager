@@ -76,6 +76,9 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     ast (2.4.2)
     base64 (0.1.1)
     bcrypt (3.1.19)
@@ -113,6 +116,7 @@ GEM
       mongoid
     date (3.3.3)
     diff-lcs (1.5.0)
+    docile (1.4.0)
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
@@ -297,6 +301,12 @@ GEM
       rufus-scheduler (~> 3.2)
       sidekiq (>= 6, < 8)
       tilt (>= 1.4.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -333,6 +343,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  annotate (~> 3.2)
   bcrypt (~> 3.1.7)
   bootsnap
   byebug
@@ -363,6 +374,7 @@ DEPENDENCIES
   shoulda-matchers (~> 5.3)
   sidekiq (~> 7.1)
   sidekiq-scheduler (~> 5.0)
+  simplecov (~> 0.22.0)
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
