@@ -18,6 +18,9 @@ This project is a client-invoice manager.
 - Faker
 - Selenium
 - Capybara
+- Simplecov
+- Pagy
+- Annotate
 - GitActions for CI
 
 ## Instructions
@@ -30,7 +33,7 @@ This instructions shows how to initialize the project and using it with [docker]
     - Specs may not working correctly without docker, as it depends on sidekiq, redis and selenium
 
 ## Project presentation
-Link with project presentation: https://www.loom.com/share/b98d97c256e14a1393a826696c25a636
+Link with project presentation: https://www.loom.com/share/0599be79f6524f7ba1d232050f01ca7b
 
 ## Default user
 - email: master@email.com

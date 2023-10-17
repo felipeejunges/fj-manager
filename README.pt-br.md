@@ -18,6 +18,9 @@ Este é o projeto de gerenciamento de cliente-faturamento;
 - Faker
 - Selenium
 - Capybara
+- Simplecov
+- Pagy
+- Annotate
 - GitActions for CI
 
 ## Instruções
@@ -30,7 +33,7 @@ Estas instruções abordará a inicialização do projeto e utilização do mesm
     - Os testes podem não rodar sem docker por depender do selenium, redis e sidekiq
 
 ## Apresentação do projeto
-Link com vídeo da apresentação do projeto: https://www.loom.com/share/b98d97c256e14a1393a826696c25a636
+Link com vídeo da apresentação do projeto: https://www.loom.com/share/0599be79f6524f7ba1d232050f01ca7b
 
 ## Usuário Padrão
 - email: master@email.com
