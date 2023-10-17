@@ -49,3 +49,7 @@ Link com vídeo da apresentação do projeto: https://www.loom.com/share/0599be7
 ### Clientes e Faturamento
 - O faturamento ocorre todo dia as 01:00 para clientes com dia de pagamento de ontem e que ainda não foram faturados no mês (gerados ou pagos)
 - O faturamento pode ter alteração de forma de pagamento caso atinja 10 tentativas com erro na mesma forma de pagamento.
+
+## Coverage
+
+[coverage](https://github.com/felipeejunges/fj-manager/assets/20795458/6776816b-d60b-4d89-866c-fdb2fa2b1cb4)
