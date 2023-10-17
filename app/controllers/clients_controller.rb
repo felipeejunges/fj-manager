@@ -43,7 +43,8 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       if @client.update(update_client_params)
-        format.html { redirect_to client_url(@client), notice: 'Client was successfully updated.' }
+        flash[:success] = 'Client was successfully updated'
+        format.html { redirect_to client_url(@client) }
       else
         flash[:error] = 'Client not updated.'
         format.html { render :edit, status: :unprocessable_entity }
