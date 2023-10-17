@@ -33,6 +33,7 @@ RSpec.describe GenerateInvoiceJob, type: :job do # rubocop:disable Metrics/Block
         let(:status) { :error }
 
         it 'does change the status of the existing invoice' do
+          allow_any_instance_of(Client::Invoice).to receive(:save).and_return(true)
           existing_invoice = client.invoices.last
           described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current.yesterday }.to_json)
           expect(client.invoices.count).to eq(1)

@@ -24,7 +24,7 @@ class GenerateInvoiceJob < ApplicationJob
 
     return unless %w[generating error].include?(invoice.status)
 
-    integrate(invoice, client)
+    integrate(invoice)
 
     update_payment_day_with_next_payment_day(client)
 
@@ -57,7 +57,7 @@ class GenerateInvoiceJob < ApplicationJob
     )
   end
 
-  def integrate(invoice, _client)
+  def integrate(invoice)
     payment_type = ::PaymentType.new
     klass = payment_type.class_from_integration_by(name: invoice.payment_type)
     klass.constantize.new.perform(invoice.id)
