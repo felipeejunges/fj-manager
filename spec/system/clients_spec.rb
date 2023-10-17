@@ -54,7 +54,7 @@ RSpec.feature 'Clients Page', type: :system do # rubocop:disable Metrics/BlockLe
       visit edit_client_path(client)
       fill_in 'Name', with: 'Updated Client Name'
       click_button 'Save'
-      expect(page).to have_content('Client was successfully updated.')
+      expect(page).to have_content('Client was successfully updated')
       expect(page).to have_content('Updated Client Name')
     end
   end
