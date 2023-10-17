@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Client::Invoice::ErrorLog, type: :model do
+RSpec.describe Client::Invoice::ErrorLog, type: :model do # rubocop:disable Metrics/BlockLength
   describe 'scopes' do
     let!(:error_log_this_year) { create(:client_invoice_error_log, date: Date.current) }
     let!(:error_log_last_year) { create(:client_invoice_error_log, date: 1.year.ago) }

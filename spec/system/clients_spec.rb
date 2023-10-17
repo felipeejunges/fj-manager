@@ -28,9 +28,9 @@ RSpec.feature 'Clients Page', type: :system do # rubocop:disable Metrics/BlockLe
     login(user.email, password)
     visit clients_path
     within('table tbody') do |_tbody|
-      first('tr') do |_tr|
-        all('td').last do |_td|
-          click(all('a').last)
+      first('tr') do |tr|
+        tr.all('td').last do |td|
+          click(td.all('a').last)
           page.accept_confirm
           expect(page).to have_content('Client was successfully destroyed.')
           expect(Client.count).to eq(4)
