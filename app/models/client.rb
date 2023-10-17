@@ -23,7 +23,7 @@ class Client < ApplicationRecord
   def discount_less_or_equal_than_plan_max_discount
     return if plan.present? && discount <= plan.max_discount
 
-    errors.add(:discount, :invalid, message: 'must be less or euqal than plan max discount')
+    errors.add(:discount, :invalid, message: 'must be less or equal than plan max discount')
   end
 
   def net_value

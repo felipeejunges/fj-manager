@@ -12,16 +12,16 @@
               <th scope="col">Payment Type</th>
             <% else %>
               <th scope="col">
-                <%= sort_link(column: :id, label: '#', link: list_client_plans_path) %> 
+                <%= sort_link(column: :id, label: '#', link: clients_path) %> 
               </th>
               <th scope="col">
-                <%= sort_link(column: :name, label: 'Name', link: list_client_plans_path) %> 
+                <%= sort_link(column: :name, label: 'Name', link: clients_path) %> 
               </th>
               <th scope="col">
-                <%= sort_link(column: :document, label: 'Document', link: list_client_plans_path) %> 
+                <%= sort_link(column: :document, label: 'Document', link: clients_path) %> 
               </th>
               <th scope="col">
-                <%= sort_link(column: :document_type, label: 'Document Type', link: list_client_plans_path) %> 
+                <%= sort_link(column: :document_type, label: 'Document Type', link: clients_path) %> 
               </th>
               <th scope="col">
                 Actions
