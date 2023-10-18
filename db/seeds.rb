@@ -41,14 +41,19 @@ i1.save
   e.save
 end
 
-yesterday = Date.current.yesterday
+today = Date.current
+dates = [today.yesterday, today, today.last_month, today - 2.days, today,
+         today.yesterday, today - 3.days, today - 4.days, today - 5.days,
+         today - 6.days, today - 7.days, today, today.yesterday, today.last_month,
+         today.yesterday.last_month, today.tomorrow.last_month, today, today.yesterday, today]
 50.times do
+  date = dates.sample
   client = Client.create(
     name: Faker::Company.name,
     document: Faker::IDNumber.unique.brazilian_citizen_number,
     document_type: :cpf,
     payment_type: %w[credit_card debit_card ticket].sample,
-    payment_day: yesterday.day,
+    payment_day: date.day,
     client_plan_id: p1.id,
     email: Faker::Internet.email,
     created_by_id: u.id
@@ -56,8 +61,8 @@ yesterday = Date.current.yesterday
   client.invoices.create(
     description: Faker::Lorem.sentence,
     status: :payed,
-    payed_date: yesterday,
-    reference_date: yesterday,
+    payed_date: date,
+    reference_date: date,
     invoice_value: client.net_value,
     payment_type: client.payment_type,
     client_plan_id: client.plan.id

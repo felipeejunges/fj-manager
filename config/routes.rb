@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   namespace :reports do
     get :new_clients
     get :clients_invoiced_yesterday
+    get :clients_invoiced_today
+    get :clients_with_error_today
     get :clients
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

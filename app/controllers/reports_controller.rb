@@ -22,6 +22,22 @@ class ReportsController < ApplicationController
     @clients
   end
 
+  def clients_invoiced_today
+    client_ids = Client::Invoice.generated_today.pluck(:client_id).uniq
+    @clients = Client.where(id: client_ids)
+    @clients = @clients.where(payment_type:) if payment_type.present?
+    @clients = @clients.where(document_type:) if document_type.present?
+    @clients
+  end
+
+  def clients_with_error_today
+    client_ids = Client::Invoice.error.today.pluck(:client_id).uniq
+    @clients = Client.where(id: client_ids)
+    @clients = @clients.where(payment_type:) if payment_type.present?
+    @clients = @clients.where(document_type:) if document_type.present?
+    @clients
+  end
+
   def clients
     @clients = if status.present?
                  Client.where(id: Client::Invoice.where(status:).pluck(:client_id).uniq)
