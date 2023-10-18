@@ -37,7 +37,7 @@ class Client::Invoice < ApplicationRecord
   end
 
   def store_error(exception)
-    self.status = :error
+    update(status: :error)
     retry_number = error_logs.count + 1
     error_logs.new(retry_number:, log: exception.to_s, date: Time.now.in_time_zone).save
 
