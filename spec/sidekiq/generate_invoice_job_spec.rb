@@ -9,7 +9,7 @@ RSpec.describe GenerateInvoiceJob, type: :job do # rubocop:disable Metrics/Block
     let(:next_payment_day) { Date.current.day }
     let(:client) { create(:client, client_plan_id: client_plan.id, payment_day: Date.current.day, next_payment_day:) }
 
-    context 'when invoice does not exist for the given date' do
+    context 'when invoice does not exist for the given date' do # rubocop:disable Metrics/BlockLength
       it 'creates a new invoice for the client' do
         described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current }.to_json)
         expect(client.invoices.count).to eq(1)
@@ -69,10 +69,9 @@ RSpec.describe GenerateInvoiceJob, type: :job do # rubocop:disable Metrics/Block
         let(:status) { :error }
 
         it 'does change the status of the existing invoice' do
-          existing_invoice = client.invoices.last
           described_class.perform_sync({ 'client_id' => client.id, 'date' => Date.current }.to_json)
           expect(client.invoices.count).to eq(1)
-          expect(existing_invoice.reload.status).to eq('generated')
+          expect(client.invoices.last.status).to eq('generated')
         end
       end
     end
