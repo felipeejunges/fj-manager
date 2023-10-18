@@ -54,6 +54,54 @@ RSpec.describe ReportsController, type: :controller do # rubocop:disable Metrics
     end
   end
 
+  describe 'GET #clients_invoiced_today' do
+    it 'assigns clients with invoices from today to @clients' do
+      client = create(:client)
+      create(:client_invoice, client:, reference_date: Date.current, invoice_value: 100, status: :generated)
+      get :clients_invoiced_today
+
+      expect(assigns(:clients)).to match_array([client])
+    end
+
+    it 'filters clients based on payment type and document type' do
+      client_with_payment_type = create(:client, payment_type: 'credit_card', document_type: 'cnpj')
+      create(:client_invoice, client: client_with_payment_type, invoice_value: 1000, reference_date: Date.current, status: :payed)
+      create(:client, payment_type: 'bank_transfer', document_type: 'cpf')
+
+      get :clients_invoiced_today, params: { payment_type: 'credit_card', document_type: 'cnpj' }
+      expect(assigns(:clients)).to match_array([client_with_payment_type])
+    end
+
+    it 'renders the clients_invoiced_today template' do
+      get :clients_invoiced_today
+      expect(response).to render_template(:clients_invoiced_today)
+    end
+  end
+
+  describe 'GET #clients_with_error_today' do
+    it 'assigns clients with invoices from today to @clients' do
+      client = create(:client)
+      create(:client_invoice, client:, reference_date: Date.current, invoice_value: 100, status: :error)
+      get :clients_with_error_today
+
+      expect(assigns(:clients)).to match_array([client])
+    end
+
+    it 'filters clients based on payment type and document type' do
+      client_with_payment_type = create(:client, payment_type: 'credit_card', document_type: 'cnpj')
+      create(:client_invoice, client: client_with_payment_type, invoice_value: 1000, reference_date: Date.current, status: :error)
+      create(:client, payment_type: 'bank_transfer', document_type: 'cpf')
+
+      get :clients_with_error_today, params: { payment_type: 'credit_card', document_type: 'cnpj' }
+      expect(assigns(:clients)).to match_array([client_with_payment_type])
+    end
+
+    it 'renders the clients_with_error_today template' do
+      get :clients_with_error_today
+      expect(response).to render_template(:clients_with_error_today)
+    end
+  end
+
   describe 'GET #clients' do
     it 'assigns all clients to @clients' do
       clients = create_list(:client, 3)

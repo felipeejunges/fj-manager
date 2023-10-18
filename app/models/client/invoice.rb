@@ -18,6 +18,8 @@ class Client::Invoice < ApplicationRecord
   scope :range_month_generated, ->(date) { where(status: %i[generated payed late], reference_date: date.beginning_of_month..date.end_of_month) }
   scope :range_day_generated, ->(date) { where(status: %i[generated payed late], reference_date: date..date) }
   scope :generated_yesterday, -> { where(status: %i[generated payed late], reference_date: Date.current.yesterday) }
+  scope :generated_today, -> { where(status: %i[generated payed late], reference_date: Date.current) }
+  scope :today, -> { where(reference_date: Date.current) }
 
   scope :range_year, ->(date) { where(reference_date: date.beginning_of_year..date.end_of_year) }
   scope :range_month, ->(date) { where(reference_date: date.beginning_of_month..date.end_of_month) }
@@ -35,7 +37,7 @@ class Client::Invoice < ApplicationRecord
   end
 
   def store_error(exception)
-    self.status = :error
+    update(status: :error)
     retry_number = error_logs.count + 1
     error_logs.new(retry_number:, log: exception.to_s, date: Time.now.in_time_zone).save
 

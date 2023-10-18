@@ -38,10 +38,10 @@ class GenerateInvoiceJob < ApplicationJob
   end
 
   def start_date(date, billable_period)
-    if billable_period == :yearly
+    if billable_period == 'yearly'
       date.last_year
-    elsif %i[three_months six_months].include?(billable_period)
-      date - (1 + billable_period).month
+    elsif %w[three_months six_months].include?(billable_period)
+      date - (1 + Client::Plan.billable_periods[billable_period]).months
     else
       date
     end
