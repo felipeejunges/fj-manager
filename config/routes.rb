@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :charts
+
   resources :clients do
     collection do
       get 'list'

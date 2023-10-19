@@ -34,8 +34,19 @@ i1 = c1.invoices.find_or_create_by(description: 'Seed generated #1', payment_typ
 i1.payed_date = '2023-09-07'
 i1.save
 
+i2 = c1.invoices.find_or_create_by(description: 'Seed generated #1', payment_type: 'credit_card', reference_date: '2022-09-07',
+                                   invoice_value: 19.90, status: 3, client_plan_id: p1.id)
+
+i2.payed_date = '2023-09-07'
+i2.save
+i3 = c1.invoices.find_or_create_by(description: 'Seed generated #1', payment_type: 'credit_card', reference_date: '2022-10-07',
+                                   invoice_value: 339.90, status: 3, client_plan_id: p1.id)
+
+i3.payed_date = '2023-09-07'
+i3.save
+
 33.times do |i|
-  e = i1.error_logs.find_or_create_by(retry_number: i + 1, log: Faker::Lorem.sentence)
+  e = i1.error_logs.find_or_create_by(retry_number: i + 1, log: Faker::Lorem.sentence, payment_type: 'credit_card')
   e.date = Time.new('2023-09-07')
 
   e.save

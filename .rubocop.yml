@@ -11,7 +11,7 @@ Lint/MissingSuper:
 Metrics/ParameterLists:
   Max: 10
 
-Metrics/AbcSize:
+Metrics/last_2_years_invoices_by_monthSize:
   Max: 30
 
 Metrics/MethodLength:
