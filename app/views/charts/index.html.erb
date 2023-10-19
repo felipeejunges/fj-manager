@@ -22,21 +22,21 @@
   </div>
   <div class="row">
     <div class="col-sm-12 col-md-4">
-      <%= pie_chart payment_day_by_client, title: 'Payment Day by Client' %>
+      <%= pie_chart payment_day_by_client, adapter: 'google', title: 'Payment Day by Client' %>
     </div>
     <div class="col-sm-12 col-md-4">
-      <%= pie_chart error_logs_by_payment_type, title: 'Error Log By Payment Type this Month'  %>
+      <%= pie_chart error_logs_by_payment_type, adapter: 'google', title: 'Error Log By Payment Type this Month'  %>
     </div>
     <div class="col-sm-12 col-md-4">
-      <%= pie_chart payment_type_by_client, title: 'Payment Type by Client'  %>
+      <%= pie_chart payment_type_by_client, adapter: 'google', title: 'Payment Type by Client', donut: true, round: 2, zeros: true %>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12 col-md-6">
-      <%= line_chart last_2_years_invoices_by_month, title: 'Invoced last 2 years by month ', xtitle: 'Month', ytitle:  %>
+      <%= line_chart last_2_years_invoices_by_month, adapter: 'google', title: 'Invoced last 3 years by month ', xtitle: 'Month', ytitle:, round: 2, zeros: true  %>
     </div>
     <div class="col-sm-12 col-md-6">
-      <%= column_chart last_3_months_invoices_by_day, title: 'Invoices the last 3 months by day', xtitle: 'Day', ytitle: %>
+      <%= column_chart last_3_months_invoices_by_day, adapter: 'google', title: 'Invoices the last 3 months by day', xtitle: 'Day', ytitle:, round: 2, zeros: true %>
     </div>
   </div>
 </div>
