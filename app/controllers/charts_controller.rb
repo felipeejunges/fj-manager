@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class ChartsController < ApplicationController
   before_action :set_chart, only: %i[show edit update destroy]
-  helper_method :error_logs_by_payment_type, :last_2_years_invoices_by_month, :last_3_months_invoices_by_day, :payment_day_by_client, :payment_type_by_client, :ytitle
+  helper_method :error_logs_by_payment_type, :last_2_years_invoices_by_month, :last_3_months_invoices_by_day, :payment_day_by_client,
+                :payment_type_by_client, :ytitle
 
   # GET /charts or /charts.json
   def index; end
@@ -11,7 +14,7 @@ class ChartsController < ApplicationController
     return @error_logs_by_payment_type if @error_logs_by_payment_type.present?
 
     @error_logs_by_payment_type = {}
-    Client::Invoice::ErrorLog.all.group_by { |e| e.payment_type }.each { |k, i| @error_logs_by_payment_type.merge!(k => i.count) }
+    Client::Invoice::ErrorLog.all.group_by(&:payment_type).each { |k, i| @error_logs_by_payment_type.merge!(k => i.count) }
     @error_logs_by_payment_type
   end
 
