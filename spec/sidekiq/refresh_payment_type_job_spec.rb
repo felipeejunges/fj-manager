@@ -12,5 +12,8 @@ RSpec.describe RefreshPaymentTypeJob, type: :job do
       expect(worker.jobs.size).to eq(1)
       expect(worker.jobs.last['class']).to eq(RefreshPaymentTypeJob.to_s)
     end
+    it 'enqueues the job correctly' do
+      expect(described_class.new.perform).to eq('OK')
+    end
   end
 end

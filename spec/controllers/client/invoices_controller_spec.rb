@@ -35,4 +35,12 @@ RSpec.describe Client::InvoicesController, type: :controller do # rubocop:disabl
       expect(flash[:error]).to be_present
     end
   end
+
+  describe 'GET #index' do
+    it 'renders the index template' do
+      get :index, params: { client_id: client.id }
+      expect(response).to render_template('client/invoices/_table')
+      expect(response).to have_http_status(:ok)
+    end
+  end
 end

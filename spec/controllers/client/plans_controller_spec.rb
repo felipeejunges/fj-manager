@@ -27,6 +27,21 @@ RSpec.describe Client::PlansController, type: :controller do # rubocop:disable M
     end
   end
 
+  describe 'GET #list' do
+    it 'renders the list template' do
+      client_plans
+      get :list
+      expect(response).to render_template('client/plans/_table')
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'assigns @client_plans' do
+      client_plans
+      get :list
+      expect(assigns(:client_plans).pluck(:id)).to eq(Client::Plan.all.order(:id).pluck(:id))
+    end
+  end
+
   describe 'GET #show' do
     it 'renders the show template' do
       get :show, params: { id: client_plan.id }
@@ -132,6 +147,14 @@ RSpec.describe Client::PlansController, type: :controller do # rubocop:disable M
       expect do
         delete :destroy, params: { id: client_plan.id }
       end.to change(Client::Plan, :count).by(-1)
+    end
+
+    it "don't destroy the client plan" do
+      allow_any_instance_of(Client::Plan).to receive(:destroy).and_return(false)
+      client_plan
+      expect do
+        delete :destroy, params: { id: client_plan.id }
+      end.to change(Client::Plan, :count).by(0)
     end
 
     it 'redirects to the client plans index' do

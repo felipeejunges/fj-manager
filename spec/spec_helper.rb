@@ -8,8 +8,8 @@ SimpleCov.start do
   add_group "Views", "app/views"
   add_group "Helpers", "app/helpers"
   add_group "Presenters", "app/presenters"
-  add_group "Config", "config"
   add_filter "spec"
+  add_filter "config"
 end
 
 require 'rspec-sidekiq'

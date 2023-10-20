@@ -19,4 +19,12 @@ RSpec.describe Client::Invoice::ErrorLogsController, type: :controller do
       expect(response).to be_successful
     end
   end
+
+  describe 'GET #index' do
+    it 'renders the index template' do
+      get :index, params: { client_id: client.id, invoice_id: invoice.id }
+      expect(response).to render_template('client/invoice/error_logs/_table')
+      expect(response).to have_http_status(:ok)
+    end
+  end
 end

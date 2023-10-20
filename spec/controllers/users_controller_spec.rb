@@ -27,6 +27,21 @@ RSpec.describe UsersController, type: :controller do # rubocop:disable Metrics/B
     end
   end
 
+  describe 'GET #list' do
+    it 'renders the list template' do
+      user
+      get :list
+      expect(response).to render_template('users/_table')
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'assigns @users' do
+      user
+      get :list
+      expect(assigns(:users).pluck(:id)).to eq(User.all.order(:id).pluck(:id))
+    end
+  end
+
   describe 'GET #show' do
     it 'returns a success response' do
       user = User.create! valid_attributes
@@ -49,6 +64,15 @@ RSpec.describe UsersController, type: :controller do # rubocop:disable Metrics/B
       get :edit, params: { id: user.to_param }
       expect(response).to be_successful
       expect(assigns(:user)).to eq(user)
+    end
+
+    context 'user is not admin' do
+      let(:users) { create_list(:user, 2) }
+      let(:user) { users.first }
+      it 'redirects to /' do
+        get :edit, params: { id: users[1].to_param }
+        expect(response).to be_redirect
+      end
     end
   end
 
@@ -109,6 +133,14 @@ RSpec.describe UsersController, type: :controller do # rubocop:disable Metrics/B
       expect do
         delete :destroy, params: { id: user.to_param }
       end.to change(User, :count).by(-1)
+    end
+
+    it "don't destroy the client plan" do
+      allow_any_instance_of(User).to receive(:destroy).and_return(false)
+      user = User.create! valid_attributes
+      expect do
+        delete :destroy, params: { id: user.id }
+      end.to change(User, :count).by(0)
     end
 
     it 'redirects to the users list' do
