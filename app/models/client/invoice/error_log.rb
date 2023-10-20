@@ -8,6 +8,7 @@ class Client::Invoice::ErrorLog
   field :date, type: DateTime
   field :log, type: String
   field :retry_number, type: Integer
+  field :payment_type, type: String
 
   scope :range_year, ->(date) { where(date: date.beginning_of_year..date.end_of_year) }
   scope :range_month, ->(date) { where(date: date.beginning_of_month..date.end_of_month) }
