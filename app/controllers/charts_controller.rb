@@ -11,11 +11,9 @@ class ChartsController < ApplicationController
   private
 
   def error_logs_by_payment_type
-    return @error_logs_by_payment_type if @error_logs_by_payment_type.present?
-
-    @error_logs_by_payment_type = {}
-    Client::Invoice::ErrorLog.all.group_by(&:payment_type).each { |k, i| @error_logs_by_payment_type.merge!(k => i.count) }
-    @error_logs_by_payment_type
+    error_logs_by_payment_type = {}
+    Client::Invoice::ErrorLog.all.group_by(&:payment_type).each { |k, i| error_logs_by_payment_type.merge!(k => i.count) }
+    error_logs_by_payment_type
   end
 
   def last_2_years_invoices_by_month
