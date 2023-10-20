@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Client < ApplicationRecord
+  include ClientsHelper
+
   has_many :invoices, class_name: 'Client::Invoice', inverse_of: :client, dependent: :destroy
   belongs_to :plan, foreign_key: :client_plan_id, class_name: 'Client::Plan'
   belongs_to :created_by, foreign_key: :created_by_id, class_name: 'User'
@@ -113,16 +115,6 @@ class Client < ApplicationRecord
 
   def errors_comparisson_monthly
     @errors_comparisson_monthly ||= calculate_percentage_difference(errors_last_month, errors_this_month)
-  end
-
-  def calculate_percentage_difference(number1, number2)
-    return 100 if number1.zero? && number2.nonzero?
-    return -100 if number2.zero? && number1.nonzero?
-    return 0 if number2.zero? && number1.zero?
-
-    difference = number2 - number1
-    percentage_difference = (difference.to_f / number1) * 100
-    percentage_difference.round(2)
   end
 end
 

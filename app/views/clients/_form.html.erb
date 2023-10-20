@@ -31,7 +31,7 @@
       <div class="form-floating">
         <div class="form-floating">
          <div class="form-floating">
-            <%= form.select :document_type, ClientsHelper.document_type_options, {}, class: "form-select", disabled: readonly %>
+            <%= form.select :document_type, ClientPresenter.document_type_options, {}, class: "form-select", disabled: readonly %>
             <%= form.label :document_type %>
           </div>
         </div>
@@ -59,7 +59,7 @@
     </div>
     <div class="col-sm-12 col-md-2 mb-1">
       <div class="form-floating">
-        <%= form.select :payment_type, PaymentTypesHelper.integration_options, {}, class: "form-select", disabled: readonly %>
+        <%= form.select :payment_type, PaymentTypePresenter.integration_options, {}, class: "form-select", disabled: readonly %>
         <%= form.label :payment_type %>
       </div>
     </div>
@@ -86,7 +86,7 @@
     <% end %>
     <div class="col-sm-12 col-md-3 mb-1">
       <div class="form-floating">
-        <%= form.select :client_plan_id, Client::PlansHelper.plan_options, {}, class: "form-select", disabled: readonly, id: :client_plan %>
+        <%= form.select :client_plan_id, Client::PlanPresenter.plan_options, {}, class: "form-select", disabled: readonly, id: :client_plan %>
         <%= form.label :plan %>
       </div>
     </div>

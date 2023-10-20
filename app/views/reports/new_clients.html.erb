@@ -23,7 +23,7 @@
               </div>
               <div class="col-sm-12 col-md-4">
                 <div class="form-floating">
-                  <%= select_tag :payment_type, options_for_select(PaymentTypesHelper.integration_options, params[:payment_type]), class: "form-select", :prompt => "All" %>
+                  <%= select_tag :payment_type, options_for_select(PaymentTypePresenter.integration_options, params[:payment_type]), class: "form-select", :prompt => "All" %>
                   <%= label_tag :payment_type %>
                 </div>
               </div>

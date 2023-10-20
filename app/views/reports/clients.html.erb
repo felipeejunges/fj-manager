@@ -12,19 +12,19 @@
             <div class="row">
               <div class="col-sm-12 col-md-4">
                 <div class="form-floating">
-                  <%= select_tag :document_type, options_for_select(ClientsHelper.document_type_options, params[:document_type]), class: "form-select", :prompt => "All" %>
+                  <%= select_tag :document_type, options_for_select(ClientPresenter.document_type_options, params[:document_type]), class: "form-select", :prompt => "All" %>
                   <%= label_tag :document_type %>
                 </div>
               </div>
               <div class="col-sm-12 col-md-4">
                 <div class="form-floating">
-                  <%= select_tag :payment_type, options_for_select(PaymentTypesHelper.integration_options, params[:payment_type]), class: "form-select", :prompt => "All" %>
+                  <%= select_tag :payment_type, options_for_select(PaymentTypePresenter.integration_options, params[:payment_type]), class: "form-select", :prompt => "All" %>
                   <%= label_tag :payment_type %>
                 </div>
               </div>
               <div class="col-sm-12 col-md-4">
                 <div class="form-floating">
-                  <%= select_tag :status, options_for_select(Client::InvoicesHelper.status_options, params[:status]), class: "form-select", :prompt => "All" %>
+                  <%= select_tag :status, options_for_select(Client::InvoicePresenter.status_options, params[:status]), class: "form-select", :prompt => "All" %>
                   <%= label_tag :status %>
                 </div>
               </div>
