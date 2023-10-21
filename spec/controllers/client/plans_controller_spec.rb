@@ -25,6 +25,11 @@ RSpec.describe Client::PlansController, type: :controller do # rubocop:disable M
       get :index
       expect(assigns(:client_plans).pluck(:id)).to eq(Client::Plan.all.order(:id).pluck(:id))
     end
+
+    it 'ordered correctly' do
+      get :index, params: { sort_by: 'name', sort_order: 'DESC' }
+      expect(assigns(:client_plans).pluck(:id)).to eq(Client::Plan.order(name: :desc).pluck(:id))
+    end
   end
 
   describe 'GET #list' do

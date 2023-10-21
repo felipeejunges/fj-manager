@@ -28,17 +28,26 @@ RSpec.describe UsersController, type: :controller do # rubocop:disable Metrics/B
   end
 
   describe 'GET #list' do
+    let!(:users) { create_list(:user, 3) }
     it 'renders the list template' do
-      user
       get :list
       expect(response).to render_template('users/_table')
       expect(response).to have_http_status(:ok)
     end
 
     it 'assigns @users' do
-      user
       get :list
       expect(assigns(:users).pluck(:id)).to eq(User.all.order(:id).pluck(:id))
+    end
+
+    it 'ordered by email correctly' do
+      get :list, params: { sort_by: 'email', sort_order: 'DESC' }
+      expect(assigns(:users).pluck(:id)).to eq(User.order(email: :desc).pluck(:id))
+    end
+
+    it 'ordered by name correctly' do
+      get :list, params: { sort_by: 'name', sort_order: 'DESC' }
+      expect(assigns(:users).pluck(:id)).to eq(User.order({ first_name: :desc, last_name: :desc }).pluck(:id))
     end
   end
 

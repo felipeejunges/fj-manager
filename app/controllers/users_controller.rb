@@ -110,7 +110,7 @@ class UsersController < ApplicationController
     sort = if params[:sort_by] == 'name'
              { first_name: sort_order, last_name: sort_order }
            else
-             params[:sort_by].to_sym => sort_order
+             { params[:sort_by].to_sym => sort_order }
            end
 
     @users = @users.order(sort)

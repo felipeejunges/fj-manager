@@ -18,10 +18,16 @@ RSpec.describe ClientsController, type: :controller do # rubocop:disable Metrics
   end
 
   describe 'GET #list' do
+    let!(:clients) { create_list(:client, 3) }
     it 'renders the list template' do
       get :list
       expect(response).to render_template('clients/_table')
       expect(response).to have_http_status(:ok)
+    end
+
+    it 'ordered correctly' do
+      get :list, params: { sort_by: 'name', sort_order: 'DESC' }
+      expect(assigns(:clients).pluck(:id)).to eq(Client.order(name: :desc).pluck(:id))
     end
   end
 
