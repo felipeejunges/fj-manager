@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 module ClientsHelper
-  def self.document_type_options
-    Client.document_types.keys.map { |dc| [dc.upcase, dc] }
-  end
-
   def earnings_this_year
     Client::Invoice.payed.range_year(Time.now.in_time_zone).sum(:invoice_value)
   end
@@ -14,7 +10,7 @@ module ClientsHelper
   end
 
   def earnings_comparisson_yearly
-    calculate_percentage_difference(earnings_last_month, earnings_this_year)
+    calculate_percentage_difference(earnings_last_year, earnings_this_year)
   end
 
   def errors_this_year

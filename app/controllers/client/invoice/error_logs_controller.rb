@@ -28,11 +28,6 @@ class Client::Invoice::ErrorLogsController < ApplicationController
     @client = Client.find(params[:client_id])
   end
 
-  # Only allow a list of trusted parameters through.
-  def client_invoice_error_log_params
-    params.require(:client_invoice_error_log).permit(:client_invoice_id, :retry_number, :date, :log)
-  end
-
   def set_error_logs
     @error_logs = @invoice.error_logs.all
     sort_error_logs

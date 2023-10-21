@@ -17,6 +17,20 @@ RSpec.describe ClientsController, type: :controller do # rubocop:disable Metrics
     end
   end
 
+  describe 'GET #list' do
+    let!(:clients) { create_list(:client, 3) }
+    it 'renders the list template' do
+      get :list
+      expect(response).to render_template('clients/_table')
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'ordered correctly' do
+      get :list, params: { sort_by: 'name', sort_order: 'DESC' }
+      expect(assigns(:clients).pluck(:id)).to eq(Client.order(name: :desc).pluck(:id))
+    end
+  end
+
   describe 'GET #show' do
     let(:client) { create(:client) }
 
@@ -30,6 +44,15 @@ RSpec.describe ClientsController, type: :controller do # rubocop:disable Metrics
     it 'returns a success response' do
       get :new
       expect(response).to be_successful
+    end
+
+    context 'user is not admin' do
+      let(:users) { create_list(:user, 2) }
+      let(:user) { users.first }
+      it 'redirects to /' do
+        get :edit, params: { id: users[1].to_param }
+        expect(response).to be_redirect
+      end
     end
   end
 
@@ -92,6 +115,29 @@ RSpec.describe ClientsController, type: :controller do # rubocop:disable Metrics
         put :update, params: { id: client.id, client: { name: nil } }
         expect(response).to render_template('edit')
       end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    let(:client) { create(:client) }
+    it 'destroys the client' do
+      client
+      expect do
+        delete :destroy, params: { id: client.id }
+      end.to change(Client, :count).by(-1)
+    end
+
+    it "don't destroy the client" do
+      allow_any_instance_of(Client).to receive(:destroy).and_return(false)
+      client
+      expect do
+        delete :destroy, params: { id: client.id }
+      end.to change(Client, :count).by(0)
+    end
+
+    it 'redirects to the client plans index' do
+      delete :destroy, params: { id: client.id }
+      expect(response).to redirect_to(clients_path)
     end
   end
 end

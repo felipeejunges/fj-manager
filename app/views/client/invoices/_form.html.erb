@@ -23,7 +23,7 @@
     </div>
     <div class="col-sm-12 col-md-4 mb-1">
       <div class="form-floating">
-        <%= form.select :payment_type, PaymentTypesHelper.integration_options, {}, class: "form-select", disabled: readonly %>
+        <%= form.select :payment_type, PaymentTypePresenter.integration_options, {}, class: "form-select", disabled: readonly %>
         <%= form.label :payment_type %>
       </div>
     </div>

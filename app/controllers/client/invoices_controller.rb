@@ -44,12 +44,6 @@ class Client::InvoicesController < ApplicationController
     @client = Client.find(params[:client_id])
   end
 
-  # Only allow a list of trusted parameters through.
-  def invoice_params
-    params.require(:client_invoice).permit(:description, :payment_type, :reference_date, :status, :payed_date, :invoice_value, :client_id,
-                                           :max_retries)
-  end
-
   def payment_type_param
     params.require(:client_invoice)
   end

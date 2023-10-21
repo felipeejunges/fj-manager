@@ -51,7 +51,7 @@
     </div>
     <div class="col-sm-12 col-md-4 mb-1">
       <div class="form-floating">
-        <%= form.select :billable_period, Client::PlansHelper.billable_period_options, {}, class: "form-select", disabled: readonly %>
+        <%= form.select :billable_period, Client::PlanPresenter.billable_period_options, {}, class: "form-select", disabled: readonly %>
         <%= form.label :billable_period %>
       </div>
     </div>

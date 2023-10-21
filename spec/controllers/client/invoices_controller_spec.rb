@@ -35,4 +35,18 @@ RSpec.describe Client::InvoicesController, type: :controller do # rubocop:disabl
       expect(flash[:error]).to be_present
     end
   end
+
+  describe 'GET #index' do
+    let!(:client_invoices) { create_list(:client_invoice, 3, client:) }
+    it 'renders the index template' do
+      get :index, params: { client_id: client.id }
+      expect(response).to render_template('client/invoices/_table')
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'ordered correctly' do
+      get :index, params: { client_id: client.id, sort_by: 'description', sort_order: 'DESC' }
+      expect(assigns(:invoices).pluck(:id)).to eq(Client::Invoice.order(description: :desc).pluck(:id))
+    end
+  end
 end
