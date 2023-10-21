@@ -33,7 +33,7 @@
   </div>
   <div class="row">
     <div class="col-sm-12 col-md-6">
-      <%= line_chart last_2_years_invoices_by_month, adapter: 'google', title: 'Invoced last 3 years by month ', xtitle: 'Month', ytitle:, round: 2, zeros: true  %>
+      <%= line_chart last_3_years_invoices_by_month, adapter: 'google', title: 'Invoced last 3 years by month ', xtitle: 'Month', ytitle:, round: 2, zeros: true  %>
     </div>
     <div class="col-sm-12 col-md-6">
       <%= column_chart last_3_months_invoices_by_day, adapter: 'google', title: 'Invoices the last 3 months by day', xtitle: 'Day', ytitle:, round: 2, zeros: true %>

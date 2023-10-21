@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Client::Invoice::ErrorLogsController, type: :controller do
+RSpec.describe Client::Invoice::ErrorLogsController, type: :controller do # rubocop:disable Metrics/BlockLength
   let(:user) { create(:user) }
   let(:client) { create(:client) }
   let(:invoice) { create(:client_invoice, client:) }
