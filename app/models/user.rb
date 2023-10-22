@@ -3,6 +3,8 @@
 class User < ApplicationRecord
   has_secure_password :password, validations: true
 
+  has_and_belongs_to_many :roles
+
   has_many :created_clients, class_name: 'Client',
                              inverse_of: :created_by,
                              dependent: :destroy,
