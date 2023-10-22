@@ -13,7 +13,9 @@ end
 #  name        :string
 #  description :string
 #  code        :string
-#  active      :boolean
+#  active      :boolean          default(TRUE)
+#  deleteable  :boolean          default(FALSE)
+#  editable    :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

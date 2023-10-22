@@ -3,3 +3,7 @@ users_roles_1:
   roles:
     - admin
     - sales_person
+users_roles_2:
+  user_id: 2
+  roles:
+    - sales_person

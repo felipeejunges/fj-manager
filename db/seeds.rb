@@ -10,10 +10,12 @@
 
 require 'faker'
 
-def permissions
-  data = YAML.load_file(Rails.root.join('db/seeds/permissions.yml'))
+def data(file_name)
+  YAML.load_file(Rails.root.join("db/seeds/#{file_name}.yml"))
+end
 
-  data.each do |category, actions|
+def permissions
+  data('permissions').each do |category, actions|
     actions.each do |action, description|
       Permission.find_or_create_by(key: category, action:, description:)
     end
@@ -22,9 +24,7 @@ def permissions
 end
 
 def roles
-  data = YAML.load_file(Rails.root.join('db/seeds/roles.yml'))
-
-  data.each do |r|
+  data('roles').each do |r|
     role = r[1]
     Role.find_or_create_by(id: role['id'], name: role['name'], code: role['code'], description: role['description'])
   end
@@ -32,9 +32,7 @@ def roles
 end
 
 def roles_permissions
-  data = YAML.load_file(Rails.root.join('db/seeds/roles_permissions.yml'))
-
-  data.map do |roles_permissions|
+  data('roles_permissions').map do |roles_permissions|
     rp = roles_permissions[1]
     role = Role.find(rp['role_id'])
 
@@ -48,9 +46,7 @@ def roles_permissions
 end
 
 def users_roles
-  data = YAML.load_file(Rails.root.join('db/seeds/users_roles.yml'))
-
-  data.each do |users_roles|
+  data('users_roles').each do |users_roles|
     ur = users_roles[1]
     user = User.find(ur['user_id'])
     ur['roles'].each do |code|
@@ -61,9 +57,22 @@ def users_roles
   puts 'Users Roles seeded successfully!'
 end
 
-u = User.find_or_create_by(first_name: 'Master', last_name: 'Admin', email: 'master@admin.com', admin: true)
-u.password = '123'
-u.save
+def users
+  data('users').each do |u|
+    user = User.find_or_create_by(id: u['id'], first_name: u['first_name'], last_name: u['last_name'], admin: u['admin'], email: u['email'])
+    user.password = '123'
+    user.save
+  end
+  puts 'Users seeded successfully!'
+end
+
+users
+permissions
+roles
+roles_permissions
+users_roles
+
+u = User.first
 
 p1 = Client::Plan.new(name: 'Example', description: Faker::Lorem.sentence, billable_period: 1, price: 49.90, max_discount: 20,
                       start_date: Time.current)
@@ -130,8 +139,3 @@ dates = [today.yesterday, today, today.last_month, today - 2.days, today,
     client_plan_id: client.plan.id
   )
 end
-
-permissions
-roles
-roles_permissions
-users_roles
