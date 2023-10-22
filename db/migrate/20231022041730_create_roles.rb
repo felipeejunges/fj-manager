@@ -4,7 +4,9 @@ class CreateRoles < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :description
       t.string :code
-      t.boolean :active
+      t.boolean :active, default: true
+      t.boolean :deleteable, default: false
+      t.boolean :editable, default: false
 
       t.timestamps
     end
