@@ -77,8 +77,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_22_042625) do
     t.string "description"
     t.string "code"
     t.boolean "active", default: true
-    t.boolean "deleteable", default: false
-    t.boolean "editable", default: false
+    t.boolean "deletable", default: true
+    t.boolean "editable", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

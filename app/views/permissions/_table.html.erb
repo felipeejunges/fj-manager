@@ -22,7 +22,7 @@
                     <div class="form-check form-switch">
                       <%= text_field :key, p.key, name: :key, value: p.key, class: "d-none"%>
                       <%= text_field :p_action, "#{p.key}_create", name: :p_action, value: :create, class: "d-none"%>
-                      <%= check_box_tag :allowed, :create, false, class: 'form-check-input', checked: @role.permissions.where(id: p_create.id).present?, onchange: 'this.form.submit()' %>
+                      <%= check_box_tag :allowed, :create, false, class: 'form-check-input', checked: @role.permissions.where(id: p_create.id).present?, onchange: 'this.form.submit()', disabled: !@role.editable %>
                     </div>
                   <% end %>
                 <% end %>
@@ -34,7 +34,7 @@
                     <div class="form-check form-switch">
                       <%= text_field :key, p.key, name: :key, value: p.key, class: "d-none"%>
                       <%= text_field :p_action, "#{p.key}_read", name: :p_action, value: :read, class: "d-none"%>
-                      <%= check_box_tag :allowed, :read, false, class: 'form-check-input', checked: @role.permissions.where(id: p_read.id).present?, onchange: 'this.form.submit()' %>
+                      <%= check_box_tag :allowed, :read, false, class: 'form-check-input', checked: @role.permissions.where(id: p_read.id).present?, onchange: 'this.form.submit()', disabled: !@role.editable %>
                     </div>
                   <% end %>
                 <% end %>
@@ -46,7 +46,7 @@
                     <div class="form-check form-switch">
                       <%= text_field :key, p.key, name: :key, value: p.key, class: "d-none"%>
                       <%= text_field :p_action, "#{p.key}_update", name: :p_action, value: :update, class: "d-none"%>
-                      <%= check_box_tag :allowed, :update, false, class: 'form-check-input', checked: @role.permissions.where(id: p_update.id).present?, onchange: 'this.form.submit()' %>
+                      <%= check_box_tag :allowed, :update, false, class: 'form-check-input', checked: @role.permissions.where(id: p_update.id).present?, onchange: 'this.form.submit()', disabled: !@role.editable %>
                     </div>
                   <% end %>
                 <% end %>
@@ -58,7 +58,7 @@
                     <div class="form-check form-switch">
                       <%= text_field :key, p.key, name: :key, value: p.key, class: "d-none"%>
                       <%= text_field :p_action, "#{p.key}_delete", name: :p_action, value: :delete, class: "d-none"%>
-                      <%= check_box_tag :allowed, :delete, false, class: 'form-check-input', checked: @role.permissions.where(id: p_delete.id).present?, onchange: 'this.form.submit()' %>
+                      <%= check_box_tag :allowed, :delete, false, class: 'form-check-input', checked: @role.permissions.where(id: p_delete.id).present?, onchange: 'this.form.submit()', disabled: !@role.editable %>
                     </div>
                   <% end %>
                 <% end %>

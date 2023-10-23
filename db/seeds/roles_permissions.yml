@@ -16,6 +16,11 @@ roles_permissions_1:
       - read
       - update
       - delete
+    roles:
+      - create
+      - read
+      - update
+      - delete
 roles_permissions_2:
   role_id: 2
   permissions:
@@ -25,5 +30,8 @@ roles_permissions_2:
       - read
     clients:
       - read
+      - create
     users:
+      - read
+    roles:
       - read

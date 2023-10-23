@@ -26,7 +26,8 @@ end
 def roles
   data('roles').each do |r|
     role = r[1]
-    Role.find_or_create_by(id: role['id'], name: role['name'], code: role['code'], description: role['description'])
+    Role.find_or_create_by(id: role['id'], name: role['name'], code: role['code'], description: role['description'], editable: role['editable'],
+                           deletable: role['deletable'])
   end
   puts 'Roles seeded successfully!'
 end

@@ -3,6 +3,8 @@
 class Role < ApplicationRecord
   has_and_belongs_to_many :users
   has_and_belongs_to_many :permissions
+
+  validates :name, :code, presence: true
 end
 
 # == Schema Information
@@ -14,8 +16,8 @@ end
 #  description :string
 #  code        :string
 #  active      :boolean          default(TRUE)
-#  deleteable  :boolean          default(FALSE)
-#  editable    :boolean          default(FALSE)
+#  deletable   :boolean          default(TRUE)
+#  editable    :boolean          default(TRUE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

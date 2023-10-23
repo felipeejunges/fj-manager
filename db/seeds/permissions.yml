@@ -13,3 +13,8 @@ client_invoices:
   update: "Update a client invoices permission"
 client_invoice_error_logs:
   read: "Show/List client invoice error logs permission"
+roles:
+  create: "Create a role permission"
+  read: "Show/List roles permission"
+  update: "Update a role permission"
+  delete: "Delete a role permission"
