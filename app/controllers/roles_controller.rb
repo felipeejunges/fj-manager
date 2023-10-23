@@ -2,8 +2,8 @@
 
 class RolesController < ApplicationController
   before_action :set_roles, only: %i[index list]
-  before_action :set_role, only: %i[show edit update destroy]
-  before_action :set_permissions, only: %i[new show edit]
+  before_action :set_role, only: %i[show edit update destroy apply_permission]
+  before_action :set_permissions, only: %i[show apply_permission]
 
   # GET /roles or /roles.json
   def index; end
@@ -49,6 +49,20 @@ class RolesController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
+  end
+
+  def apply_permission
+    puts "\n\n\n\n\n\nkey: #{params[:key]} | action: #{params[:p_action]}\n\n\n\n"
+    permission = @role.permissions.find_by(key: params[:key], action: params[:p_action])
+    if permission.present?
+      @role.permissions.delete(permission)
+    else
+      @role.permissions << Permission.find_by(key: params[:key], action: params[:p_action])
+    end
+    turbo_stream do
+      render turbo_stream: turbo_stream.append(:permissions_table, partial: 'permissions/table', locals: { permissions: @permissions })
+    end
+    # render(partial: 'permissions/table', locals: { permissions: @permissions })
   end
 
   # DELETE /roles/1 or /roles/1.json
