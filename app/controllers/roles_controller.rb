@@ -3,6 +3,7 @@
 class RolesController < ApplicationController
   before_action :set_roles, only: %i[index list]
   before_action :set_role, only: %i[show edit update destroy]
+  before_action :set_permissions, only: %i[new show edit]
 
   # GET /roles or /roles.json
   def index; end
@@ -67,6 +68,15 @@ class RolesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_role
     @role = Role.find(params[:id])
+  end
+
+  def set_permissions
+    @permissions = Permission.group(:key).map do |permission|
+      OpenStruct.new(
+        key: permission.key,
+        permissions: Permission.where(key: permission.key)
+      )
+    end
   end
 
   # Only allow a list of trusted parameters through.

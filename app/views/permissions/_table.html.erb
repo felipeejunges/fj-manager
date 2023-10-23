@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-12 table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <th>Target</th>
+        <th>Create</th>
+        <th>Read</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </thead>
+      <tbody>
+        <% permissions.each do |p| %>
+          <tr>
+            <td>
+              <%= p.key.humanize %>
+            </td>
+            <td>
+              <% if p.permissions.where(action: :create).present? %>
+                <%= form_tag('charts', method: :get) do |form| %>
+                <% end %>
+              <% end %>
+            </td>
+           <td>
+              <% if p.permissions.where(action: :read).present? %>
+                a
+              <% end %>
+            </td>
+            <td>
+              <% if p.permissions.where(action: :update).present? %>
+                a
+              <% end %>
+            </td>
+            <td>
+              <% if p.permissions.where(action: :delete).present? %>
+                a
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
