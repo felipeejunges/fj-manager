@@ -1,0 +1,37 @@
+roles_permissions_1:
+  role_id: 1
+  permissions:
+    client_invoice_error_logs:
+      - read
+    client_invoices:
+      - read
+      - update
+    clients:
+      - create
+      - read
+      - update
+      - delete
+    users:
+      - create
+      - read
+      - update
+      - delete
+    roles:
+      - create
+      - read
+      - update
+      - delete
+roles_permissions_2:
+  role_id: 2
+  permissions:
+    client_invoice_error_logs:
+      - read
+    client_invoices:
+      - read
+    clients:
+      - read
+      - create
+    users:
+      - read
+    roles:
+      - read

@@ -1,0 +1,12 @@
+- id: 1
+  first_name: "Master"
+  last_name: "Admin"
+  email: "master@admin.com"
+  admin: true
+  password: "123"
+- id: 2
+  first_name: "Sales"
+  last_name: "Person"
+  email: "sales@person.com"
+  admin: false
+  password: "123"

@@ -13,6 +13,13 @@ Rails.application.routes.draw do
       get 'list'
     end
   end
+  
+  resources :roles do
+    collection do
+      get 'list'
+    end
+    patch :apply_permission, on: :member
+  end
 
   resources :plans, module: :client, as: :client_plans do
     collection do

@@ -1,0 +1,14 @@
+roles_1:
+  id: 1
+  name: "Administrator"
+  description: "Administrator role"
+  code: "admin"
+  editable: false
+  deletable: false
+roles_2:
+  id: 2
+  name: "Sales Person"
+  description: "Sales Person"
+  code: "sales_person"
+  editable: true
+  deletable: true

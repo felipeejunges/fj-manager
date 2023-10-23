@@ -4,26 +4,25 @@
           <h2>FJ</h2>
       </a>
       <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
-          <li class="nav-item">
-              <a href=<%= clients_path %> class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
-                  <i class="bi-briefcase fs-1"></i>
-              </a>
-          </li>
-          <li>
-            <a href=<%= users_path %> class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi-briefcase fs-1"></i>
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+            <li><a href=<%= charts_path %> class="dropdown-item">Charts</a></li>
+            <li><a href=<%= clients_path %> class="dropdown-item">Clients</a></li>
+            <li><a href=<%= client_plans_path %> class="dropdown-item">Plans</a></li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi-people fs-1"></i>
-            </a>
-          </li>
-          <li>
-            <a href=<%= client_plans_path %> class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
-              <i class="bi-calculator fs-1"></i>
-            </a>
-          </li>
-          <li>
-            <a href=<%= charts_path %> class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
-              <i class="bi-pie-chart fs-1"></i>
-            </a>
-          </li>
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+            <li><a href=<%= users_path %> class="dropdown-item">Users</a></li>
+            <li><a href=<%= roles_path %> class="dropdown-item">Roles</a></li>
+          </ul>
+        </div>
           <div class="dropdown">
             <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi-table fs-1"></i>

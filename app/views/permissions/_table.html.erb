@@ -1,0 +1,72 @@
+<%= turbo_frame_tag "permissions_table" do %>
+  <div class="row">
+    <div class="col-12 table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <th>Target</th>
+          <th>Create</th>
+          <th>Read</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </thead>
+        <tbody>
+          <% permissions.each do |p| %>
+            <tr>
+              <td>
+                <%= p.key.humanize %>
+              </td>
+              <td>
+                <% p_create = p.permissions.where(action: :create).first %>
+                <% if p_create.present? %>
+                  <%= form_tag(apply_permission_role_path(@role.id), method: :patch) do |form| %>
+                    <div class="form-check form-switch">
+                      <%= text_field :key, p.key, name: :key, value: p.key, class: "d-none"%>
+                      <%= text_field :p_action, "#{p.key}_create", name: :p_action, value: :create, class: "d-none"%>
+                      <%= check_box_tag :allowed, :create, false, class: 'form-check-input', checked: @role.permissions.where(id: p_create.id).present?, onchange: 'this.form.submit()', disabled: !@role.editable %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </td>
+              <td>
+                <% p_read = p.permissions.where(action: :read).first %>
+                <% if p_read.present? %>
+                  <%= form_tag(apply_permission_role_path(@role.id), method: :patch) do |form| %>
+                    <div class="form-check form-switch">
+                      <%= text_field :key, p.key, name: :key, value: p.key, class: "d-none"%>
+                      <%= text_field :p_action, "#{p.key}_read", name: :p_action, value: :read, class: "d-none"%>
+                      <%= check_box_tag :allowed, :read, false, class: 'form-check-input', checked: @role.permissions.where(id: p_read.id).present?, onchange: 'this.form.submit()', disabled: !@role.editable %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </td>
+              <td>
+                <% p_update = p.permissions.where(action: :update).first %>
+                <% if p_update.present? %>
+                  <%= form_tag(apply_permission_role_path(@role.id), method: :patch) do |form| %>
+                    <div class="form-check form-switch">
+                      <%= text_field :key, p.key, name: :key, value: p.key, class: "d-none"%>
+                      <%= text_field :p_action, "#{p.key}_update", name: :p_action, value: :update, class: "d-none"%>
+                      <%= check_box_tag :allowed, :update, false, class: 'form-check-input', checked: @role.permissions.where(id: p_update.id).present?, onchange: 'this.form.submit()', disabled: !@role.editable %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </td>
+              <td>
+                <% p_delete = p.permissions.where(action: :delete).first %>
+                <% if p_delete.present? %>
+                  <%= form_tag(apply_permission_role_path(@role.id), method: :patch) do |form| %>
+                    <div class="form-check form-switch">
+                      <%= text_field :key, p.key, name: :key, value: p.key, class: "d-none"%>
+                      <%= text_field :p_action, "#{p.key}_delete", name: :p_action, value: :delete, class: "d-none"%>
+                      <%= check_box_tag :allowed, :delete, false, class: 'form-check-input', checked: @role.permissions.where(id: p_delete.id).present?, onchange: 'this.form.submit()', disabled: !@role.editable %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

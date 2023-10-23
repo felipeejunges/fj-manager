@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_15_172128) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_22_042625) do
   create_table "client_invoices", force: :cascade do |t|
     t.string "description"
     t.string "payment_type"
@@ -55,6 +55,39 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_172128) do
     t.integer "next_payment_day"
     t.integer "client_plan_id"
     t.integer "created_by_id"
+  end
+
+  create_table "permissions", force: :cascade do |t|
+    t.string "key"
+    t.string "action"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "permissions_roles", id: false, force: :cascade do |t|
+    t.integer "role_id", null: false
+    t.integer "permission_id", null: false
+    t.index ["permission_id", "role_id"], name: "index_permissions_roles_on_permission_id_and_role_id", unique: true
+    t.index ["role_id", "permission_id"], name: "index_permissions_roles_on_role_id_and_permission_id", unique: true
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "code"
+    t.boolean "active", default: true
+    t.boolean "deletable", default: true
+    t.boolean "editable", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "role_id", null: false
+    t.index ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id", unique: true
+    t.index ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

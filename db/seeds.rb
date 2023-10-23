@@ -10,9 +10,70 @@
 
 require 'faker'
 
-u = User.find_or_create_by(first_name: 'Master', last_name: 'Admin', email: 'master@admin.com', admin: true)
-u.password = '123'
-u.save
+def data(file_name)
+  YAML.load_file(Rails.root.join("db/seeds/#{file_name}.yml"))
+end
+
+def permissions
+  data('permissions').each do |category, actions|
+    actions.each do |action, description|
+      Permission.find_or_create_by(key: category, action:, description:)
+    end
+  end
+  puts 'Permissions seeded successfully!'
+end
+
+def roles
+  data('roles').each do |r|
+    role = r[1]
+    Role.find_or_create_by(id: role['id'], name: role['name'], code: role['code'], description: role['description'], editable: role['editable'],
+                           deletable: role['deletable'])
+  end
+  puts 'Roles seeded successfully!'
+end
+
+def roles_permissions
+  data('roles_permissions').map do |roles_permissions|
+    rp = roles_permissions[1]
+    role = Role.find(rp['role_id'])
+
+    rp['permissions'].map do |key, actions|
+      actions.each do |action|
+        role.permissions << Permission.find_by(action:, key:)
+      end
+    end
+  end
+  puts 'Roles Permissions seeded successfully!'
+end
+
+def users_roles
+  data('users_roles').each do |users_roles|
+    ur = users_roles[1]
+    user = User.find(ur['user_id'])
+    ur['roles'].each do |code|
+      role = Role.find_by(code:)
+      user.roles << role
+    end
+  end
+  puts 'Users Roles seeded successfully!'
+end
+
+def users
+  data('users').each do |u|
+    user = User.find_or_create_by(id: u['id'], first_name: u['first_name'], last_name: u['last_name'], admin: u['admin'], email: u['email'])
+    user.password = '123'
+    user.save
+  end
+  puts 'Users seeded successfully!'
+end
+
+users
+permissions
+roles
+roles_permissions
+users_roles
+
+u = User.first
 
 p1 = Client::Plan.new(name: 'Example', description: Faker::Lorem.sentence, billable_period: 1, price: 49.90, max_discount: 20,
                       start_date: Time.current)
