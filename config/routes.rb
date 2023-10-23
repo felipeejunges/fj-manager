@@ -2,7 +2,6 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
-  resources :roles
   mount Sidekiq::Web => '/sidekiq'
   
   get 'login' => 'user_sessions#login'
@@ -10,6 +9,12 @@ Rails.application.routes.draw do
   get 'logout' => 'user_sessions#logout'
 
   resources :users do
+    collection do
+      get 'list'
+    end
+  end
+  
+  resources :roles do
     collection do
       get 'list'
     end

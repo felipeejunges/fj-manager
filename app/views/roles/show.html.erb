@@ -1,10 +1,27 @@
-<p style="color: green"><%= notice %></p>
+<%= render "shared/menu" %>
+<div class="col-sm p-3 min-vh-100">
+  <%= render 'shared/notices' %>
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+        <h1 class="h2"><%= @role.name %></h1>
+        <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+          <div class="btn-group me-2">
+            <%= link_to role_path(@role), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
+              <i class="bi bi-trash"></i> Delete
+            <% end %>
+            <%= link_to edit_role_path(@role), class: "btn btn-sm btn-outline-primary" do %>
+              <i class="bi bi-pencil-square"></i> Edit
+              <% end %>
+            <%= link_to roles_path, class: "btn btn-sm btn-outline-secondary" do %>
+              <i class="bi bi-arrow-return-left"></i> Back to Roles
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<%= render @role %>
-
-<div>
-  <%= link_to "Edit this role", edit_role_path(@role) %> |
-  <%= link_to "Back to roles", roles_path %>
-
-  <%= button_to "Destroy this role", @role, method: :delete %>
+  <%= render "form", role: @role, readonly: true %>
 </div>
+

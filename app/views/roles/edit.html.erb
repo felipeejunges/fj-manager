@@ -1,10 +1,24 @@
-<h1>Editing role</h1>
-
-<%= render "form", role: @role %>
-
-<br>
-
-<div>
-  <%= link_to "Show this role", @role %> |
-  <%= link_to "Back to roles", roles_path %>
+<%= render "shared/menu" %>
+<div class="col-sm p-3 min-vh-100">
+  <%= render 'shared/notices' %>
+  <div class="row mb-1">
+    <div class="col-12">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+        <h1 class="h2">Editing <%= @role.name %></h1>
+        <div class="btn-toolbar mb-2 mb-md-0 mx-2">
+          <div class="btn-group me-2">
+            <%= link_to @role, class: "btn btn-sm btn-outline-primary" do %>
+              <i class="bi bi-eye"></i> Show
+            <% end %>
+            <%= link_to roles_path, class: "btn btn-sm btn-outline-secondary" do %>
+              <i class="bi bi-arrow-return-left"></i> Back to Roles
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render "form", role: @role, readonly: false %>
 </div>
+
+

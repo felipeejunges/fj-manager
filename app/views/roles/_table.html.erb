@@ -1,0 +1,51 @@
+<%= turbo_frame_tag "roles_table" do %>
+  <div class="row">
+    <div class="col-12 table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">
+              <%= sort_link(column: :id, label: '#', link: list_roles_path) %> 
+            </th>
+            <th scope="col">
+              <%= sort_link(column: :name, label: 'Name', link: list_roles_path) %> 
+            </th>
+            <th scope="col">
+              <%= sort_link(column: :code, label: 'Code', link: list_roles_path) %> 
+            </th>
+            <th scope="col">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% roles.each do |role| %>
+            <tr>
+              <td><%= role.id %></td>
+              <td>
+                <%= link_to role.name, role, data: { turbo: false } %>
+              </td>
+              <td><%= role.code %></td>
+              <td>
+                <div class="btn-group me-2">
+                  <%= link_to role, class: "btn btn-sm btn-outline-secondary", data: { turbo: false } do %>
+                    <i class="bi bi-eye"></i>
+                  <% end %>
+                  <% if current_user.admin? %>
+                    <%= link_to edit_role_path(role), class: "btn btn-sm btn-outline-primary", data: { turbo: false } do %>
+                      <i class="bi bi-pencil-square"></i>
+                    <% end %>
+                    <%= link_to role_path(role), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <%= render "shared/pagination" %>
+<% end %>

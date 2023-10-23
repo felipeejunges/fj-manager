@@ -1,42 +1,46 @@
 <%= form_with(model: role) do |form| %>
-  <% if role.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(role.errors.count, "error") %> prohibited this role from being saved:</h2>
+  <div class="row">
+    <div class="col-12">
+      <% if role.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(role.errors.count, "error") %> prohibited this role from being saved:</h2>
 
-      <ul>
-        <% role.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+          <ul>
+            <% role.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :id, style: "display: block" %>
-    <%= form.number_field :id %>
   </div>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :name, class: "form-control", readonly: readonly %>
+        <%= form.label :name %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :code, class: "form-control", readonly: readonly %>
+        <%= form.label :code %>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div>
-    <%= form.label :code, style: "display: block" %>
-    <%= form.text_field :code %>
-  </div>
-
-  <div>
-    <%= form.label :active, style: "display: block" %>
-    <%= form.check_box :active %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="row">
+    <div class="col-sm-12 col-md-10 mb-1">
+      <div class="form-floating">
+        <%= form.text_field :description, class: "form-control", readonly: readonly %>
+        <%= form.label :description %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-2 mb-1">
+      <div class="form-floating">
+        <%= form.select :active, [['No', false], ['Yes', true]], {}, class: "form-select", disabled: readonly %>
+        <%= form.label :active %>
+      </div>
+    </div>
   </div>
 <% end %>
+
