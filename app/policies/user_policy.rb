@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class ApplicationPolicy
-  attr_reader :user, :record
+class UserPolicy
+  attr_reader :user, :record, :key
 
   def initialize(user, record)
     @user = user
     @record = record
-    @key = nil
+    @key = :users
   end
 
   def index?
@@ -41,7 +41,6 @@ class ApplicationPolicy
     def initialize(user, scope)
       @user = user
       @scope = scope
-      @key = nil
     end
 
     def resolve
