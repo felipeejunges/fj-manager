@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     collection do
       get 'list'
     end
+    patch :apply_role, on: :member
   end
   
   resources :roles do
