@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserPolicy
+class UserPolicy < ApplicationPolicy
   attr_reader :user, :record, :key
 
   def initialize(user, record)
@@ -9,24 +9,8 @@ class UserPolicy
     @key = :users
   end
 
-  def index?
-    user.permissions.where(key:, action: :show).any?
-  end
-
-  def show?
-    index?
-  end
-
-  def create?
-    user.permissions.where(key:, action: :create).any?
-  end
-
-  def new?
-    create?
-  end
-
   def update?
-    user.permissions.where(key:, action: :update).any?
+    user.permissions.where(key:, action: :update).any? || user == record
   end
 
   def edit?
@@ -34,7 +18,7 @@ class UserPolicy
   end
 
   def destroy?
-    user.permissions.where(key:, action: :delete).any?
+    user.permissions.where(key:, action: :delete).any? && user != record
   end
 
   class Scope

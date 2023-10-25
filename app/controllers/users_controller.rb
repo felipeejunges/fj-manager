@@ -4,8 +4,6 @@ class UsersController < ApplicationController
   before_action :set_users, only: %i[index list]
   before_action :set_user, only: %i[show edit update destroy apply_role]
   before_action :set_roles, only: %i[show]
-  before_action :redirect_if_not_admin_or_not_same_user, only: %i[new edit update destroy]
-  before_action :redirect_if_same_user, only: :destroy
 
   # GET /users or /users.json
   def index; end
@@ -85,16 +83,7 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def redirect_if_not_admin_or_not_same_user
-    return if current_user.admin? || (!current_user.admin? && current_user.id == @user.id)
-
-    redirect_to users_path
-  end
-
-  def redirect_if_same_user
-    redirect_to users_path if current_user.id == @user.id
+    authorize @user
   end
 
   # Only allow a list of trusted parameters through.
@@ -107,6 +96,8 @@ class UsersController < ApplicationController
   end
 
   def set_users
+    authorize User
+
     @users = User.all
     sort_users
     @pagy, @users = pagy(@users)

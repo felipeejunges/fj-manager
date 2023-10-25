@@ -18,3 +18,7 @@ roles:
   read: "Show/List roles permission"
   update: "Update a role permission"
   delete: "Delete a role permission"
+charts:
+  read: "Consult reports"
+reports:
+  read: "Consult reports"

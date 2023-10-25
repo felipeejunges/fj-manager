@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ClientsController < ApplicationController
-  before_action :redirect_if_not_admin, only: %i[edit update destroy]
   before_action :set_clients, only: %i[index list]
   before_action :set_client, only: %i[show edit update destroy]
 
@@ -73,6 +72,7 @@ class ClientsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_client
     @client = Client.find(params[:id])
+    authorize @client
   end
 
   # Only allow a list of trusted parameters through.
@@ -85,6 +85,8 @@ class ClientsController < ApplicationController
   end
 
   def set_clients
+    authorize Client
+
     @clients = Client.all
     sort_clients
     @pagy, @clients = pagy(@clients)

@@ -10,7 +10,7 @@ class ApplicationPolicy
   end
 
   def index?
-    user.permissions.where(key:, action: :show).any?
+    user.permissions.where(key:, action: :read).any?
   end
 
   def show?
