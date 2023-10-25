@@ -9,18 +9,19 @@ class ReportPolicy < ApplicationPolicy
     @key = :reports
   end
 
-  class Scope
-    def initialize(user, scope)
-      @user = user
-      @scope = scope
-    end
+  def new_clients?
+    index?
+  end
 
-    def resolve
-      raise NotImplementedError, "You must define #resolve in #{self.class}"
-    end
+  def clients_invoiced_yesterday?
+    index?
+  end
 
-    private
+  def clients_invoiced_today?
+    index?
+  end
 
-    attr_reader :user, :scope
+  def clients?
+    index?
   end
 end

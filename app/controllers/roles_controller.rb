@@ -81,6 +81,8 @@ class RolesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_role
     @role = Role.find(params[:id])
+
+    authorize @role
   end
 
   def set_permissions
@@ -98,6 +100,7 @@ class RolesController < ApplicationController
   end
 
   def set_roles
+    authorize Role
     @roles = Role.all
     sort_roles
     @pagy, @roles = pagy(@roles)

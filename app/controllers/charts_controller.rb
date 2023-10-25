@@ -7,6 +7,7 @@ class ChartsController < ApplicationController
 
   # GET /charts or /charts.json
   def index
+    authorize Client
     error_logs_by_payment_type
     last_3_years_invoices_by_month
     last_3_months_invoices_by_day
@@ -19,7 +20,7 @@ class ChartsController < ApplicationController
 
   def error_logs_by_payment_type
     @error_logs_by_payment_type = {}
-    Client::Invoice::ErrorLog.all.group_by(&:payment_type).each { |k, i| error_logs_by_payment_type.merge!(k => i.count) }
+    Client::Invoice::ErrorLog.all.group_by(&:payment_type).each { |k, i| @error_logs_by_payment_type.merge!(k => i.count) }
     return @error_logs_by_payment_type if @error_logs_by_payment_type != {}
 
     @error_logs_by_payment_type = { 'No Errors' => 1 }
