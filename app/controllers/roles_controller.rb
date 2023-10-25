@@ -52,7 +52,6 @@ class RolesController < ApplicationController
   end
 
   def apply_permission
-    puts "\n\n\n\n\n\nkey: #{params[:key]} | action: #{params[:p_action]}\n\n\n\n"
     permission = @role.permissions.find_by(key: params[:key], action: params[:p_action])
     if permission.present?
       @role.permissions.delete(permission)

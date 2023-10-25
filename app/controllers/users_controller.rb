@@ -2,7 +2,8 @@
 
 class UsersController < ApplicationController
   before_action :set_users, only: %i[index list]
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[show edit update destroy apply_role]
+  before_action :set_roles, only: %i[show]
   before_action :redirect_if_not_admin_or_not_same_user, only: %i[new edit update destroy]
   before_action :redirect_if_same_user, only: :destroy
 
@@ -67,6 +68,18 @@ class UsersController < ApplicationController
     render(partial: 'users/table', locals: { users: @users })
   end
 
+  def apply_role
+    permission = @user.roles.find_by(id: params[:role_id])
+    if permission.present?
+      @user.roles.delete(permission)
+    else
+      @user.roles << Role.find_by(id: params[:role_id])
+    end
+    turbo_stream do
+      render turbo_stream: turbo_stream.append(:users_roles, partial: 'users/roles', locals: { roles: @roles })
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -114,5 +127,9 @@ class UsersController < ApplicationController
            end
 
     @users = @users.order(sort)
+  end
+
+  def set_roles
+    @roles = Role.all
   end
 end
