@@ -8,4 +8,16 @@ class RolePolicy < ApplicationPolicy
     @record = record
     @key = :roles
   end
+
+  def update?
+    user.permissions.where(key:, action: :update).any? && record.editable == true
+  end
+
+  def apply_permission?
+    update?
+  end
+
+  def destroy?
+    user.permissions.where(key:, action: :delete).any? && record.deletable == true
+  end
 end

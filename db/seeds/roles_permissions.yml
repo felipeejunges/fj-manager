@@ -21,6 +21,10 @@ roles_permissions_1:
       - read
       - update
       - delete
+    reports:
+      - read
+    charts:
+      - read
 roles_permissions_2:
   role_id: 2
   permissions:
@@ -34,4 +38,8 @@ roles_permissions_2:
     users:
       - read
     roles:
+      - read
+    reports:
+      - read
+    charts:
       - read

@@ -13,8 +13,8 @@ class UserPolicy < ApplicationPolicy
     user.permissions.where(key:, action: :update).any? || user == record
   end
 
-  def edit?
-    update?
+  def apply_role?
+    user.permissions.where(key:, action: :update).any?
   end
 
   def destroy?

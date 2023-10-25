@@ -7,7 +7,7 @@ class ChartsController < ApplicationController
 
   # GET /charts or /charts.json
   def index
-    authorize Client
+    authorize :chart, :index?
     error_logs_by_payment_type
     last_3_years_invoices_by_month
     last_3_months_invoices_by_day

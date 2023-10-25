@@ -13,6 +13,10 @@ class ApplicationPolicy
     user.permissions.where(key:, action: :read).any?
   end
 
+  def list?
+    index?
+  end
+
   def show?
     index?
   end

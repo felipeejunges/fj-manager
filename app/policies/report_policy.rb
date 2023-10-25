@@ -24,4 +24,8 @@ class ReportPolicy < ApplicationPolicy
   def clients?
     index?
   end
+
+  def clients_with_error_today?
+    index?
+  end
 end
