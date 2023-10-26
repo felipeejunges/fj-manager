@@ -39,7 +39,6 @@ class UsersController < ApplicationController
     all_params = user_params
     all_params.merge!(password_params) if password_params[:password].present? && password_params[:password_confirmation].present?
     respond_to do |format|
-      all_params.delete(:admin) unless current_user.admin?
       if @user.update(all_params)
         flash[:success] = 'User was successfully updated.'
         format.html { redirect_to user_url(@user) }
