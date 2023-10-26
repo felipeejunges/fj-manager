@@ -105,6 +105,7 @@ gem "chartkick", "~> 5.0"
 
 gem "groupdate", "~> 6.4"
 
-gem "devise", "~> 4.9"
 
 gem "pundit", "~> 2.3"
+
+gem "sorcery", "~> 0.16.5"

@@ -4,9 +4,9 @@ require 'sidekiq-scheduler/web'
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
   
-  get 'login' => 'user_sessions#login'
+  get 'login' => 'user_sessions#signin'
   post 'login' => 'user_sessions#authenticate'
-  get 'logout' => 'user_sessions#logout'
+  get 'logout' => 'user_sessions#signout'
 
   resources :users do
     collection do

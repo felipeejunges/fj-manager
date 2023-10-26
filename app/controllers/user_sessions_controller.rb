@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class UserSessionsController < ApplicationController
-  skip_before_action :authenticate_user
+  skip_before_action :require_login
   before_action :redirect_already_logged, only: %i[login authenticate]
-  def login; end
+  def signin; end
 
   def authenticate
-    user = User.find_by(email: params[:user][:email])
+    user = login(params[:user][:email], params[:user][:password])
 
     respond_to do |format|
-      if user&.authenticate(params[:user][:password])
+      if user
         session[:user_id] = user.id
         flash[:success] = "Welcome, #{current_user.name}"
         format.html { redirect_to root_path }
@@ -20,9 +20,8 @@ class UserSessionsController < ApplicationController
     end
   end
 
-  def logout
-    session[:user_id] = nil
-    @current_user = nil
+  def signout
+    logout
 
     redirect_to login_path
   end

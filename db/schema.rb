@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_22_042625) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_25_234902) do
   create_table "client_invoices", force: :cascade do |t|
     t.string "description"
     t.string "payment_type"
@@ -94,10 +94,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_22_042625) do
     t.string "first_name"
     t.string "last_name"
     t.string "email"
-    t.string "password_digest"
-    t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "crypted_password"
+    t.string "salt"
   end
 
   add_foreign_key "client_invoices", "client_plans"

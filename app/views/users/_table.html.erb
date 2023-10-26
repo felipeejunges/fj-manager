@@ -14,7 +14,7 @@
               <%= sort_link(column: :email, label: 'Email', controller: :users, action: 'list') %>
             </th>
             <th scope="col">
-              <%= sort_link(column: :admin, label: 'Admin', controller: :users, action: 'list') %>
+              Roles
             </th>
             <th scope="col">Actions</th>
           </tr>
@@ -25,7 +25,7 @@
               <td><%= user.id %></td>
               <td><%= link_to user.name, user_path(user), data: { turbo: false } %></td>
               <td><%= user.email %></td>
-              <td><%= user.admin %></td>
+              <td><%= user.roles.pluck(:name).join(', ') %></td>
               <td>
                 <div class="btn-group me-2">
                   <%= link_to user_path(user), class: "btn btn-sm btn-outline-secondary", data: { turbo: false } do %>

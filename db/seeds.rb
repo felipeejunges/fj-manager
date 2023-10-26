@@ -60,8 +60,9 @@ end
 
 def users
   data('users').each do |u|
-    user = User.find_or_create_by(id: u['id'], first_name: u['first_name'], last_name: u['last_name'], admin: u['admin'], email: u['email'])
+    user = User.find_or_create_by(id: u['id'], first_name: u['first_name'], last_name: u['last_name'], email: u['email'])
     user.password = '123'
+    user.password_confirmation = '123'
     user.save
   end
   puts 'Users seeded successfully!'
