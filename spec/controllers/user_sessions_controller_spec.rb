@@ -10,30 +10,30 @@ RSpec.describe UserSessionsController, type: :controller do # rubocop:disable Me
 
   describe 'GET #login' do
     it 'renders the login template' do
-      get :login
-      expect(response).to render_template(:login)
+      get :signin
+      expect(response).to render_template(:signin)
     end
   end
 
   describe 'POST #authenticate' do
     context 'with valid credentials' do
       it 'redirects to the root path' do
-        post :authenticate, params: { user: { email: user.email, password:, password_confirmation: password } }
+        post :authenticate, params: { user: { email: user.email, password: } }
         expect(response).to redirect_to(root_path)
       end
     end
 
     context 'with invalid credentials' do
       it 'renders the login template' do
-        post :authenticate, params: { user: { email: user.email, password: 'invalid_password', password_confirmation: 'invalid_password' } }
-        expect(response).to render_template(:login)
+        post :authenticate, params: { user: { email: user.email, password: 'invalid_password' } }
+        expect(response).to render_template(:signin)
       end
     end
   end
 
   describe 'GET #logout' do
     it 'redirects to the login path' do
-      get :logout
+      get :signout
       expect(response).to redirect_to(login_path)
     end
   end

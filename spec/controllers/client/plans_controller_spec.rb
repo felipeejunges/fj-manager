@@ -8,7 +8,6 @@ RSpec.describe Client::PlansController, type: :controller do # rubocop:disable M
   let(:client_plans) { create_list(:client_plan, 3) }
 
   before do
-    allow(controller).to receive(:authenticate_user).and_return(true)
     allow(controller).to receive(:current_user).and_return(user)
   end
 

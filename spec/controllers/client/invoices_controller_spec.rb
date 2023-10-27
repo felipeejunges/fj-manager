@@ -3,12 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Client::InvoicesController, type: :controller do # rubocop:disable Metrics/BlockLength
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :admin) }
   let(:client) { create(:client) }
   let(:invoice) { create(:client_invoice, client:) }
 
   before do
-    allow(controller).to receive(:authenticate_user).and_return(true)
     allow(controller).to receive(:current_user).and_return(user)
 
     allow(::GenerateInvoiceJob).to receive(:perform_in).and_return(nil)

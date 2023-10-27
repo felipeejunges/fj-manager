@@ -8,4 +8,8 @@ class Client::InvoicePolicy < ApplicationPolicy
     @record = record
     @key = :client_invoices
   end
+
+  def retry?
+    update?
+  end
 end

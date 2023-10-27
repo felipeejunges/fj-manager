@@ -15,7 +15,7 @@ class UserSessionsController < ApplicationController
         format.html { redirect_to root_path }
       else
         flash[:alert] = 'Invalid email or password'
-        format.html { render :login, status: :unprocessable_entity }
+        format.html { render :signin, status: :unprocessable_entity }
       end
     end
   end

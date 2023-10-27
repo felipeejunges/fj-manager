@@ -137,6 +137,12 @@ RSpec.configure do |config|
     driven_by(:headless_selenium_chrome_in_container)
   end
 
+  RSpec.configure do |config|
+   # config.include Sorcery::TestHelpers::Rails::Controller, type: :controller
+    #config.include Sorcery::TestHelpers::Rails::Request, type: :request
+    #config.include Sorcery::TestHelpers::Rails::Integration, type: :feature
+  end
+
   config.after(:each, type: :system) do
     Capybara.reset_sessions!
   end
@@ -150,7 +156,6 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner[:active_record].strategy = :truncation, { except: %w[roles permissions]}
     DatabaseCleaner[:mongoid].strategy = [:deletion]
-    #Rails.application.load_seed
   end
 
   config.after(:each) do
