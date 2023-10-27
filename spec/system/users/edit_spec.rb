@@ -2,7 +2,7 @@
 
 RSpec.describe 'Edit and Update User', type: :system do
   let(:password) { '123' }
-  let(:user) { create(:user, :admin, password:) }
+  let(:user) { create(:user, :admin, password:, password_confirmation: password) }
 
   before do
     login(user.email, user.password)

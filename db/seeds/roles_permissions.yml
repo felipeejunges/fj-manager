@@ -25,6 +25,11 @@ roles_permissions_1:
       - read
     charts:
       - read
+    client_plans:
+      - create
+      - read
+      - update
+      - delete
 roles_permissions_2:
   role_id: 2
   permissions:
@@ -42,4 +47,6 @@ roles_permissions_2:
     reports:
       - read
     charts:
+      - read
+    client_plans:
       - read

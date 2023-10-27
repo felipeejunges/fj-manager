@@ -141,9 +141,16 @@ RSpec.configure do |config|
     Capybara.reset_sessions!
   end
 
-  config.before(:each) do
+  config.before(:suite) do
     DatabaseCleaner[:active_record].strategy = :truncation
+    DatabaseCleaner.clean
+    Rails.application.load_seed
+  end
+
+  config.before(:each) do
+    DatabaseCleaner[:active_record].strategy = :truncation, { except: %w[roles permissions]}
     DatabaseCleaner[:mongoid].strategy = [:deletion]
+    #Rails.application.load_seed
   end
 
   config.after(:each) do

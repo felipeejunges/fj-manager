@@ -22,3 +22,8 @@ charts:
   read: "Consult reports"
 reports:
   read: "Consult reports"
+client_plans:
+  create: "Create a client plan permission"
+  read: "Show/List clients plan permission"
+  update: "Update a client plan permission"
+  delete: "Delete a client plan permission"

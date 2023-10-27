@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Client Plans New Page', type: :system do
   let(:password) { '123' }
-  let(:admin_user) { create(:user, :admin, password:) }
+  let(:admin_user) { create(:user, :admin, password:, password_confirmation: password) }
 
   before do
     login(admin_user.email, admin_user.password)

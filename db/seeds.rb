@@ -20,7 +20,6 @@ def permissions
       Permission.find_or_create_by(key: category, action:, description:)
     end
   end
-  puts 'Permissions seeded successfully!'
 end
 
 def roles
@@ -29,7 +28,6 @@ def roles
     Role.find_or_create_by(id: role['id'], name: role['name'], code: role['code'], description: role['description'], editable: role['editable'],
                            deletable: role['deletable'])
   end
-  puts 'Roles seeded successfully!'
 end
 
 def roles_permissions
@@ -43,7 +41,6 @@ def roles_permissions
       end
     end
   end
-  puts 'Roles Permissions seeded successfully!'
 end
 
 def users_roles
@@ -55,7 +52,6 @@ def users_roles
       user.roles << role
     end
   end
-  puts 'Users Roles seeded successfully!'
 end
 
 def users
@@ -65,7 +61,6 @@ def users
     user.password_confirmation = '123'
     user.save
   end
-  puts 'Users seeded successfully!'
 end
 
 users
@@ -73,6 +68,8 @@ permissions
 roles
 roles_permissions
 users_roles
+
+return if Rails.env.test?
 
 u = User.first
 

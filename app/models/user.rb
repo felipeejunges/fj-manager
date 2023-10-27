@@ -19,12 +19,13 @@ class User < ApplicationRecord
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
 
-  before_update :at_least_one_admin
-  before_destroy :at_least_one_admin
+  # To be reimplemented
+  # before_update :at_least_one_admin
+  # before_destroy :at_least_one_admin
 
-  def at_least_one_admin
-    User.where(admin: true).where.not(id:)
-  end
+  # def at_least_one_admin
+  #  User.where(admin: true).where.not(id:)
+  # end
 
   def admin?
     roles.where(code: 'admin').present?

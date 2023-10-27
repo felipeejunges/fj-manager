@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.feature 'Clients Report Page', type: :system do
   let(:password) { '123' }
-  let(:user) { create(:user, :admin, password:) }
+  let(:user) { create(:user, :admin, password:, password_confirmation: password) }
   let!(:clients) { create_list(:client, 5) }
 
   it 'displays clients' do

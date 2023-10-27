@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.feature 'Clients Invoiced Yesterday Report Page', type: :system do
   let(:password) { '123' }
-  let(:user) { create(:user, :admin, password:) }
+  let(:user) { create(:user, :admin, password:, password_confirmation: password) }
   let!(:clients) { create_list(:client, 5) }
   let!(:client) { clients.first }
   let!(:invoice) { create(:client_invoice, client:, reference_date: Date.current.yesterday, status: :generated) }

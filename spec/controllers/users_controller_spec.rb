@@ -11,7 +11,7 @@ RSpec.describe UsersController, type: :controller do # rubocop:disable Metrics/B
   end
 
   let(:valid_attributes) do
-    { first_name: 'John', last_name: 'Doe', email: 'john.doe@example.com', password: 'password123' }
+    { first_name: 'John', last_name: 'Doe', email: 'john.doe@example.com', password:, password_confirmation: password }
   end
 
   let(:invalid_attributes) do

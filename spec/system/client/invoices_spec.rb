@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.feature 'Invoice Page', type: :system do
   let(:password) { '123' }
-  let(:user) { create(:user, :admin, password:) }
+  let(:user) { create(:user, :admin, password:, password_confirmation: password) }
   let(:client) { create(:client) }
   let(:invoice) { create(:client_invoice, client:, invoice_value: 100) }
   let!(:error_log) { create(:client_invoice_error_log, client_invoice_id: invoice.id) }
