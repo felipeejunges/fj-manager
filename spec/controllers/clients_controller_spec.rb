@@ -14,6 +14,12 @@ RSpec.describe ClientsController, type: :controller do # rubocop:disable Metrics
       get :index
       expect(response).to be_successful
     end
+
+    it 'not authenticated' do
+      allow(controller).to receive(:current_user).and_return(nil)
+      get :index
+      expect(response).to be_redirect
+    end
   end
 
   describe 'GET #list' do
