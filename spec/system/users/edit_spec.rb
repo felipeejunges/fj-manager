@@ -5,7 +5,7 @@ RSpec.describe 'Edit and Update User', type: :system do
   let(:user) { create(:user, :admin, password:, password_confirmation: password) }
 
   before do
-    login(user.email, user.password)
+    login(user.email, password)
     visit clients_path
     visit edit_user_path(user)
   end

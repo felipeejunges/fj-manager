@@ -9,7 +9,7 @@ RSpec.describe 'Client Plans Index Page', type: :system do
   let!(:client_plan) { client_plans.first }
 
   before do
-    login(admin_user.email, admin_user.password)
+    login(admin_user.email, password)
     visit clients_path
     visit client_plans_path
   end

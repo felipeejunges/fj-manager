@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.feature 'User Sessions', type: :system do
   let(:password) { 'password' }
-  let(:user) { create(:user, email: 'test@example.com', password:, password_confirmation: password) }
+  let(:user) { create(:user, :admin, email: 'test@example.com', password:, password_confirmation: password) }
 
   scenario 'user logs in with valid credentials' do
     login(user.email, password)

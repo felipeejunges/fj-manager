@@ -7,7 +7,7 @@ RSpec.describe 'Client Plans New Page', type: :system do
   let(:admin_user) { create(:user, :admin, password:, password_confirmation: password) }
 
   before do
-    login(admin_user.email, admin_user.password)
+    login(admin_user.email, password)
     visit clients_path
     visit new_client_plan_path
   end
