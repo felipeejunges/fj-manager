@@ -12,8 +12,8 @@ jobs:
         run: docker-compose run --rm server bin/rails db:create db:migrate
       - name: "Start container"
         run: docker-compose up -d
-      #- name: "Run rspec"
-      #  run: docker-compose exec -T server bundle exec rspec
+      - name: "Run rspec"
+        run: docker-compose exec -T server bundle exec rspec
   rubocop:
     runs-on: ubuntu-latest
     steps:
