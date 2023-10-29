@@ -18,6 +18,8 @@ class Client::Invoice::ErrorLogsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_client_invoice_error_log
     @error_log = @invoice.error_logs.find(params[:id])
+
+    authorize @error_log
   end
 
   def set_client_invoice
@@ -29,6 +31,8 @@ class Client::Invoice::ErrorLogsController < ApplicationController
   end
 
   def set_error_logs
+    authorize Client::Invoice::ErrorLog
+
     @error_logs = @invoice.error_logs.all
     sort_error_logs
     @pagy, @error_logs = pagy(@error_logs)

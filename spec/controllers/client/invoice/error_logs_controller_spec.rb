@@ -2,14 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.describe Client::Invoice::ErrorLogsController, type: :controller do # rubocop:disable Metrics/BlockLength
-  let(:user) { create(:user) }
+RSpec.describe Client::Invoice::ErrorLogsController, type: :controller do
+  let(:user) { create(:user, :admin) }
   let(:client) { create(:client) }
   let(:invoice) { create(:client_invoice, client:) }
   let(:error_log) { create(:client_invoice_error_log, client_invoice_id: invoice.id) }
 
   before do
-    allow(controller).to receive(:authenticate_user).and_return(true)
     allow(controller).to receive(:current_user).and_return(user)
   end
 

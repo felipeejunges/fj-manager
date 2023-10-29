@@ -32,5 +32,9 @@ module FjManager
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.time_zone = 'America/Sao_Paulo'
+
+    config.generators do |g|
+      g.orm :active_record
+    end
   end
 end

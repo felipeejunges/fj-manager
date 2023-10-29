@@ -5,11 +5,14 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     email { Faker::Internet.email }
-    password { Faker::Internet.password(min_length: 8) }
-    admin { false }
+    password { '123' }
+    password_confirmation { '123' }
 
     trait :admin do
-      admin { true }
+      after(:create) do |user|
+        admin_role = Role.find_by(code: 'admin')
+        user.roles << admin_role if admin_role
+      end
     end
   end
 end

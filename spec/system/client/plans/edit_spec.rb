@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe 'Client Plans Edit Page', type: :system do
   let(:password) { '123' }
-  let(:admin_user) { create(:user, :admin, password:) }
+  let(:admin_user) { create(:user, :admin, password:, password_confirmation: password) }
   let(:client_plan) { create(:client_plan, name: 'Sample Plan') }
 
   before do
-    login(admin_user.email, admin_user.password)
+    login(admin_user.email, password)
     visit clients_path
     visit edit_client_plan_path(client_plan)
   end

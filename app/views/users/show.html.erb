@@ -28,6 +28,16 @@
 
   <%= render "form", user: @user, readonly: true %>
 
-  <%= render "users/roles", roles: @roles %>
+  <div class="row">
+    <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+          <h5>Roles</h5>
+          <%= render "users/roles", roles: @roles %>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 

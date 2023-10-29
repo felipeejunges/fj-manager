@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Users Index Page', type: :system do
   let(:password) { '123' }
-  let(:user) { create(:user, :admin, password:) }
+  let(:user) { create(:user, :admin, password:, password_confirmation: password) }
   let!(:user1) { create(:user, first_name: 'John', last_name: 'Doe', email: 'john@example.com') }
   let!(:user2) { create(:user, first_name: 'Jane', last_name: 'Smith', email: 'jane@example.com') }
 

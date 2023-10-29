@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
+  before_action :authorize_reports
+
   def new_clients
+    authorize :report, :new_clients?
     if params[:start_date].nil? && params[:end_date].nil?
       params[:start_date] = Date.current.strftime
       params[:end_date] = Date.current.strftime
@@ -15,6 +18,7 @@ class ReportsController < ApplicationController
   end
 
   def clients_invoiced_yesterday
+    authorize :report, :clients_invoiced_yesterday?
     client_ids = Client::Invoice.generated_yesterday.pluck(:client_id).uniq
     @clients = Client.where(id: client_ids)
     @clients = @clients.where(payment_type:) if payment_type.present?
@@ -23,6 +27,7 @@ class ReportsController < ApplicationController
   end
 
   def clients_invoiced_today
+    authorize :report, :clients_invoiced_today?
     client_ids = Client::Invoice.generated_today.pluck(:client_id).uniq
     @clients = Client.where(id: client_ids)
     @clients = @clients.where(payment_type:) if payment_type.present?
@@ -31,6 +36,7 @@ class ReportsController < ApplicationController
   end
 
   def clients_with_error_today
+    authorize :report, :clients_with_error_today?
     client_ids = Client::Invoice.error.today.pluck(:client_id).uniq
     @clients = Client.where(id: client_ids)
     @clients = @clients.where(payment_type:) if payment_type.present?
@@ -50,6 +56,8 @@ class ReportsController < ApplicationController
   end
 
   private
+
+  def authorize_reports; end
 
   def start_date
     return @start_date if @start_date.present?

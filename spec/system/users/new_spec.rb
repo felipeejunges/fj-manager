@@ -6,7 +6,7 @@ RSpec.describe 'Create User', type: :system do
   let(:admin_user) { create(:user, :admin) }
 
   before do
-    login(admin_user.email, admin_user.password)
+    login(admin_user.email, '123')
     visit clients_path
     visit new_user_path
   end

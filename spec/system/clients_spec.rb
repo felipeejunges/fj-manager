@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.feature 'Clients Page', type: :system do # rubocop:disable Metrics/BlockLength
   let(:password) { '123' }
-  let(:user) { create(:user, :admin, password:) }
+  let(:user) { create(:user, :admin, password:, password_confirmation: password) }
   let!(:clients) { create_list(:client, 5) }
   let!(:client) { clients.first }
 

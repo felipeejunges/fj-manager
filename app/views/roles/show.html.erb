@@ -24,6 +24,15 @@
 
   <%= render "form", role: @role, readonly: true %>
 
-  <%= render "permissions/table", permissions: @permissions %>
+  <div class="row">
+    <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+          <h5>Permissions</h5>
+          <%= render "permissions/table", permissions: @permissions %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

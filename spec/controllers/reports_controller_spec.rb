@@ -3,10 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe ReportsController, type: :controller do # rubocop:disable Metrics/BlockLength
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :admin) }
 
   before do
-    allow(controller).to receive(:authenticate_user).and_return(true)
     allow(controller).to receive(:current_user).and_return(user)
   end
 

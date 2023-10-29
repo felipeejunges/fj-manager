@@ -2,22 +2,11 @@
 
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+  include Pundit::Authorization
 
-  before_action :authenticate_user
-
-  helper_method :current_user
-
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
-  end
+  before_action :require_login
 
   private
-
-  def authenticate_user
-    return if current_user.present?
-
-    redirect_to '/login'
-  end
 
   def pagy_get_vars(collection, vars)
     pagy_set_items_from_params(vars) if defined?(ItemsExtra)
@@ -27,9 +16,7 @@ class ApplicationController < ActionController::Base
     vars
   end
 
-  def redirect_if_not_admin
-    return if current_user.admin?
-
-    redirect_to '/'
+  def not_authenticated
+    redirect_to '/login'
   end
 end

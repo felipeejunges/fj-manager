@@ -4,12 +4,12 @@ require 'rails_helper'
 
 RSpec.describe 'Client Plans Index Page', type: :system do
   let(:password) { '123' }
-  let(:admin_user) { create(:user, :admin, password:) }
+  let(:admin_user) { create(:user, :admin, password:, password_confirmation: password) }
   let!(:client_plans) { create_list(:client_plan, 3) }
   let!(:client_plan) { client_plans.first }
 
   before do
-    login(admin_user.email, admin_user.password)
+    login(admin_user.email, password)
     visit clients_path
     visit client_plans_path
   end

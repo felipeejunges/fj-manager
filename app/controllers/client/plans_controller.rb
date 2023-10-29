@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Client::PlansController < ApplicationController
-  before_action :redirect_if_not_admin, only: %i[edit update destroy]
   before_action :set_client_plans, only: %i[index list]
   before_action :set_client_plan, only: %i[show edit update destroy]
 
@@ -68,6 +67,7 @@ class Client::PlansController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_client_plan
     @client_plan = Client::Plan.find(params[:id])
+    authorize @client_plan
   end
 
   # Only allow a list of trusted parameters through.
@@ -78,6 +78,8 @@ class Client::PlansController < ApplicationController
   end
 
   def set_client_plans
+    authorize Client::Plan
+
     @client_plans = Client::Plan.all
     sort_client_plans
     @pagy, @client_plans = pagy(@client_plans)

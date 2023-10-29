@@ -6,12 +6,12 @@ require 'rails_helper'
 
 RSpec.describe UserSessionsController, type: :controller do # rubocop:disable Metrics/BlockLength
   let(:password) { '123' }
-  let(:user) { create(:user, password:) }
+  let(:user) { create(:user, password:, password_confirmation: password) }
 
   describe 'GET #login' do
     it 'renders the login template' do
-      get :login
-      expect(response).to render_template(:login)
+      get :signin
+      expect(response).to render_template(:signin)
     end
   end
 
@@ -26,14 +26,14 @@ RSpec.describe UserSessionsController, type: :controller do # rubocop:disable Me
     context 'with invalid credentials' do
       it 'renders the login template' do
         post :authenticate, params: { user: { email: user.email, password: 'invalid_password' } }
-        expect(response).to render_template(:login)
+        expect(response).to render_template(:signin)
       end
     end
   end
 
   describe 'GET #logout' do
     it 'redirects to the login path' do
-      get :logout
+      get :signout
       expect(response).to redirect_to(login_path)
     end
   end

@@ -38,6 +38,7 @@ class Client::InvoicesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_invoice
     @invoice = @client.invoices.find(params[:id] || params[:invoice_id])
+    authorize @invoice
   end
 
   def set_client
@@ -49,6 +50,8 @@ class Client::InvoicesController < ApplicationController
   end
 
   def set_invoices
+    authorize Client::Invoice
+
     @invoices = @client.invoices.all
     sort_invoices
     @pagy, @invoices = pagy(@invoices)
