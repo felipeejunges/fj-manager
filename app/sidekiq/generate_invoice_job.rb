@@ -31,7 +31,6 @@ class GenerateInvoiceJob < ApplicationJob
 
     update_payment_day_with_next_payment_day(client)
 
-    puts "Invoice ID: #{invoice.id} | status: #{invoice.status}"
     schedule_payment_check(invoice)
   end
 
