@@ -22,13 +22,17 @@ class GenerateInvoiceJob < ApplicationJob
       invoice.save
     end
 
-    return unless %w[generating error].include?(invoice.status)
+    unless %w[generating error].include?(invoice.status)
+      schedule_payment_check(invoice)
+      return
+    end
 
     integrate(invoice)
 
     update_payment_day_with_next_payment_day(client)
 
-    ::PaymentCheckJob.perform_in(5, { invoice_id: invoice.id }.to_json) unless %w[generating error].include?(invoice.status)
+    puts "Invoice ID: #{invoice.id} | status: #{invoice.status}"
+    schedule_payment_check(invoice)
   end
 
   private
@@ -70,5 +74,12 @@ class GenerateInvoiceJob < ApplicationJob
 
     client.payment_day = client.next_payment_day
     client.save
+  end
+
+  def schedule_payment_check(invoice)
+    return unless invoice.persisted?
+
+    invoice.reload
+    ::PaymentCheckJob.perform_in(5, { invoice_id: invoice.id }.to_json) if %w[generated late].include?(invoice.status)
   end
 end

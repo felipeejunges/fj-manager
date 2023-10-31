@@ -7,7 +7,8 @@ class PaymentIntegration::Base
     invoice = Client::Invoice.find(invoice_id)
     begin
       integrate
-      invoice.update(status: :generated)
+      invoice.status = :generated
+      invoice.save
     rescue StandardError => e
       invoice.store_error(e)
     end

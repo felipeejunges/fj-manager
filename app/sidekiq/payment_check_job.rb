@@ -27,6 +27,7 @@ class PaymentCheckJob < ApplicationJob
     return if invoice.status == :payed
 
     invoice.payed_date = Time.now.in_time_zone
-    invoice.update(status: :payed)
+    invoice.status = :payed
+    invoice.save
   end
 end
