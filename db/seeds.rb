@@ -93,12 +93,12 @@ i1 = c1.invoices.find_or_create_by(description: 'Seed generated #1', payment_typ
 i1.payed_date = '2023-09-07'
 i1.save
 
-i2 = c1.invoices.find_or_create_by(description: 'Seed generated #1', payment_type: 'credit_card', reference_date: '2022-09-07',
+i2 = c1.invoices.find_or_create_by(description: 'Seed generated #2', payment_type: 'credit_card', reference_date: '2022-09-07',
                                    invoice_value: 19.90, status: 3, client_plan_id: p1.id)
 
 i2.payed_date = '2023-09-07'
 i2.save
-i3 = c1.invoices.find_or_create_by(description: 'Seed generated #1', payment_type: 'credit_card', reference_date: '2022-10-07',
+i3 = c1.invoices.find_or_create_by(description: 'Seed generated #3', payment_type: 'credit_card', reference_date: '2022-10-07',
                                    invoice_value: 339.90, status: 3, client_plan_id: p1.id)
 
 i3.payed_date = '2023-09-07'
@@ -128,6 +128,8 @@ dates = [today.yesterday, today, today.last_month, today - 2.days, today,
     email: Faker::Internet.email,
     created_by_id: u.id
   )
+  next unless date != Date.current
+
   client.invoices.create(
     description: Faker::Lorem.sentence,
     status: :payed,

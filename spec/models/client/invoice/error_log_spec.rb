@@ -20,7 +20,7 @@ RSpec.describe Client::Invoice::ErrorLog, type: :model do # rubocop:disable Metr
     end
 
     it 'filters records for the current month' do
-      logs_this_month = Client::Invoice::ErrorLog.range_month(Date.current)
+      logs_this_month = Client::Invoice::ErrorLog.range_month(Date.current.to_time)
       logs_last_month = Client::Invoice::ErrorLog.range_month(1.month.ago)
 
       expect(logs_this_month).to include(error_log_this_month)
