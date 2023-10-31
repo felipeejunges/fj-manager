@@ -3,12 +3,6 @@
 class ApplicationPolicy
   attr_reader :user, :record
 
-  def initialize(user, record)
-    @user = user
-    @record = record
-    @key = nil
-  end
-
   def index?
     user.permissions.where(key:, action: :read).any?
   end
@@ -45,7 +39,6 @@ class ApplicationPolicy
     def initialize(user, scope)
       @user = user
       @scope = scope
-      @key = nil
     end
 
     def resolve
