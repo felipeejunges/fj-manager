@@ -121,6 +121,24 @@ RSpec.describe RolesController, type: :controller do # rubocop:disable Metrics/B
     end
   end
 
+  describe 'PATCH #apply_permission' do
+    context 'with valid params' do
+      let!(:permission) { create(:permission) }
+      let!(:role) { create(:role) }
+
+      it 'add permission when it dont exist' do
+        put :apply_permission, params: { id: role.id, key: permission.key, p_action: permission.action }
+        expect(role.permissions.where(id: permission.id)).to exist
+      end
+
+      it 'remove permission when it exists' do
+        role.permissions << permission
+        put :apply_permission, params: { id: role.id, key: permission.key, p_action: permission.action }
+        expect(role.permissions.where(id: permission.id)).to be_empty
+      end
+    end
+  end
+
   describe 'DELETE #destroy' do
     it 'destroys the requested role' do
       role = Role.create! valid_attributes
