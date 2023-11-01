@@ -22,6 +22,10 @@ Este é o projeto de gerenciamento de cliente-faturamento;
 - Pagy
 - Annotate
 - GitActions for CI
+- Pundit
+- Sorcery
+- Chartkick
+- Groupdate
 
 ## Instruções
 
@@ -33,7 +37,7 @@ Estas instruções abordará a inicialização do projeto e utilização do mesm
     - Os testes podem não rodar sem docker por depender do selenium, redis e sidekiq
 
 ## Apresentação do projeto
-Link com vídeo da apresentação do projeto: https://www.loom.com/share/0599be79f6524f7ba1d232050f01ca7b
+Link com vídeo da apresentação do projeto: https://www.loom.com/share/1db6084de0d44b05a73b824f14b452b7
 
 ## Usuário Padrão
 - email: master@email.com
@@ -52,4 +56,4 @@ Link com vídeo da apresentação do projeto: https://www.loom.com/share/0599be7
 
 ## Coverage
 
-![coverage](https://private-user-images.githubusercontent.com/20795458/276079309-e607d813-97fc-404d-b57d-db678e95bd0b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTc2MDE2OTQsIm5iZiI6MTY5NzYwMTM5NCwicGF0aCI6Ii8yMDc5NTQ1OC8yNzYwNzkzMDktZTYwN2Q4MTMtOTdmYy00MDRkLWI1N2QtZGI2NzhlOTViZDBiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEwMTglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMDE4VDAzNTYzNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTQxNWFkNGU0OTZlZTdkZWVkNjZjNDYzOTlkNTMyNzE3OGQxNjA4ZDY2YjQ5ODU1NzIyM2JjYjUyNWFiMTdlYTgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.gjo1jZ48cIpgfq6-ZLEgvY9OAWjrD4wya37nLzxmf38)
+![coverage](https://github.com/felipeejunges/fj-manager/assets/20795458/b551d2fa-ebbc-4731-ad01-fcb2bfe8288d)
