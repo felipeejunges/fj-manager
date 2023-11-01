@@ -21,9 +21,7 @@ class ClientsController < ApplicationController
   end
 
   # GET /clients/1/edit
-  def edit
-    authorize @client
-  end
+  def edit; end
 
   # POST /clients or /clients.json
   def create
