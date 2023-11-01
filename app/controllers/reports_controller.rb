@@ -45,6 +45,7 @@ class ReportsController < ApplicationController
   end
 
   def clients
+    authorize :report, :clients?
     @clients = if status.present?
                  Client.where(id: Client::Invoice.where(status:).pluck(:client_id).uniq)
                else

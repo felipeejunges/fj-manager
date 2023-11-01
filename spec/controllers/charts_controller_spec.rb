@@ -30,8 +30,8 @@ RSpec.describe ChartsController, type: :controller do # rubocop:disable Metrics/
       end
 
       it 'last_3_months_invoices_by_day' do
-        expect(assigns(:last_3_months_invoices_by_day)).to eq([{ data: {}, name: 'October' }, { data: {}, name: 'September' },
-                                                               { data: {}, name: 'August' }])
+        expect(assigns(:last_3_months_invoices_by_day)).to eq([{ data: {}, name: 'November' }, { data: {}, name: 'October' },
+                                                               { data: {}, name: 'September' }])
       end
 
       it 'payment_day_by_client' do
@@ -59,8 +59,8 @@ RSpec.describe ChartsController, type: :controller do # rubocop:disable Metrics/
       end
 
       it 'last_3_months_invoices_by_day' do
-        expect(assigns(:last_3_months_invoices_by_day)).to eq([{ data: {}, name: 'October' }, { data: {}, name: 'September' },
-                                                               { data: {}, name: 'August' }])
+        expect(assigns(:last_3_months_invoices_by_day)).to eq([{ data: {}, name: 'November' }, { data: {}, name: 'October' },
+                                                               { data: {}, name: 'September' }])
       end
 
       it 'payment_day_by_client' do

@@ -22,6 +22,10 @@ This project is a client-invoice manager.
 - Pagy
 - Annotate
 - GitActions for CI
+- Pundit
+- Sorcery
+- Chartkick
+- Groupdate
 
 ## Instructions
 
@@ -33,7 +37,7 @@ This instructions shows how to initialize the project and using it with [docker]
     - Specs may not working correctly without docker, as it depends on sidekiq, redis and selenium
 
 ## Project presentation
-Link with project presentation: https://www.loom.com/share/0599be79f6524f7ba1d232050f01ca7b
+Link with project presentation: https://www.loom.com/share/1db6084de0d44b05a73b824f14b452b7
 
 ## Default user
 - email: master@email.com
@@ -52,4 +56,4 @@ Link with project presentation: https://www.loom.com/share/0599be79f6524f7ba1d23
 
 ## Coverage
 
-![coverage](https://github.com/felipeejunges/fj-manager/assets/20795458/c4e1f81e-a302-4896-8bbd-3cc8973965cb)
+![coverage](https://github.com/felipeejunges/fj-manager/assets/20795458/b551d2fa-ebbc-4731-ad01-fcb2bfe8288d)

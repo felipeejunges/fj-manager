@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   before_action :set_users, only: %i[index list]
   before_action :set_user, only: %i[show edit update destroy apply_role]
-  before_action :set_roles, only: %i[show]
+  before_action :set_roles, only: %i[show apply_role]
 
   # GET /users or /users.json
   def index; end
@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    authorize User
     @user = User.new
   end
 
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params.merge(password_params))
+    authorize @user
 
     respond_to do |format|
       if @user.save
@@ -66,15 +68,13 @@ class UsersController < ApplicationController
   end
 
   def apply_role
-    permission = @user.roles.find_by(id: params[:role_id])
-    if permission.present?
-      @user.roles.delete(permission)
+    role = @user.roles.find_by(id: params[:role_id])
+    if role.present?
+      @user.roles.delete(role)
     else
       @user.roles << Role.find_by(id: params[:role_id])
     end
-    turbo_stream do
-      render turbo_stream: turbo_stream.append(:users_roles, partial: 'users/roles', locals: { roles: @roles })
-    end
+    render(partial: 'users/roles', locals: { roles: @roles })
   end
 
   private

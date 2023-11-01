@@ -9,12 +9,11 @@
                 <%= link_to role.name, role_path(role), data: { turbo: false } %>
               </td>
               <td>
-                <%= form_tag(apply_role_user_path(@user.id), method: :patch) do |form| %>
+                <%= link_to apply_role_user_path(@user.id, role_id: role.id), data: {turbo_method: :patch} do %>
                   <div class="form-check form-switch">
-                    <%= text_field :role_id, "role_#{role.id} ", name: :role_id, value: role.id, class: "d-none"%>
-                    <%= check_box_tag :allowed, :create, false, class: 'form-check-input', checked: @user.roles.where(id: role.id).present?, onchange: 'this.form.submit()' %>
+                    <%= check_box_tag :allowed, :allowed, false, class: 'form-check-input', checked: @user.roles.where(id: role.id).present? %>
                   </div>
-                <% end %>
+                <% end%>
               </td>
             </tr>
           <% end %>

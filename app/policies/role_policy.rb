@@ -13,6 +13,10 @@ class RolePolicy < ApplicationPolicy
     user.permissions.where(key:, action: :update).any? && record.editable == true
   end
 
+  def edit?
+    user.permissions.where(key:, action: :update).any?
+  end
+
   def apply_permission?
     update?
   end

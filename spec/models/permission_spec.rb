@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-class Permission < ApplicationRecord
-  has_and_belongs_to_many :roles
-  has_many :users, through: :roles
+require 'rails_helper'
 
-  validates :key, :action, presence: true
+RSpec.describe Permission, type: :model do
+  describe 'validations' do
+    it { should validate_presence_of(:key) }
+    it { should validate_presence_of(:action) }
+  end
 end
 
 # == Schema Information

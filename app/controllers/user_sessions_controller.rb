@@ -2,7 +2,7 @@
 
 class UserSessionsController < ApplicationController
   skip_before_action :require_login
-  before_action :redirect_already_logged, only: %i[login authenticate]
+  before_action :redirect_already_logged, only: %i[signin authenticate]
   def signin; end
 
   def authenticate

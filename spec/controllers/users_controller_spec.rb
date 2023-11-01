@@ -136,6 +136,26 @@ RSpec.describe UsersController, type: :controller do # rubocop:disable Metrics/B
     end
   end
 
+  describe 'PATCH #apply_role' do
+    context 'with valid params' do
+      it 'add role when it dont exist' do
+        user = User.create! valid_attributes
+        put :apply_role, params: { id: user.id, role_id: Role.find(2) }
+        user.reload
+        expect(response).to render_template(partial: 'users/_roles')
+        expect(user.roles.where(id: 2)).to exist
+      end
+
+      it 'remove role when it exists' do
+        user = User.create! valid_attributes
+        user.roles << Role.find(1)
+        put :apply_role, params: { id: user.id, role_id: Role.find(1) }
+        expect(response).to render_template(partial: 'users/_roles')
+        expect(user.roles.where(id: 1)).to be_empty
+      end
+    end
+  end
+
   describe 'DELETE #destroy' do
     it 'destroys the requested user' do
       user = User.create! valid_attributes
