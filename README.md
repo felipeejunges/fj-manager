@@ -22,6 +22,10 @@ This project is a client-invoice manager.
 - Pagy
 - Annotate
 - GitActions for CI
+- Pundit
+- Sorcery
+- Chartkick
+- Groupdate
 
 ## Instructions
 
