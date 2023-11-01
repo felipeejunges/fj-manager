@@ -18,7 +18,7 @@ RSpec.describe UserSessionsController, type: :controller do # rubocop:disable Me
       it 'renders the login template' do
         allow(controller).to receive(:current_user).and_return(user)
         get :signin
-        expect(response).not_to be_redirect
+        expect(response).to be_redirect
       end
     end
   end

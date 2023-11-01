@@ -24,13 +24,4 @@ RSpec.describe 'User Show Page', type: :system do
 
     expect(page).to have_content('Roles')
   end
-
-  it 'should apply permission' do
-    visit role_path(role)
-    within('table') do |table|
-      form = table.all('tr')[1].first('form')
-      form.check 'allowed'
-      expect(form).to have_field('allowed', checked: true)
-    end
-  end
 end

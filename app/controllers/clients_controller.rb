@@ -14,17 +14,22 @@ class ClientsController < ApplicationController
 
   # GET /clients/new
   def new
+    authorize Client
     @client = Client.new
     @client.created_by = current_user
     @client
   end
 
   # GET /clients/1/edit
-  def edit; end
+  def edit
+    authorize @client
+  end
 
   # POST /clients or /clients.json
   def create
     @client = Client.new(new_client_params)
+    authorize @client
+
     @client.created_by_id = current_user.id
 
     respond_to do |format|

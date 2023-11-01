@@ -17,6 +17,7 @@ class RolesController < ApplicationController
 
   # GET /roles/new
   def new
+    authorize Role
     @role = Role.new
   end
 
@@ -26,6 +27,7 @@ class RolesController < ApplicationController
   # POST /roles or /roles.json
   def create
     @role = Role.new(role_params)
+    authorize @role
 
     respond_to do |format|
       if @role.save
@@ -58,10 +60,7 @@ class RolesController < ApplicationController
     else
       @role.permissions << Permission.find_by(key: params[:key], action: params[:p_action])
     end
-    turbo_stream do
-      render turbo_stream: turbo_stream.append(:permissions_table, partial: 'permissions/table', locals: { permissions: @permissions })
-    end
-    # render(partial: 'permissions/table', locals: { permissions: @permissions })
+    render(partial: 'permissions/table', locals: { permissions: @permissions })
   end
 
   # DELETE /roles/1 or /roles/1.json

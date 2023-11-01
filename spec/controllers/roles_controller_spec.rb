@@ -128,12 +128,14 @@ RSpec.describe RolesController, type: :controller do # rubocop:disable Metrics/B
 
       it 'add permission when it dont exist' do
         put :apply_permission, params: { id: role.id, key: permission.key, p_action: permission.action }
+        expect(response).to render_template(partial: 'permissions/_table')
         expect(role.permissions.where(id: permission.id)).to exist
       end
 
       it 'remove permission when it exists' do
         role.permissions << permission
         put :apply_permission, params: { id: role.id, key: permission.key, p_action: permission.action }
+        expect(response).to render_template(partial: 'permissions/_table')
         expect(role.permissions.where(id: permission.id)).to be_empty
       end
     end
