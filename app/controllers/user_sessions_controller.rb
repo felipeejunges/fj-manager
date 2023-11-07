@@ -6,16 +6,26 @@ class UserSessionsController < ApplicationController
   def signin; end
 
   def authenticate
-    user = login(params[:user][:email], params[:user][:password])
-
     respond_to do |format|
-      if user
-        session[:user_id] = user.id
-        flash[:success] = "Welcome, #{current_user.name}"
-        format.html { redirect_to root_path }
-      else
-        flash[:alert] = 'Invalid email or password'
-        format.html { render :signin, status: :unprocessable_entity }
+      format.html do
+        user = login(params[:user][:email], params[:user][:password])
+        if user
+          flash[:success] = "Welcome, #{current_user.name}"
+          redirect_to root_path
+        else
+          flash[:alert] = 'Invalid email or password'
+          render :signin, status: :unprocessable_entity
+        end
+      end
+      format.json do
+        token = login_and_issue_token(params[:user][:email], params[:user][:password])
+        if token
+          render json: {
+            token:
+          }
+        else
+          render json: { error: 'Invalid email or password' }, status: :unprocessable_entity
+        end
       end
     end
   end

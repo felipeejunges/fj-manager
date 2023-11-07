@@ -109,3 +109,6 @@ gem "groupdate", "~> 6.4"
 gem "pundit", "~> 2.3"
 
 gem "sorcery", "~> 0.16.5"
+
+gem "sorcery-jwt", "~> 0.1.13"
+gem 'rack-cors', require: 'rack/cors'

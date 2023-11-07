@@ -4,7 +4,7 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = []
+Rails.application.config.sorcery.submodules = [:jwt]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -243,6 +243,9 @@ Rails.application.config.sorcery.configure do |config|
   # config.battlenet.scope = "openid"
   # --- user config ---
   config.user_config do |user|
+    user.jwt_secret = 'JWTBase'
+    user.jwt_algorithm = "HS256" 
+    user.session_expiry = 60 * 60 * 24 * 7 * 2 # 2 weeks is used by default.
     # -- core --
     # Specify username attributes, for example: [:username, :email].
     # Default: `[:email]`
