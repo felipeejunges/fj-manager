@@ -36,5 +36,14 @@ module FjManager
     config.generators do |g|
       g.orm :active_record
     end
+
+    config.middleware.insert_after Rails::Rack::Logger, Rack::Cors, logger: Rails.logger do
+      allow do
+        origins '*'
+        resource '*',
+                 headers: :any,
+                 methods: %i[get post options delete put patch]
+      end
+    end
   end
 end
